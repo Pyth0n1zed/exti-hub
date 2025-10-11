@@ -215,7 +215,7 @@ for i, text in ipairs(names) do
 	btn.Position = UDim2.new(0.025 + (i-1)*0.32, 0, 0.02, 0)
 	btn.BackgroundColor3 = Color3.fromRGB(39, 36, 54)
 	btn.TextColor3 = Color3.fromRGB(238, 238, 238)
-	btn.Font = Enum.Font.Inconsolata
+	btn.FontFace = Font.new("rbxasset://fonts/families/Inconsolata.json")
 	btn.TextSize = 18
 	btn.Text = text
 	btn.Parent = gui
@@ -230,4 +230,5 @@ for i, text in ipairs(names) do
 		funcs[i](btn)
 	end)
 end
+
 
