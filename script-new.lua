@@ -183,11 +183,11 @@ end)
 
 
 local plr = game.Players.LocalPlayer
-local gui = Instance.new("ScreenGui", plr:WaitForChild("PlayerGui"))
+local gui = Instance.new("ScreenGui", game.Players.LocalPlayer:WaitForChild("PlayerGui"))
 gui.Name = "ExtiHub"
 
 local names = {"Slap Aura (OFF)", "Item Vacuum", "Item Vacuum (OP Only)"}
-local funcs = { -- simplified function stubs for clarity
+local funcs = {
 	function(btn)
 		auraEnabled = not auraEnabled
 		btn.Text = auraEnabled and "Slap Aura (ON)" or "Slap Aura (OFF)"
@@ -202,18 +202,16 @@ local funcs = { -- simplified function stubs for clarity
 
 for i, text in ipairs(names) do
 	local btn = Instance.new("TextButton")
-	btn.Size = UDim2.new(0.12, 0, 0.045, 0) -- Smaller
-	btn.Position = UDim2.new(0.02 + (i - 1) * 0.14, 0, 0.015, 0)
+	btn.Size = UDim2.new(0.09, 0, 0.04, 0)
+	btn.Position = UDim2.new(0.015, 0, 0.92 + (i - 1) * 0.05, 0)
 	btn.BackgroundColor3 = Color3.fromRGB(39, 36, 54)
 	btn.TextColor3 = Color3.fromRGB(238, 238, 238)
 	btn.FontFace = Font.new("rbxasset://fonts/families/Inconsolata.json")
-	btn.TextSize = 12
+	btn.TextSize = 11
 	btn.Text = text
 	btn.Parent = gui
-	btn.Name = "Button"..i
 
-	local uic = Instance.new("UICorner", btn)
-	uic.CornerRadius = UDim.new(0, 6)
+	Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 6)
 
 	local tweenIn = ts:Create(btn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(69, 66, 84)})
 	local tweenOut = ts:Create(btn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(39, 36, 54)})
@@ -222,6 +220,7 @@ for i, text in ipairs(names) do
 	btn.MouseLeave:Connect(function() tweenOut:Play() end)
 	btn.MouseButton1Click:Connect(function() funcs[i](btn) end)
 end
+
 
 
 
