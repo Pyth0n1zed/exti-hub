@@ -203,7 +203,7 @@ local funcs = {
 for i, text in ipairs(names) do
 	local btn = Instance.new("TextButton")
 	btn.Size = UDim2.new(0.09, 0, 0.04, 0)
-	btn.Position = UDim2.new(0.015, 0, 0.92 + (i - 1) * 0.05, 0)
+	btn.Position = UDim2.new(0.015, 0, 1 - (i * 0.06), 0)
 	btn.BackgroundColor3 = Color3.fromRGB(39, 36, 54)
 	btn.TextColor3 = Color3.fromRGB(238, 238, 238)
 	btn.FontFace = Font.new("rbxasset://fonts/families/Inconsolata.json")
@@ -220,6 +220,7 @@ for i, text in ipairs(names) do
 	btn.MouseLeave:Connect(function() tweenOut:Play() end)
 	btn.MouseButton1Click:Connect(function() funcs[i](btn) end)
 end
+
 
 
 
