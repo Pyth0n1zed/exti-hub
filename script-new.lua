@@ -38,73 +38,111 @@ local function rotateCameraTo(part)
 end
 
 local function sendFKey()
-	VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.Space, false, game)
-	task.wait(0.05)
-	VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.Space, false, game)
-
     for _ = 1, 3 do
         VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.F, false, game)
         task.wait(0.05)
         VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.F, false, game)
         task.wait(0.05)
     end
+    VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.Space, false, game)
+	task.wait(0.05)
+	VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.Space, false, game)
 end
 
 local function CollectAllItemsSR()
-    for _, tool in ipairs(itemsFolder:GetChildren()) do
-        if tool:IsA("Tool") and tool:FindFirstChild("Handle") then
-            local handle = tool.Handle
-            moveTo(handle)
-            task.wait(pauseTime)
-            faceTarget(handle)
-            rotateCameraTo(handle)
-            task.wait(pauseTime)
-            sendFKey()
+    for i=1,3 do
+        for _, tool in ipairs(itemsFolder:GetChildren()) do
+            if tool:IsA("Tool") and tool:FindFirstChild("Handle") then
+                local handle = tool.Handle
+                moveTo(handle)
+                task.wait(pauseTime)
+                faceTarget(handle)
+                rotateCameraTo(handle)
+                task.wait(pauseTime)
+                sendFKey()
+            end
         end
     end
 end
 
 local function CollectAllPermaBuffsSR()
-    for _, tool in ipairs(itemsFolder:GetChildren()) do
-        if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Bull's essence" or tool.Name=="Potion of Strength" or tool.Name=="Frog Potion" or tool.Name=="Speed Potion" or tool.Name=="Boba") then
-            local handle = tool.Handle
-            moveTo(handle)
-            task.wait(pauseTime)
-            faceTarget(handle)
-            rotateCameraTo(handle)
-            task.wait(pauseTime)
-            sendFKey()
+    for i=1,3 do
+        for _, tool in ipairs(itemsFolder:GetChildren()) do
+            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Bull's essence" or tool.Name=="Potion of Strength" or tool.Name=="Frog Potion" or tool.Name=="Speed Potion" or tool.Name=="Boba") then
+                local handle = tool.Handle
+                moveTo(handle)
+                task.wait(pauseTime)
+                faceTarget(handle)
+                rotateCameraTo(handle)
+                task.wait(pauseTime)
+                sendFKey()
+            end
+        end
+    end
+end
+
+local function CollectAllStrengthItemsSR()
+    for i=1,3 do
+        for _, tool in ipairs(itemsFolder:GetChildren()) do
+            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Bull's essence" or tool.Name=="Potion of Strength" or tool.Name=="Boba" or tool.Name=="True Power" or tool.Name=="Sphere of fury") then
+                local handle = tool.Handle
+                moveTo(handle)
+                task.wait(pauseTime)
+                faceTarget(handle)
+                rotateCameraTo(handle)
+                task.wait(pauseTime)
+                sendFKey()
+            end
+        end
+    end
+end
+
+local function CollectAllSpeedAndJumpItemsSR()
+    for i=1,3 do
+        for _, tool in ipairs(itemsFolder:GetChildren()) do
+            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Speed Potion" or tool.Name=="Frog Potion" or tool.Name=="Boba" or tool.Name=="Lightning Potion") then
+                local handle = tool.Handle
+                moveTo(handle)
+                task.wait(pauseTime)
+                faceTarget(handle)
+                rotateCameraTo(handle)
+                task.wait(pauseTime)
+                sendFKey()
+            end
         end
     end
 end
 
 local function CollectAllOneShottyItemsSR()
-    for _, tool in ipairs(itemsFolder:GetChildren()) do
-        if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Bull's essence" or tool.Name=="Potion of Strength" or tool.Name=="Frog Potion" or tool.Name=="Speed Potion" or tool.Name=="Boba" or tool.Name=="True Power" or tool.Name=="Cube of Ice" or tool.Name=="Sphere of fury") then
-            local handle = tool.Handle
-            moveTo(handle)
-            task.wait(pauseTime)
-            faceTarget(handle)
-            rotateCameraTo(handle)
-            task.wait(pauseTime)
-            sendFKey()
+    CollectAllStrengthItemsSR()
+    for i=1,3 do
+        for _, tool in ipairs(itemsFolder:GetChildren()) do
+            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Cube of Ice") then
+                local handle = tool.Handle
+                moveTo(handle)
+                task.wait(pauseTime)
+                faceTarget(handle)
+                rotateCameraTo(handle)
+                task.wait(pauseTime)
+                sendFKey()
+            end
         end
     end
 end
 
 local function CollectAllHealingItemsSR()
-    for _, tool in ipairs(itemsFolder:GetChildren()) do
-        if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Apple" or tool.Name=="Bandage" or tool.Name:lower()=="first aid kit" or tool.Name=="Healing Potion" or tool.Name=="Potion of Healing" or tool.Name=="Boba") then
-            local handle = tool.Handle
-            moveTo(handle)
-            task.wait(pauseTime)
-            faceTarget(handle)
-            rotateCameraTo(handle)
-            task.wait(pauseTime)
-            sendFKey()
+    for i=1,3 do
+        for _, tool in ipairs(itemsFolder:GetChildren()) do
+            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Apple" or tool.Name=="Bandage" or tool.Name:lower()=="first aid kit" or tool.Name=="Healing Potion" or tool.Name=="Potion of Healing" or tool.Name=="Boba") then
+                local handle = tool.Handle
+                moveTo(handle)
+                task.wait(pauseTime)
+                faceTarget(handle)
+                rotateCameraTo(handle)
+                task.wait(pauseTime)
+                sendFKey()
+            end
         end
     end
 end
-CollectAllOneShottyItemsSR()
-
 
