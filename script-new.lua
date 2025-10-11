@@ -105,4 +105,6 @@ local function CollectAllHealingItemsSR()
         end
     end
 end
+CollectAllOneShottyItemsSR()
+
 
