@@ -1,4 +1,5 @@
 local Players = game:GetService("Players")
+local hitbox = Instance.new("Part")
 local VirtualInputManager = game:GetService("VirtualInputManager") or getvirtualinputmanager()
 local player = Players.LocalPlayer
 local uis = game:GetService("UserInputService")
@@ -8,6 +9,7 @@ local camera = workspace.CurrentCamera
 local itemsFolder = workspace:FindFirstChild("Items")
 local map = workspace:FindFirstChild("Map")
 local ts = game:GetService("TweenService")
+local rs = game:GetService("RunService")
 if map then
     local originOffice = map:FindFirstChild("OriginOffice")
     if originOffice then
@@ -147,21 +149,85 @@ local function CollectAllHealingItemsSR()
     end
 end
 
-local gui = Instance.new("ScreenGui")
-gui.Parent = player.PlayerGui
-local btn = Instance.new("TextButton");btn.BackgroundColor3=Color3.fromRGB(39,36,54);btn.Parent=gui
-btn.Rotation=0;btn.Position=UDim2.new(0.441,0,0.016,0);btn.Size=UDim2.new(0.117,0,0.079,0)
-local uic=Instance.new("UICorner")
-uic.Parent=btn;uic.CornerRadius=UDim.new(0,16)
-btn.FontFace=Font.new("rbxasset://fonts/families/Inconsolata.json");btn.Text="Vaccum";btn.TextColor3=Color3.new(238,238,238)
-btn.TextSize=48;local btntdata1=TweenInfo.new(0.2, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0)
-local btnt=ts:Create(btn,btntdata1,{BackgroundColor3=Color3.fromRGB(69,66,84)})
-local btnt2=ts:Create(btn,btntdata1,{BackgroundColor3=Color3.fromRGB(39,36,54)})
-btn.MouseEnter:Connect(function()
-	btnt:Play()
+hitbox.Parent = character
+hitbox.CanCollide = false
+hitbox.Size = Vector3.new(40,40,40)
+hitbox.Transparency=0.8
+rs.RenderStepped:Connect(function()
+	hitbox.CFrame = hrp.CFrame
 end)
-btn.MouseLeave:Connect(function()
-btnt2:Play()end)
-btn.MouseButton1Click:Connect(function()
+local auraEnabled = false
+local hasGloveEquipped = false
+
+local function updateGloveStatus()
+	hasGloveEquipped = false
+	for _, v in ipairs(character:GetChildren()) do
+		if v:IsA("Tool") and v:FindFirstChild("Glove") then
+			hasGloveEquipped = true
+			break
+		end
+	end
+end
+
+character.ChildAdded:Connect(updateGloveStatus)
+character.ChildRemoved:Connect(updateGloveStatus)
+
+
+hitbox.Touched:Connect(function(part)
+	if auraEnabled and hasGloveEquipped and part.Parent:FindFirstChild("Humanoid") then
+		game.ReplicatedStorage.Events.Slap:FireServer(part.Parent.HumanoidRootPart)
+	end
+	task.wait(0.05)
+end)
+
+
+
+local plr = game.Players.LocalPlayer
+local gui = Instance.new("ScreenGui", plr:WaitForChild("PlayerGui"))
+gui.Name = "ExtiHub"
+
+local names = {"Slap Aura (OFF)", "Item Vacuum", "Item Vacuum (OP Only)"}
+local funcs = {}
+local ts = game:GetService("TweenService")
+
+
+
+-- Button actions
+funcs[1] = function(btn)
+	auraEnabled = not auraEnabled
+	btn.Text = auraEnabled and "Slap Aura (ON)" or "Slap Aura (OFF)"
+	print("Slap Aura is now", auraEnabled and "ON" or "OFF")
+end
+
+funcs[2] = function()
+	print("Running Item Vacuum")
 	CollectAllItemsSR()
-end)
+end
+
+funcs[3] = function()
+	print("Running Item Vacuum (OP Only)")
+	CollectAllOneShottyItemsSR()
+end
+
+for i, text in ipairs(names) do
+	local btn = Instance.new("TextButton")
+	btn.Size = UDim2.new(0.25, 0, 0.07, 0)
+	btn.Position = UDim2.new(0.025 + (i-1)*0.32, 0, 0.02, 0)
+	btn.BackgroundColor3 = Color3.fromRGB(39, 36, 54)
+	btn.TextColor3 = Color3.fromRGB(238, 238, 238)
+	btn.Font = Enum.Font.Inconsolata
+	btn.TextSize = 18
+	btn.Text = text
+	btn.Parent = gui
+	btn.Name = "Button"..i
+	local uic = Instance.new("UICorner", btn)
+	uic.CornerRadius = UDim.new(0, 10)
+	local tweenIn = ts:Create(btn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(69, 66, 84)})
+	local tweenOut = ts:Create(btn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(39, 36, 54)})
+	btn.MouseEnter:Connect(function() tweenIn:Play() end)
+	btn.MouseLeave:Connect(function() tweenOut:Play() end)
+	btn.MouseButton1Click:Connect(function()
+		funcs[i](btn)
+	end)
+end
+
