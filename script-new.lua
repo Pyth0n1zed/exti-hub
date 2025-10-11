@@ -5,8 +5,9 @@ local uis = game:GetService("UserInputService")
 local character = player.Character or player.CharacterAdded:Wait()
 local hrp = character:WaitForChild("HumanoidRootPart")
 local camera = workspace.CurrentCamera
-local itemsFolder = workspace:WaitForChild("Items")
+local itemsFolder = workspace:FindFirstChild("Items")
 local map = workspace:FindFirstChild("Map")
+local ts = game:GetService("TweenService")
 if map then
     local originOffice = map:FindFirstChild("OriginOffice")
     if originOffice then
@@ -146,3 +147,21 @@ local function CollectAllHealingItemsSR()
     end
 end
 
+local gui = Instance.new("ScreenGui")
+gui.Parent = player.PlayerGui
+local btn = Instance.new("TextButton");btn.BackgroundColor3=Color3.fromRGB(39,36,54);btn.Parent=gui
+btn.Rotation=0;btn.Position=UDim2.new(0.441,0,0.016,0);btn.Size=UDim2.new(0.117,0,0.079,0)
+local uic=Instance.new("UICorner")
+uic.Parent=btn;uic.CornerRadius=UDim.new(0,16)
+btn.FontFace=Font.new("rbxasset://fonts/families/Inconsolata.json");btn.Text="Vaccum";btn.TextColor3=Color3.new(238,238,238)
+btn.TextSize=48;local btntdata1=TweenInfo.new(0.2, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0)
+local btnt=ts:Create(btn,btntdata1,{BackgroundColor3=Color3.fromRGB(69,66,84)})
+local btnt2=ts:Create(btn,btntdata1,{BackgroundColor3=Color3.fromRGB(39,36,54)})
+btn.MouseEnter:Connect(function()
+	btnt:Play()
+end)
+btn.MouseLeave:Connect(function()
+btnt2:Play()end)
+btn.MouseButton1Click:Connect(function()
+	CollectAllItemsSR()
+end)
