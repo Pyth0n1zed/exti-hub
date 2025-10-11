@@ -187,48 +187,41 @@ local gui = Instance.new("ScreenGui", plr:WaitForChild("PlayerGui"))
 gui.Name = "ExtiHub"
 
 local names = {"Slap Aura (OFF)", "Item Vacuum", "Item Vacuum (OP Only)"}
-local funcs = {}
-local ts = game:GetService("TweenService")
-
-
-
--- Button actions
-funcs[1] = function(btn)
-	auraEnabled = not auraEnabled
-	btn.Text = auraEnabled and "Slap Aura (ON)" or "Slap Aura (OFF)"
-	print("Slap Aura is now", auraEnabled and "ON" or "OFF")
-end
-
-funcs[2] = function()
-	print("Running Item Vacuum")
-	CollectAllItemsSR()
-end
-
-funcs[3] = function()
-	print("Running Item Vacuum (OP Only)")
-	CollectAllOneShottyItemsSR()
-end
+local funcs = { -- simplified function stubs for clarity
+	function(btn)
+		auraEnabled = not auraEnabled
+		btn.Text = auraEnabled and "Slap Aura (ON)" or "Slap Aura (OFF)"
+	end,
+	function()
+		CollectAllItemsSR()
+	end,
+	function()
+		CollectAllOneShottyItemsSR()
+	end
+}
 
 for i, text in ipairs(names) do
 	local btn = Instance.new("TextButton")
-	btn.Size = UDim2.new(0.25, 0, 0.07, 0)
-	btn.Position = UDim2.new(0.025 + (i-1)*0.32, 0, 0.02, 0)
+	btn.Size = UDim2.new(0.12, 0, 0.045, 0) -- Smaller
+	btn.Position = UDim2.new(0.02 + (i - 1) * 0.14, 0, 0.015, 0)
 	btn.BackgroundColor3 = Color3.fromRGB(39, 36, 54)
 	btn.TextColor3 = Color3.fromRGB(238, 238, 238)
 	btn.FontFace = Font.new("rbxasset://fonts/families/Inconsolata.json")
-	btn.TextSize = 18
+	btn.TextSize = 12
 	btn.Text = text
 	btn.Parent = gui
 	btn.Name = "Button"..i
+
 	local uic = Instance.new("UICorner", btn)
-	uic.CornerRadius = UDim.new(0, 10)
+	uic.CornerRadius = UDim.new(0, 6)
+
 	local tweenIn = ts:Create(btn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(69, 66, 84)})
 	local tweenOut = ts:Create(btn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(39, 36, 54)})
+
 	btn.MouseEnter:Connect(function() tweenIn:Play() end)
 	btn.MouseLeave:Connect(function() tweenOut:Play() end)
-	btn.MouseButton1Click:Connect(function()
-		funcs[i](btn)
-	end)
+	btn.MouseButton1Click:Connect(function() funcs[i](btn) end)
 end
+
 
 
