@@ -1,3 +1,4 @@
+local gui = {}
 local plr = game.Players.LocalPlayer
 local theshadowrealm = game.Workspace
 
@@ -129,7 +130,7 @@ closetext.Text = "Are you sure you want to unload the interface?"
 closetext.TextScaled = true
 
 closebtn.MouseButton1Click:Connect(function()
-	CloseDialogue.Visible = true
+	closedialogue.Visible = true
 end)
 yesbtn.MouseButton1Click:Connect(function()
 	exti:Destroy()
@@ -137,3 +138,23 @@ end)
 nobtn.MouseButton1Click:Connect(function()
 	closedialogue.Visible = false
 end)
+
+local tabselector = Instance.new("Frame")
+tabselector.Parent = mainframe
+tabselector.BackgroundColor3 = Color3.fromRGB(27,45,47)
+tabselector.BackgroundTransparency = 0.5
+tabselector.Position = UDim2.new(0.025,0,0.106,0)
+tabselector.Size = UDim2.new(0.214,0,0.859,0)
+Instance.new("UICorner",tabselector).CornerRadius = UDim.new(0,8)
+local tabselectorull = Instance.new("UIListLayout", tabselector)
+tabselectorull.Padding = UDim.new(0,4)
+tabselectorull.FillDirection = Enum.FillDirection.Vertical
+tabselectorull.VerticalAlignment = Enum.VerticalAlignment.Top
+
+
+
+
+
+
+
+return gui
