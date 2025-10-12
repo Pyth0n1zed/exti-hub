@@ -44,16 +44,12 @@ minimizebtn.FontFace = closebtn.FontFace
 minimizebtn.BackgroundTransparency = 1
 
 
-
-
 local mainframetopuic = Instance.new("UICorner")
 mainframetopuic.Parent = mainframetop
 mainframetopuic.CornerRadius = UDim.new(0,12)
-mainframetop.Active = true
-mainframetop.Draggable = true
 
 local title = Instance.new("TextLabel")
-title.FontFace = closebtn.FontFace
+title.FontFace = Font.new("rbxasset://fonts/families/Titillium Web.json")
 title.BackgroundTransparency = 1
 title.Position = UDim2.new(0.025,0,0,0)
 title.Parent = mainframe
