@@ -95,3 +95,45 @@ minimizebtn.MouseButton1Click:Connect(function()
 	minimdmain.Visible = true
 end)
 
+local closedialogue = Instance.new("Frame")
+closedialogue.BackgroundColor3 = Color3.fromRGB(26,43,66)
+closedialogue.Parent = exti
+closedialogue.Position = UDim2.new(0.411,0,0.387,0)
+closedialogue.Size = UDim2.new(0.177,0,0.222,0)
+Instance.new("UICorner",closedialogue).CornerRadius = UDim.new(0,12)
+closedialogue.Visible = false
+
+local yesbtn = Instance.new("TextButton")
+yesbtn.BackgroundColor3 = Color3.fromRGB(53,53,53)
+
+yesbtn.Position = UDim2.new(0.08,0,0.704,0)
+yesbtn.Size = UDim2.new(0.385,0,0.211,0)
+Instance.new("UICorner", yesbtn).CornerRadius = UDim.new(0,6)
+yesbtn.Text = "Yes"
+yesbtn.Parent = closedialogue
+yesbtn.TextScaled = true
+yesbtn.TextColor3 = Color3.fromRGB(255,255,255)
+yesbtn.FontFace = Font.new("rbxasset://fonts/families/Nunito.json")
+
+local nobtn = yesbtn:Clone()
+nobtn.Parent = closedialogue
+nobtn.Text = "No"
+nobtn.Position = UDim2.new(0.522,0,0.704,0)
+
+local closetext = Instance.new("TextLabel", closedialogue)
+closetext.BackgroundTransparency = 1
+closetext.Position = UDim2.new(0.08,0,0.099,0)
+closetext.Size = UDim2.new(0.823,0,0.607,0)
+closetext.TextColor3 = Color3.fromRGB(255,255,255)
+closetext.Text = "Are you sure you want to unload the interface?"
+closetext.TextScaled = true
+
+closebtn.MouseButton1Click:Connect(function()
+	CloseDialogue.Visible = true
+end)
+yesbtn.MouseButton1Click:Connect(function()
+	exti:Destroy()
+end)
+nobtn.MouseButton1Click:Connect(function()
+	closedialogue.Visible = false
+end)
