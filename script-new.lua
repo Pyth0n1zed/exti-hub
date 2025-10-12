@@ -169,7 +169,7 @@ character.ChildAdded:Connect(updateGloveStatus)
 character.ChildRemoved:Connect(updateGloveStatus)
 
 local auraRange = Instance.new("Part")
-auraRange.Shape = Enum.PartShape.Ball
+auraRange.Shape = Enum.PartType.Ball
 auraRange.Parent = character
 auraRange.Transparency = 0.9
 auraRange.Size = Vector3.new(auraDist*2,auraDist*2,auraDist*2)
@@ -179,7 +179,8 @@ rs.RenderStepped:Connect(function()
 	if auraEnabled then
 		auraRange.Transparency = 0.9
 	else
-		return;auraRange.Transparency=1
+		auraRange.Transparency=1
+		return
 	end
 	for _,v in pairs(game.Players:GetPlayers()) do
 		if v==player then continue end
@@ -188,7 +189,7 @@ rs.RenderStepped:Connect(function()
 		local dist = (hrp.Position - thrp.Position).Magnitude
 		if dist < auraDist + 1 then events:FindFirstChild("Slap"):FireServer(thrp) end
 	end
-end
+end)
 
 
 
@@ -230,7 +231,6 @@ for i, text in ipairs(names) do
 	btn.MouseLeave:Connect(function() tweenOut:Play() end)
 	btn.MouseButton1Click:Connect(function() funcs[i](btn) end)
 end
-
 
 
 
