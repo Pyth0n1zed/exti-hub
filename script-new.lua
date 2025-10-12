@@ -10,6 +10,7 @@ local itemsFolder = workspace:FindFirstChild("Items")
 local map = workspace:FindFirstChild("Map")
 local ts = game:GetService("TweenService")
 local rs = game:GetService("RunService")
+local events = game.ReplicatedStorage:FindFirstChild("Events")
 if map then
     local originOffice = map:FindFirstChild("OriginOffice")
     if originOffice then
@@ -149,13 +150,8 @@ local function CollectAllHealingItemsSR()
     end
 end
 
-hitbox.Parent = character
-hitbox.CanCollide = false
-hitbox.Size = Vector3.new(40,40,40)
-hitbox.Transparency=0.8
-rs.RenderStepped:Connect(function()
-	hitbox.CFrame = hrp.CFrame
-end)
+local auraDist = 50
+
 local auraEnabled = false
 local hasGloveEquipped = false
 
@@ -173,11 +169,16 @@ character.ChildAdded:Connect(updateGloveStatus)
 character.ChildRemoved:Connect(updateGloveStatus)
 
 
-hitbox.Touched:Connect(function(part)
-	if auraEnabled and hasGloveEquipped and part.Parent:FindFirstChild("Humanoid") then
-		game.ReplicatedStorage.Events.Slap:FireServer(part.Parent.HumanoidRootPart)
+rs.RenderStepped:Connect(function()
+	if not auraEnabled or not hasGloveEquipped then return end
+	for _,v in pairs(game.Players:GetPlayers()) do
+		if v==player then continue end
+		local tchar = v.Character
+		local thrp = tchar.HumanoidRootPart
+		local dist = (hrp.Position - thrp.Position).Magnitude
+		if dist < auraDist + 1 then events:FindFirstChild("Slap"):FireServer(thrp) end
 	end
-end)
+end
 
 
 
@@ -219,6 +220,7 @@ for i, text in ipairs(names) do
 	btn.MouseLeave:Connect(function() tweenOut:Play() end)
 	btn.MouseButton1Click:Connect(function() funcs[i](btn) end)
 end
+
 
 
 
