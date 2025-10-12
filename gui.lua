@@ -20,7 +20,7 @@ local mainframetop = Instance.new("Frame")
 mainframetop.Parent = mainframe
 mainframetop.Position = UDim2.new(0,0,0,0)
 mainframetop.Size = UDim2.new(1,0,0.106,0)
-mainframetop.BackgroundColor3 = Color3.fromRGB(20,20,20)
+mainframetop.BackgroundColor3 = Color3.fromRGB(12,20,31)
 Instance.new("UICorner", mainframetop).CornerRadius = UDim.new(0,12)
 
 local closebtn = Instance.new("TextButton")
@@ -75,8 +75,8 @@ minimdmain.Draggable = true
 
 local minimdtitle = title:Clone()
 minimdtitle.Parent = minimdmain
-minimdtitle.Position = UDim2.new(0.33,0,0.294,0)
-minimdtitle.Size = UDim2.new(0.339,0,0.043,0)
+minimdtitle.Position = UDim2.new(0.025,0,-0.041,0)
+minimdtitle.Size = UDim2.new(0.644,0,1.004,0)
 
 local minimdclose = closebtn:Clone()
 minimdclose.Parent = minimdmain
