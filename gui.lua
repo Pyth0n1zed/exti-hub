@@ -10,6 +10,8 @@ mainframe.Parent = exti
 mainframe.BackgroundColor3 = Color3.fromRGB(12,20,31)
 mainframe.Position = UDim2.new(0.33,0,0.295,0)
 mainframe.Size = UDim2.new(0.339,0,0.408,0)
+mainframe.Active = true
+mainframe.Draggable = true
 local mainframeuic = Instance.new("UICorner")
 mainframeuic.Parent = mainframe
 mainframeuic.CornerRadius = UDim.new(0,12)
@@ -19,17 +21,10 @@ mainframetop.Parent = mainframe
 mainframetop.Position = UDim2.new(0,0,0,0)
 mainframetop.Size = UDim2.new(1,0,0.106,0)
 mainframetop.BackgroundColor3 = Color3.fromRGB(20,20,20)
-mainframetop.Active = true
-mainframetop.Draggable = true
 Instance.new("UICorner", mainframetop).CornerRadius = UDim.new(0,12)
-local mainframetopbottom = mainframetop:Clone()
-mainframetopbottom:GetChildren()[1]:Destroy()
-mainframetopbottom.Parent = mainframetop
-mainframetopbottom.Position = UDim2.new(0,0,0.519,0)
-mainframetopbottom.Size = UDim2.new(1,0,0.481,0)
 
 local closebtn = Instance.new("TextButton")
-closebtn.Parent = mainframetop
+closebtn.Parent = mainframe
 closebtn.BackgroundTransparency = 1
 closebtn.Position = UDim2.new(0.933,0,0.012,0)
 closebtn.Size = UDim2.new(0.052,0,0.079,0)
@@ -39,7 +34,7 @@ closebtn.TextScaled = true
 closebtn.FontFace = Font.new("rbxasset://fonts/families/Arimo.json")
 
 local minimizebtn = Instance.new("TextButton")
-minimizebtn.Parent = mainframetop
+minimizebtn.Parent = mainframe
 minimizebtn.Size = closebtn.Size
 minimizebtn.Position = UDim2.new(0.86,0,0.012,0)
 minimizebtn.Text = "━" -- unicode horizontal bar heavy
@@ -61,7 +56,7 @@ local title = Instance.new("TextLabel")
 title.FontFace = closebtn.FontFace
 title.BackgroundTransparency = 1
 title.Position = UDim2.new(0.025,0,0,0)
-title.Parent = mainframetop
+title.Parent = mainframe
 title.Size = UDim2.new(0.835,0,0.106,0)
 title.TextScaled = true
 title.Text = "exti hub"
@@ -69,9 +64,10 @@ title.TextColor3 = Color3.fromRGB(255,255,255)
 title.TextXAlignment = Enum.TextXAlignment.Left
 
 local minimdmain = Instance.new("Frame")
-minimdmain.BackgroundColor = Color3.fromRGB(12,20,31)
-minmdmain.Position = mainframe.Position
-minmdmain.Size = UDim2.new(0.339,0,0.043,0)
+minimdmain.Parent = exti
+minimdmain.BackgroundColor3 = Color3.fromRGB(12,20,31)
+minimdmain.Position = UDim2.new(0.33,0,0.295,0)
+minimdmain.Size = UDim2.new(0.339,0,0.043,0)
 Instance.new("UICorner",minimdmain).CornerRadius = UDim.new(0,12)
 minimdmain.Visible = false
 minimdmain.Active = true
@@ -94,6 +90,7 @@ minimdminimize.Size = UDim2.new(0.052,0,0.766,0)
 
 minimdminimize.MouseButton1Click:Connect(function()
 	minimdmain.Visible = false
+	mainframe.Position = minimdmain.Position
 	mainframe.Visible = true
 end)
 minimizebtn.MouseButton1Click:Connect(function()
@@ -102,4 +99,3 @@ minimizebtn.MouseButton1Click:Connect(function()
 	minimdmain.Visible = true
 end)
 
--- Making a GUI is HELL. Please help me.
