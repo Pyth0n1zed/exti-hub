@@ -1,3 +1,4 @@
+return function()
 local gui = {}
 local plr = game.Players.LocalPlayer
 local theshadowrealm = game.Workspace
@@ -6,6 +7,17 @@ local exti = Instance.new("ScreenGui")
 exti.Parent = plr.PlayerGui
 exti.ResetOnSpawn = false
 
+local loading = Instance.new("Frame", exti)
+loading.BackgroundColor3 = Color3.fromRGB(12,20,21)
+loading.Position = UDim2.new("0.362,0,0.392,0")
+loading.Size = UDim2.new(0.275,0,0.216,0)
+Instance.new("UICorner", loading).CornerRadius = UDim.new(0,8)
+local loadingtext = Instance.new("TextLabel", loading)
+loadingtext.BackgroundTransparency = 1
+loadingtext.Position = UDim2.new(0,0,0.319,0)
+loadingtext.Size = UDim2.new(1,0,0.362,0)
+loading.Visible = false
+
 local mainframe = Instance.new("Frame")
 mainframe.Parent = exti
 mainframe.BackgroundColor3 = Color3.fromRGB(12,20,31)
@@ -13,6 +25,7 @@ mainframe.Position = UDim2.new(0.33,0,0.295,0)
 mainframe.Size = UDim2.new(0.339,0,0.408,0)
 mainframe.Active = true
 mainframe.Draggable = true
+mainframe.Visible = true
 local mainframeuic = Instance.new("UICorner")
 mainframeuic.Parent = mainframe
 mainframeuic.CornerRadius = UDim.new(0,12)
@@ -151,10 +164,54 @@ tabselectorull.Padding = UDim.new(0,4)
 tabselectorull.FillDirection = Enum.FillDirection.Vertical
 tabselectorull.VerticalAlignment = Enum.VerticalAlignment.Top
 
+local tabs = Instance.new("Frame")
+tabs.BackgroundTransparency = 1
+tabs.Position = UDim2.new(0.283,0,0.106,0)
+tabs.Size = UDim2.new(0.679,0,0.858,0)
+Instance.new("UICorner",tabs).CornerRadius = UDim.new(0,8)
 
 
+gui.Title = title
+gui.MainFrame = mainframe
+gui.Gui = exti
+gui.LoadingScreen = loading
+gui.Tabs = tabs
 
+function gui:SetTitle(str)
+	self.Title.Text = str
+	minimdtitle.Text = str
+end
 
+function gui:FinishLoading()
+	self.LoadingScreen:Destroy()
+	self.MainFrame.Visible = true
+end
 
+function gui:CreateTab(name)
+	local btn = Instance.new("TextButton")
+	btn.Name = name
+	btn.Text = name
+	btn.Parent = tabselector
+	btn.BackgroundTransparency = 0.9
+	btn.Size = UDim2.new(1,0,0.2,0)
+	btn.FontFace = Font.new("rbxasset://fonts/families/Roboto.json")
+	btn.TextScaled = true
+	btn.Weight = Enum.TextWeight.Light
 
+	local tab = Instance.new("Frame", self.Tabs)
+	tab.Name = name
+	tab.BackgroundTransparency = 0.9
+	tab.Position = UDim2.new(0,0,0,0)
+	tab.Size = UDim2.new(1,0,1,0)
+	Instance.new("UICorner", tab).CornerRadius = UDim.new(0,8)
+	tab.Visible = false
+
+	btn.MouseButton1Click:Connect(function()
+		for _,v in pairs(self.Tabs:GetChildren()) do
+			if v:IsA("Frame") then v.Visible = false end
+		end
+		tab.Visible = true
+	end)
+end
 return gui
+end
