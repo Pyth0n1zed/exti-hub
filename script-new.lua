@@ -168,9 +168,19 @@ end
 character.ChildAdded:Connect(updateGloveStatus)
 character.ChildRemoved:Connect(updateGloveStatus)
 
+local auraRange = Instance.new("Part")
+auraRange.Shape = Enum.PartShape.Ball
+auraRange.Parent = character
+auraRange.Transparency = 0.9
+auraRange.Size = Vector3.new(auraDist*2,auraDist*2,auraDist*2)
 
 rs.RenderStepped:Connect(function()
-	if not auraEnabled or not hasGloveEquipped then return end
+	if not hasGloveEquipped then return end
+	if auraEnabled then
+		auraRange.Transparency = 0.9
+	else
+		return;auraRange.Transparency=1
+	end
 	for _,v in pairs(game.Players:GetPlayers()) do
 		if v==player then continue end
 		local tchar = v.Character
@@ -220,6 +230,7 @@ for i, text in ipairs(names) do
 	btn.MouseLeave:Connect(function() tweenOut:Play() end)
 	btn.MouseButton1Click:Connect(function() funcs[i](btn) end)
 end
+
 
 
 
