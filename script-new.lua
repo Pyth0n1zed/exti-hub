@@ -177,7 +177,6 @@ hitbox.Touched:Connect(function(part)
 	if auraEnabled and hasGloveEquipped and part.Parent:FindFirstChild("Humanoid") then
 		game.ReplicatedStorage.Events.Slap:FireServer(part.Parent.HumanoidRootPart)
 	end
-	task.wait(0.05)
 end)
 
 
@@ -220,6 +219,7 @@ for i, text in ipairs(names) do
 	btn.MouseLeave:Connect(function() tweenOut:Play() end)
 	btn.MouseButton1Click:Connect(function() funcs[i](btn) end)
 end
+
 
 
 
