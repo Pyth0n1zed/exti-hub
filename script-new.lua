@@ -150,7 +150,7 @@ local function CollectAllHealingItemsSR()
     end
 end
 
-local auraDist = 40
+local auraDist = 30
 
 local auraEnabled = false
 local hasGloveEquipped = false
@@ -173,6 +173,13 @@ auraRange.Shape = Enum.PartType.Ball
 auraRange.Parent = character
 auraRange.Transparency = 0.9
 auraRange.Size = Vector3.new(auraDist*2,auraDist*2,auraDist*2)
+auraRange.CanCollide = false
+
+local weld=Instance.new("WeldConstraint")
+weld.Part0 = hrp
+weld.Part1 = auraRange
+weld.Parent = character
+
 
 rs.RenderStepped:Connect(function()
 	if not hasGloveEquipped then return end
@@ -231,6 +238,7 @@ for i, text in ipairs(names) do
 	btn.MouseLeave:Connect(function() tweenOut:Play() end)
 	btn.MouseButton1Click:Connect(function() funcs[i](btn) end)
 end
+
 
 
 
