@@ -150,7 +150,7 @@ local function CollectAllHealingItemsSR()
     end
 end
 
-local auraDist = 50
+local auraDist = 40
 
 local auraEnabled = false
 local hasGloveEquipped = false
@@ -231,6 +231,7 @@ for i, text in ipairs(names) do
 	btn.MouseLeave:Connect(function() tweenOut:Play() end)
 	btn.MouseButton1Click:Connect(function() funcs[i](btn) end)
 end
+
 
 
 
