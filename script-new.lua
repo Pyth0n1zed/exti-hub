@@ -178,7 +178,7 @@ auraRange.CanCollide = false
 
 
 rs.RenderStepped:Connect(function()
-	auraRange.CFrame = hrp.CFrame
+	
 	if not hasGloveEquipped then return end
 	if auraEnabled then
 		auraRange.Transparency = 0.9
@@ -235,6 +235,7 @@ for i, text in ipairs(names) do
 	btn.MouseLeave:Connect(function() tweenOut:Play() end)
 	btn.MouseButton1Click:Connect(function() funcs[i](btn) end)
 end
+
 
 
 
