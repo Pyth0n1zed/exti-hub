@@ -20,8 +20,10 @@ task.spawn(function()
 			ok = false
 			task.wait(5)
 			ok = true
+			player.PlayerGui.Countdown:Destroy()
 		end
 	end
+	task.wait(0.25)
 end)
 if map then
     local originOffice = map:FindFirstChild("OriginOffice")
