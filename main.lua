@@ -203,13 +203,19 @@ rs.RenderStepped:Connect(function()
 	end
 
 	if player.PlayerGui:FindFirstChild("Countdown") then
-		if tonumber(player.PlayerGui.Countdown.Countdown.TimeLeft.Text) < 3 then
-			ok = false
-			task.wait(5)
-			ok = true
-			player.PlayerGui.Countdown:Destroy()
-		end
-0	end
+        local countdownGui = player.PlayerGui.Countdown
+        local timeLeft = tonumber(countdownGui.Countdown.TimeLeft.Text)
+        if timeLeft and timeLeft < 3 and ok then
+            ok = false
+            task.spawn(function()
+                task.wait(5)
+                ok = true
+                if countdownGui and countdownGui.Parent then
+                    countdownGui:Destroy()
+                end
+            end)
+        end
+    end
 end)
 
 function auraOn()
