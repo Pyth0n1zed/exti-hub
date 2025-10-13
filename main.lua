@@ -21,7 +21,7 @@ if map then
 end
 
 
-local moveDelay = 0.2
+local moveTime = 0.2
 local pauseTime = 0.1
 
 local function moveTo(part)
