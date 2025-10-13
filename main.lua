@@ -66,6 +66,7 @@ local function CollectAllItemsSR()
                 task.wait(pauseTime)
                 sendFKey()
             end
+			task.wait(moveDelay)
         end
     end
 end
