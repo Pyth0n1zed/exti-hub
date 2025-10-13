@@ -240,7 +240,7 @@ exti:CreateButton(main,"toggle","Slap Aura","Automatically slaps for you with ex
 exti:CreateLabel(items,"Collect Items", 1)
 exti:CreateButton(items,"trigger","Item Vaccum","Automatically collects all items",2,CollectAllItemsSR)
 exti:CreateButton(items,"trigger","Oneshot Item Vaccum","Automatically collects all items that help you oneshot people.",3,CollectAllOneShottyItemsSR)
-exti:CreateLabel(items,"Auto-Use Items", 4)
+exti:CreateLabel(items,"Auto-Use Items (EXTREMELY LOUD)", 4)
 exti:CreateButton(items,"trigger","Use All Items","Automatically equips and uses all the items in your inventory.",5,UseAllItemsSR)
 exti:CreateButton(items,"trigger","Use All Permanent Boosts","Automatically equips and uses all items that give a permanent boost to stats.",6,UseAllPermanentItemsSR)
 exti:CreateButton(items,"trigger","Use All Oneshot Items","Automatically equips all items that help you oneshot people.",7,UseAllOneshotItemsSR)
