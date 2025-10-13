@@ -11,6 +11,7 @@ local itemsFolder = workspace:FindFirstChild("Items")
 local map = workspace:FindFirstChild("Map")
 local ts = game:GetService("TweenService")
 local rs = game:GetService("RunService")
+local ok = true
 local events = game.ReplicatedStorage:FindFirstChild("Events")
 if map then
     local originOffice = map:FindFirstChild("OriginOffice")
@@ -57,7 +58,7 @@ end
 local function CollectAllItemsSR()
     for i=1,3 do
         for _, tool in ipairs(itemsFolder:GetChildren()) do
-            if tool:IsA("Tool") and tool:FindFirstChild("Handle") then
+            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and ok then
                 local handle = tool.Handle
                 moveTo(handle)
                 task.wait(pauseTime)
@@ -73,7 +74,7 @@ end
 local function CollectAllPermaBuffsSR()
     for i=1,3 do
         for _, tool in ipairs(itemsFolder:GetChildren()) do
-            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Bull's essence" or tool.Name=="Potion of Strength" or tool.Name=="Frog Potion" or tool.Name=="Speed Potion" or tool.Name=="Boba") then
+            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Bull's essence" or tool.Name=="Potion of Strength" or tool.Name=="Frog Potion" or tool.Name=="Speed Potion" or tool.Name=="Boba") and ok then
                 local handle = tool.Handle
                 moveTo(handle)
                 task.wait(pauseTime)
@@ -89,7 +90,7 @@ end
 local function CollectAllStrengthItemsSR()
     for i=1,3 do
         for _, tool in ipairs(itemsFolder:GetChildren()) do
-            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Bull's essence" or tool.Name=="Potion of Strength" or tool.Name=="Boba" or tool.Name=="True Power" or tool.Name=="Sphere of fury") then
+            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Bull's essence" or tool.Name=="Potion of Strength" or tool.Name=="Boba" or tool.Name=="True Power" or tool.Name=="Sphere of fury") and ok then
                 local handle = tool.Handle
                 moveTo(handle)
                 task.wait(pauseTime)
@@ -105,7 +106,7 @@ end
 local function CollectAllSpeedAndJumpItemsSR()
     for i=1,3 do
         for _, tool in ipairs(itemsFolder:GetChildren()) do
-            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Speed Potion" or tool.Name=="Frog Potion" or tool.Name=="Boba" or tool.Name=="Lightning Potion") then
+            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Speed Potion" or tool.Name=="Frog Potion" or tool.Name=="Boba" or tool.Name=="Lightning Potion") and ok then
                 local handle = tool.Handle
                 moveTo(handle)
                 task.wait(pauseTime)
@@ -122,7 +123,7 @@ local function CollectAllOneShottyItemsSR()
     CollectAllStrengthItemsSR()
     for i=1,3 do
         for _, tool in ipairs(itemsFolder:GetChildren()) do
-            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Cube of Ice") then
+            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Cube of Ice") and ok then
                 local handle = tool.Handle
                 moveTo(handle)
                 task.wait(pauseTime)
@@ -138,7 +139,7 @@ end
 local function CollectAllHealingItemsSR()
     for i=1,3 do
         for _, tool in ipairs(itemsFolder:GetChildren()) do
-            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Apple" or tool.Name=="Bandage" or tool.Name:lower()=="first aid kit" or tool.Name=="Healing Potion" or tool.Name=="Potion of Healing" or tool.Name=="Boba") then
+            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Apple" or tool.Name=="Bandage" or tool.Name:lower()=="first aid kit" or tool.Name=="Healing Potion" or tool.Name=="Potion of Healing" or tool.Name=="Boba") and ok then
                 local handle = tool.Handle
                 moveTo(handle)
                 task.wait(pauseTime)
@@ -194,6 +195,14 @@ rs.RenderStepped:Connect(function()
 		local dist = (hrp.Position - thrp.Position).Magnitude
 		if dist < auraDist + 1 then events:FindFirstChild("Slap"):FireServer(thrp) end
 	end
+
+	if player.PlayerGui:FindFirstChild("Countdown") then
+		if tonumber(player.PlayerGui.Countdown.Countdown.TimeLeft.Text) < 3 then
+			ok = false
+			task.wait(5)
+			ok = true
+		end
+0	end
 end)
 
 function auraOn()
