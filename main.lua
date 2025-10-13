@@ -63,13 +63,12 @@ local function CollectAllItemsSR()
             if tool:IsA("Tool") and tool:FindFirstChild("Handle") then
                 local handle = tool.Handle
                 moveTo(handle)
-				sendFKey()
                 task.wait(pauseTime)
                 faceTarget(handle)
-				sendFKey()
                 rotateCameraTo(handle)
                 task.wait(pauseTime)
                 sendFKey()
+				task.wait()
 				sendSpaceKey()
             end
 			task.wait(moveDelay)
