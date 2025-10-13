@@ -210,7 +210,7 @@ function UseAllPermanentItemsSR()
 		if v.Name == "Bull's essence" or v.Name == "Speed Potion" or v.Name == "Frog Potion" or v.Name == "Boba" or v.Name == "Potion of Strength" then
 			v.Parent = character
 			v:Activate()
-			task.wait(0.05)
+			task.wait(0.02)
 		end
 	end
 end
@@ -219,7 +219,7 @@ function UseAllOneshotItemsSR()
 		if v.Name == "Bull's essence" or v.Name == "Cube of Ice" or v.Name == "Sphere of fury" or v.Name == "Boba" or v.Name == "Potion of Strength" then
 			v.Parent = character
 			v:Activate()
-			task.wait(0.05)
+			task.wait(0.02)
 		end
 	end
 end
@@ -228,7 +228,7 @@ function UseAllItemsSR()
 		if v:IsA("Tool") then
 			v.Parent = character
 			v:Activate()
-			task.wait(0.05)
+			task.wait(0.02)
 		end
 	end
 end
