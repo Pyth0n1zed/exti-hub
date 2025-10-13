@@ -20,7 +20,7 @@ if map then
 end
 
 
-local moveDelay = 1.5
+local moveDelay = 1
 local pauseTime = 0.5
 
 local function moveTo(part)
@@ -49,7 +49,10 @@ local function sendFKey()
         VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.F, false, game)
         task.wait(0.05)
     end
-    VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.Space, false, game)
+end
+
+local function sendSpaceKey()
+	VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.Space, false, game)
 	task.wait(0.05)
 	VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.Space, false, game)
 end
@@ -60,12 +63,16 @@ local function CollectAllItemsSR()
             if tool:IsA("Tool") and tool:FindFirstChild("Handle") then
                 local handle = tool.Handle
                 moveTo(handle)
+				sendFKey()
                 task.wait(pauseTime)
                 faceTarget(handle)
+				sendFKey()
                 rotateCameraTo(handle)
                 task.wait(pauseTime)
                 sendFKey()
+				sendSpaceKey()
             end
+			task.wait(moveDelay)
         end
     end
 end
