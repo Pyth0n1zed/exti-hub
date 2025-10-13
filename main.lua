@@ -201,6 +201,7 @@ rs.RenderStepped:Connect(function()
 			ok = false
 			task.wait(5)
 			ok = true
+			player.PlayerGui.Countdown:Destroy()
 		end
 0	end
 end)
