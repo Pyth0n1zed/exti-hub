@@ -12,6 +12,17 @@ local map = workspace:FindFirstChild("Map")
 local ts = game:GetService("TweenService")
 local rs = game:GetService("RunService")
 local events = game.ReplicatedStorage:FindFirstChild("Events")
+local ok = true
+task.spawn(function()
+	if player.PlayerGui:FindFirstChild("Countdown") then
+		local ctxt = player.PlayerGui.Countdown.Countdown.TimeLeft.Text
+		if tonumber(ctxt) < 4 then
+			ok = false
+			task.wait(5)
+			ok = true
+		end
+	end
+end)
 if map then
     local originOffice = map:FindFirstChild("OriginOffice")
     if originOffice then
@@ -57,7 +68,7 @@ end
 local function CollectAllItemsSR()
     for i=1,3 do
         for _, tool in ipairs(itemsFolder:GetChildren()) do
-            if tool:IsA("Tool") and tool:FindFirstChild("Handle") then
+            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and ok then
                 local handle = tool.Handle
                 moveTo(handle)
                 task.wait(pauseTime)
@@ -65,6 +76,8 @@ local function CollectAllItemsSR()
                 rotateCameraTo(handle)
                 task.wait(pauseTime)
                 sendFKey()
+			else if not ok then
+				task.wait(5)
             end
 			task.wait(moveDelay)
         end
