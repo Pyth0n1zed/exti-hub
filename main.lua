@@ -20,7 +20,7 @@ if map then
 end
 
 
-local moveDelay = 1
+local moveDelay = 0.5
 local pauseTime = 0.5
 
 local function moveTo(part)
@@ -68,8 +68,8 @@ local function CollectAllItemsSR()
                 rotateCameraTo(handle)
                 task.wait(pauseTime)
                 sendFKey()
-				task.wait()
-				--sendSpaceKey()
+				task.wait(pauseTime)
+				sendSpaceKey()
             end
 			task.wait(moveDelay)
         end
