@@ -22,7 +22,7 @@ end
 
 
 local moveTime = 0.2
-local pauseTime = 0.2
+local pauseTime = 0.3
 
 local function moveTo(part)
     character:PivotTo(part.CFrame)
