@@ -69,7 +69,7 @@ local function CollectAllItemsSR()
                 task.wait(pauseTime)
                 sendFKey()
 				task.wait()
-				sendSpaceKey()
+				--sendSpaceKey()
             end
 			task.wait(moveDelay)
         end
