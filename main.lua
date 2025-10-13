@@ -20,8 +20,8 @@ if map then
 end
 
 
-local moveDelay = 0.5
-local pauseTime = 0.5
+local moveDelay = 0.65
+local pauseTime = 0.1
 
 local function moveTo(part)
     character:PivotTo(part.CFrame)
