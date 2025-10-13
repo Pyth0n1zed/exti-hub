@@ -207,8 +207,9 @@ end
 exti:SetTitle("exti hub")
 local main = exti:CreateTab("Main", 1)
 local items = exti:CreateTab("Items", 2)
-exti:CreateButton(main,"toggle","Slap Aura","Automatically slaps for you with extended hitbox",1,auraOn,auraOff)
-exti:CreateButton(items,"trigger","Item Vaccum","Automatically collects all items",1,CollectAllItemsSR)
-exti:CreateButton(items,"trigger","Oneshot Item Vaccum","Automatically collects all items that help you oneshot people.",2,CollectAllOneShottyItemsSR)
+exti:CreateButton(main,"toggle","Slap Aura","Automatically slaps for you with extended hitbox",2,auraOn,auraOff)
+exti:CreateLabel(items,"Collect Items")
+exti:CreateButton(items,"trigger","Item Vaccum","Automatically collects all items",3,CollectAllItemsSR)
+exti:CreateButton(items,"trigger","Oneshot Item Vaccum","Automatically collects all items that help you oneshot people.",4,CollectAllOneShottyItemsSR)
+exti:CreateLabel(items,"Auto-Use Items")
 exti:FinishLoading()
--- its so good.
