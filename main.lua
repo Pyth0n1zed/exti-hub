@@ -204,12 +204,40 @@ function auraOff()
 	auraEnabled = false
 end
 
+function UseAllItemsSR()
+	for _,v in pairs(player:GetDescendants()) do
+		if v:IsA("Tool") then
+			v.Parent = character
+			v:Activate()
+		end
+	end
+end
+function UseAllPermanentItemsSR()
+	for _,v in pairs(player:GetDescendants()) do
+		if v.Name == "Bull's essence" or v.Name == "Speed Potion" or v.Name == "Frog Potion" or v.Name == "Boba" or v.Name == "Potion of Strength" then
+			v.Parent = character
+			v:Activate()
+		end
+	end
+end
+function UseAllOneshotItemsSR()
+	for _,v in pairs(player:GetDescendants()) do
+		if v.Name == "Bull's essence" or v.Name == "Cube of Ice" or v.Name == "Sphere of fury" or v.Name == "Boba" or v.Name == "Potion of Strength" then
+			v.Parent = character
+			v:Activate()
+		end
+	end
+end
+
 exti:SetTitle("exti hub")
 local main = exti:CreateTab("Main", 1)
 local items = exti:CreateTab("Items", 2)
-exti:CreateButton(main,"toggle","Slap Aura","Automatically slaps for you with extended hitbox",2,auraOn,auraOff)
-exti:CreateLabel(items,"Collect Items")
-exti:CreateButton(items,"trigger","Item Vaccum","Automatically collects all items",3,CollectAllItemsSR)
-exti:CreateButton(items,"trigger","Oneshot Item Vaccum","Automatically collects all items that help you oneshot people.",4,CollectAllOneShottyItemsSR)
-exti:CreateLabel(items,"Auto-Use Items")
+exti:CreateButton(main,"toggle","Slap Aura","Automatically slaps for you with extended hitbox",1,auraOn,auraOff)
+exti:CreateLabel(items,"Collect Items", 1)
+exti:CreateButton(items,"trigger","Item Vaccum","Automatically collects all items",2,CollectAllItemsSR)
+exti:CreateButton(items,"trigger","Oneshot Item Vaccum","Automatically collects all items that help you oneshot people.",3,CollectAllOneShottyItemsSR)
+exti:CreateLabel(items,"Auto-Use Items", 4)
+exti:CreateButton(items,"trigger","Use All Items","Automatically equips and uses all the items in your inventory.",5,UseAllItemsSR)
+exti:CreateButton(items,"trigger","Use All Permanent Boosts","Automatically equips and uses all items that give a permanent boost to stats.",6,UseAllPermanentItemsSR)
+exti:CreateButton(items,"trigger","Use All Oneshot Items","Automatically equips all items that help you oneshot people.",7,UseAllOneshotItemsSR)
 exti:FinishLoading()
