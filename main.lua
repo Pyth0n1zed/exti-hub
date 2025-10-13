@@ -85,6 +85,7 @@ local function CollectAllItemsSR()
         end
     end
 end
+end
 
 local function CollectAllPermaBuffsSR()
     for i=1,3 do
