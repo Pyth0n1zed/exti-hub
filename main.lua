@@ -11,7 +11,6 @@ local itemsFolder = workspace:FindFirstChild("Items")
 local map = workspace:FindFirstChild("Map")
 local ts = game:GetService("TweenService")
 local rs = game:GetService("RunService")
-local ok = true
 local events = game.ReplicatedStorage:FindFirstChild("Events")
 if map then
     local originOffice = map:FindFirstChild("OriginOffice")
@@ -21,7 +20,7 @@ if map then
 end
 
 
-local moveTime = 0.5
+local moveDelay = 1.5
 local pauseTime = 0.5
 
 local function moveTo(part)
@@ -56,9 +55,9 @@ local function sendFKey()
 end
 
 local function CollectAllItemsSR()
-    for i=1,5 do
+    for i=1,3 do
         for _, tool in ipairs(itemsFolder:GetChildren()) do
-            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and ok then
+            if tool:IsA("Tool") and tool:FindFirstChild("Handle") then
                 local handle = tool.Handle
                 moveTo(handle)
                 task.wait(pauseTime)
@@ -67,15 +66,14 @@ local function CollectAllItemsSR()
                 task.wait(pauseTime)
                 sendFKey()
             end
-			task.wait(moveTime)
         end
     end
 end
 
 local function CollectAllPermaBuffsSR()
-    for i=1,5 do
+    for i=1,3 do
         for _, tool in ipairs(itemsFolder:GetChildren()) do
-            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Bull's essence" or tool.Name=="Potion of Strength" or tool.Name=="Frog Potion" or tool.Name=="Speed Potion" or tool.Name=="Boba") and ok then
+            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Bull's essence" or tool.Name=="Potion of Strength" or tool.Name=="Frog Potion" or tool.Name=="Speed Potion" or tool.Name=="Boba") then
                 local handle = tool.Handle
                 moveTo(handle)
                 task.wait(pauseTime)
@@ -84,15 +82,14 @@ local function CollectAllPermaBuffsSR()
                 task.wait(pauseTime)
                 sendFKey()
             end
-			task.wait(moveTime)
         end
     end
 end
 
 local function CollectAllStrengthItemsSR()
-    for i=1,5 do
+    for i=1,3 do
         for _, tool in ipairs(itemsFolder:GetChildren()) do
-            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Bull's essence" or tool.Name=="Potion of Strength" or tool.Name=="Boba" or tool.Name=="True Power" or tool.Name=="Sphere of fury") and ok then
+            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Bull's essence" or tool.Name=="Potion of Strength" or tool.Name=="Boba" or tool.Name=="True Power" or tool.Name=="Sphere of fury") then
                 local handle = tool.Handle
                 moveTo(handle)
                 task.wait(pauseTime)
@@ -101,15 +98,14 @@ local function CollectAllStrengthItemsSR()
                 task.wait(pauseTime)
                 sendFKey()
             end
-			task.wait(moveTime)
         end
     end
 end
 
 local function CollectAllSpeedAndJumpItemsSR()
-    for i=1,5 do
+    for i=1,3 do
         for _, tool in ipairs(itemsFolder:GetChildren()) do
-            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Speed Potion" or tool.Name=="Frog Potion" or tool.Name=="Boba" or tool.Name=="Lightning Potion") and ok then
+            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Speed Potion" or tool.Name=="Frog Potion" or tool.Name=="Boba" or tool.Name=="Lightning Potion") then
                 local handle = tool.Handle
                 moveTo(handle)
                 task.wait(pauseTime)
@@ -118,16 +114,15 @@ local function CollectAllSpeedAndJumpItemsSR()
                 task.wait(pauseTime)
                 sendFKey()
             end
-			task.wait(moveTime)
         end
     end
 end
 
 local function CollectAllOneShottyItemsSR()
     CollectAllStrengthItemsSR()
-    for i=1,5 do
+    for i=1,3 do
         for _, tool in ipairs(itemsFolder:GetChildren()) do
-            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Cube of Ice") and ok then
+            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Cube of Ice") then
                 local handle = tool.Handle
                 moveTo(handle)
                 task.wait(pauseTime)
@@ -136,15 +131,14 @@ local function CollectAllOneShottyItemsSR()
                 task.wait(pauseTime)
                 sendFKey()
             end
-			task.wait(moveTime)
         end
     end
 end
 
 local function CollectAllHealingItemsSR()
-    for i=1,5 do
+    for i=1,3 do
         for _, tool in ipairs(itemsFolder:GetChildren()) do
-            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Apple" or tool.Name=="Bandage" or tool.Name:lower()=="first aid kit" or tool.Name=="Healing Potion" or tool.Name=="Potion of Healing" or tool.Name=="Boba") and ok then
+            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Apple" or tool.Name=="Bandage" or tool.Name:lower()=="first aid kit" or tool.Name=="Healing Potion" or tool.Name=="Potion of Healing" or tool.Name=="Boba") then
                 local handle = tool.Handle
                 moveTo(handle)
                 task.wait(pauseTime)
@@ -153,7 +147,6 @@ local function CollectAllHealingItemsSR()
                 task.wait(pauseTime)
                 sendFKey()
             end
-			task.wait(moveTime)
         end
     end
 end
@@ -201,21 +194,6 @@ rs.RenderStepped:Connect(function()
 		local dist = (hrp.Position - thrp.Position).Magnitude
 		if dist < auraDist + 1 then events:FindFirstChild("Slap"):FireServer(thrp) end
 	end
-
-	if player.PlayerGui:FindFirstChild("Countdown") then
-        local countdownGui = player.PlayerGui.Countdown
-        local timeLeft = tonumber(countdownGui.Countdown.TimeLeft.Text)
-        if timeLeft and timeLeft < 3 and ok then
-            ok = false
-            task.spawn(function()
-                task.wait(5)
-                ok = true
-                if countdownGui and countdownGui.Parent then
-                    countdownGui:Destroy()
-                end
-            end)
-        end
-    end
 end)
 
 function auraOn()
@@ -232,7 +210,7 @@ function UseAllPermanentItemsSR()
 		if v.Name == "Bull's essence" or v.Name == "Speed Potion" or v.Name == "Frog Potion" or v.Name == "Boba" or v.Name == "Potion of Strength" then
 			v.Parent = character
 			v:Activate()
-			task.wait(0.02)
+			task.wait(0.05)
 		end
 	end
 end
@@ -241,7 +219,7 @@ function UseAllOneshotItemsSR()
 		if v.Name == "Bull's essence" or v.Name == "Cube of Ice" or v.Name == "Sphere of fury" or v.Name == "Boba" or v.Name == "Potion of Strength" then
 			v.Parent = character
 			v:Activate()
-			task.wait(0.02)
+			task.wait(0.05)
 		end
 	end
 end
@@ -250,7 +228,7 @@ function UseAllItemsSR()
 		if v:IsA("Tool") then
 			v.Parent = character
 			v:Activate()
-			task.wait(0.02)
+			task.wait(0.05)
 		end
 	end
 end
@@ -262,7 +240,7 @@ exti:CreateButton(main,"toggle","Slap Aura","Automatically slaps for you with ex
 exti:CreateLabel(items,"Collect Items", 1)
 exti:CreateButton(items,"trigger","Item Vaccum","Automatically collects all items",2,CollectAllItemsSR)
 exti:CreateButton(items,"trigger","Oneshot Item Vaccum","Automatically collects all items that help you oneshot people.",3,CollectAllOneShottyItemsSR)
-exti:CreateLabel(items,"Auto-Use Items (EXTREMELY LOUD)", 4)
+exti:CreateLabel(items,"Auto-Use Items", 4)
 exti:CreateButton(items,"trigger","Use All Items","Automatically equips and uses all the items in your inventory.",5,UseAllItemsSR)
 exti:CreateButton(items,"trigger","Use All Permanent Boosts","Automatically equips and uses all items that give a permanent boost to stats.",6,UseAllPermanentItemsSR)
 exti:CreateButton(items,"trigger","Use All Oneshot Items","Automatically equips all items that help you oneshot people.",7,UseAllOneshotItemsSR)
