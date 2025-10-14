@@ -18,6 +18,21 @@ if map then
         originOffice:Destroy()
     end
 end
+local ok = true
+task.spawn(function()
+	while true do
+		local asd = player.PlayerGui:FindFirstChild("Countdown")
+		if asd then
+			if tonumber(asd.Countdown.TimeLeft.Text) < 3 then
+				ok = false
+				task.wait(9)
+				ok = true
+				asd:Destroy()
+			end
+		end
+	task.wait(0.5)
+	end
+end)
 
 
 local moveDelay = 0.65
@@ -60,7 +75,7 @@ end
 local function CollectAllItemsSR()
     for i=1,3 do
         for _, tool in ipairs(itemsFolder:GetChildren()) do
-            if tool:IsA("Tool") and tool:FindFirstChild("Handle") then
+            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and ok then
                 local handle = tool.Handle
                 moveTo(handle)
                 task.wait(pauseTime)
@@ -70,6 +85,8 @@ local function CollectAllItemsSR()
                 sendFKey()
 				task.wait(pauseTime)
 				sendSpaceKey()
+			elseif ok == false then
+				task.wait(9)	
             end
 			task.wait(moveDelay)
         end
