@@ -1,3 +1,6 @@
+if game.PlaceId ~= 9431156611 then
+	game:GetService("TeleportService"):Teleport(9426795465,game.Players.LocalPlayer)
+end
 local exti = loadstring(game:HttpGet("https://raw.githubusercontent.com/Pyth0n1zed/GUI-Framework-Roblox/refs/heads/main/script.lua"))()()
 local Players = game:GetService("Players")
 local hitbox = Instance.new("Part")
