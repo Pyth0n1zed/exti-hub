@@ -75,10 +75,11 @@ local function sendSpaceKey()
 	VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.Space, false, game)
 end
 
-local function CollectAllItemsSR()
-    for i=1,3 do
+local function CollectItemsSR(itemNames, repeatCount)
+    repeatCount = repeatCount or 3
+    for i = 1, repeatCount do
         for _, tool in ipairs(itemsFolder:GetChildren()) do
-            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and ok then
+            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and table.find(itemNames, tool.Name) and ok then
                 local handle = tool.Handle
                 moveTo(handle)
                 task.wait(pauseTime)
@@ -86,125 +87,35 @@ local function CollectAllItemsSR()
                 rotateCameraTo(handle)
                 task.wait(pauseTime)
                 sendFKey()
-				task.wait(pauseTime)
-				sendSpaceKey()
-			elseif ok == false then
-				task.wait(9)	
+                task.wait(pauseTime)
+                sendSpaceKey()
+            elseif ok == false then
+                task.wait(10)
             end
-			task.wait(moveDelay)
+            task.wait(moveDelay)
         end
     end
-	hrp.CFrame = hrp.CFrame + Vector3.new(0,50,0)
+    hrp.CFrame = hrp.CFrame + Vector3.new(0,200,0)
 end
 
-local function CollectAllPermaBuffsSR()
-    for i=1,3 do
-        for _, tool in ipairs(itemsFolder:GetChildren()) do
-            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Bull's essence" or tool.Name=="Potion of Strength" or tool.Name=="Frog Potion" or tool.Name=="Speed Potion" or tool.Name=="Boba") and ok then
-                local handle = tool.Handle
-                moveTo(handle)
-                task.wait(pauseTime)
-                faceTarget(handle)
-                rotateCameraTo(handle)
-                task.wait(pauseTime)
-                sendFKey()
-				task.wait(pauseTime)
-				sendSpaceKey()
-			elseif ok == false then
-				task.wait(9)	
-            end
-			task.wait(moveDelay)
-        end
-    end
-	hrp.CFrame = hrp.CFrame + Vector3.new(0,50,0)
+local function CollectAllPermanentItemsSR()
+    CollectItemsSR({"Potion of Strength", "Frog Potion", "Speed Potion", "Boba", "Bull's essence"},5)
 end
 
 local function CollectAllStrengthItemsSR()
-    for i=1,3 do
-        for _, tool in ipairs(itemsFolder:GetChildren()) do
-            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Bull's essence" or tool.Name=="Potion of Strength" or tool.Name=="Boba" or tool.Name=="True Power" or tool.Name=="Sphere of fury") and ok then
-                local handle = tool.Handle
-                moveTo(handle)
-                task.wait(pauseTime)
-                faceTarget(handle)
-                rotateCameraTo(handle)
-                task.wait(pauseTime)
-                sendFKey()
-				task.wait(pauseTime)
-				sendSpaceKey()
-			elseif ok == false then
-				task.wait(9)	
-            end
-			task.wait(moveDelay)
-        end
-    end
-	hrp.CFrame = hrp.CFrame + Vector3.new(0,50,0)
-end
-
-local function CollectAllSpeedAndJumpItemsSR()
-    for i=1,3 do
-        for _, tool in ipairs(itemsFolder:GetChildren()) do
-            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Speed Potion" or tool.Name=="Frog Potion" or tool.Name=="Boba" or tool.Name=="Lightning Potion") and ok then
-                local handle = tool.Handle
-                moveTo(handle)
-                task.wait(pauseTime)
-                faceTarget(handle)
-                rotateCameraTo(handle)
-                task.wait(pauseTime)
-                sendFKey()
-				task.wait(pauseTime)
-				sendSpaceKey()
-			elseif ok == false then
-				task.wait(9)	
-            end
-			task.wait(moveDelay)
-        end
-    end
-	hrp.CFrame = hrp.CFrame + Vector3.new(0,50,0)
+    CollectItemsSR({"Bull's essence","Potion of Strength","Boba","True Power","Sphere of fury"},5)
 end
 
 local function CollectAllOneShottyItemsSR()
-    for i=1,3 do
-        for _, tool in ipairs(itemsFolder:GetChildren()) do
-            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Cube of Ice" or tool.Name=="Bull's essence" or tool.Name=="Potion of Strength" or tool.Name=="Boba" or tool.Name=="True Power" or tool.Name=="Sphere of fury") and ok then
-                local handle = tool.Handle
-                moveTo(handle)
-                task.wait(pauseTime)
-                faceTarget(handle)
-                rotateCameraTo(handle)
-                task.wait(pauseTime)
-                sendFKey()
-				task.wait(pauseTime)
-				sendSpaceKey()
-			elseif ok == false then
-				task.wait(9)	
-            end
-			task.wait(moveDelay)
-        end
-    end
-	hrp.CFrame = hrp.CFrame + Vector3.new(0,50,0)
+    CollectItemsSR({"Cube of Ice","Bull's essence","Potion of Strength","Boba","True Power","Sphere of fury"},5)
 end
 
 local function CollectAllHealingItemsSR()
-    for i=1,3 do
-        for _, tool in ipairs(itemsFolder:GetChildren()) do
-            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Apple" or tool.Name=="Bandage" or tool.Name:lower()=="first aid kit" or tool.Name=="Healing Potion" or tool.Name=="Potion of Healing" or tool.Name=="Boba") and ok then
-                local handle = tool.Handle
-                moveTo(handle)
-                task.wait(pauseTime)
-                faceTarget(handle)
-                rotateCameraTo(handle)
-                task.wait(pauseTime)
-                sendFKey()
-				task.wait(pauseTime)
-				sendSpaceKey()
-			elseif ok == false then
-				task.wait(9)	
-            end
-			task.wait(moveDelay)
-        end
-    end
-	hrp.CFrame = hrp.CFrame + Vector3.new(0,50,0)
+    CollectItemsSR({"Apple","Bandage","First Aid Kit","Healing Potion","Potion of Healing","Boba"},5)
+end
+
+local function CollectAllItemsSR()
+	CollectItemsSR({"Potion of Strength","Frog Potion","Speed Potion","Boba","Bull's essence","True Power","Sphere of fury","Cube of Ice","Apple","Bandage","First Aid Kit","Healing Potion","Potion of Healing"},5)
 end
 
 local auraDist = 30
@@ -296,8 +207,11 @@ exti:CreateButton(main,"toggle","Slap Aura","Automatically slaps for you with ex
 exti:CreateLabel(items,"Collect Items", 1)
 exti:CreateButton(items,"trigger","Item Vaccum","Automatically collects all items",2,CollectAllItemsSR)
 exti:CreateButton(items,"trigger","Oneshot Item Vaccum","Automatically collects all items that help you oneshot people.",3,CollectAllOneShottyItemsSR)
-exti:CreateLabel(items,"Auto-Use Items", 4)
-exti:CreateButton(items,"trigger","Use All Items","Automatically equips and uses all the items in your inventory.",5,UseAllItemsSR)
-exti:CreateButton(items,"trigger","Use All Permanent Boosts","Automatically equips and uses all items that give a permanent boost to stats.",6,UseAllPermanentItemsSR)
-exti:CreateButton(items,"trigger","Use All Oneshot Items","Automatically equips all items that help you oneshot people.",7,UseAllOneshotItemsSR)
+exti:CreateButton(items,"trigger","Strength Item Vaccum","Automatically collects all items that increase your strength.",4,CollectAllStrengthItemsSR)
+exti:CreateButton(items,"trigger","Permanent Buff Item Vaccum","Automatically collects all items that increase your stats permanently.",5,CollectAllPermanentItemsSR)
+exti:CreateButton(items,"trigger","Heal Item Vaccum","Automatically collects all items that heal you.",6,CollectAllHealingItemsSR)
+exti:CreateLabel(items,"Auto-Use Items", 7)
+exti:CreateButton(items,"trigger","Use All Items","Automatically equips and uses all the items in your inventory.",8,UseAllItemsSR)
+exti:CreateButton(items,"trigger","Use All Permanent Boosts","Automatically equips and uses all items that give a permanent boost to stats.",9,UseAllPermanentItemsSR)
+exti:CreateButton(items,"trigger","Use All Oneshot Items","Automatically equips all items that help you oneshot people.",10,UseAllOneshotItemsSR)
 exti:FinishLoading()
