@@ -1,6 +1,3 @@
-if game.PlaceId ~= 9431156611 then
-	game:GetService("TeleportService"):Teleport(9426795465,game.Players.LocalPlayer)
-end
 local exti = loadstring(game:HttpGet("https://raw.githubusercontent.com/Pyth0n1zed/GUI-Framework-Roblox/refs/heads/main/script.lua"))()()
 local Players = game:GetService("Players")
 local hitbox = Instance.new("Part")
@@ -203,10 +200,14 @@ function UseAllItemsSR()
 		end
 	end
 end
+function Teleporttomatchmaking()
+	game:GetService("TeleportService"):Teleport(9426795465,game.Players.LocalPlayer)
+end
 
 exti:SetTitle("exti hub")
 local main = exti:CreateTab("Main", 1)
 local items = exti:CreateTab("Items", 2)
+local misc = exti:CreateTab("Misc", 3)
 exti:CreateButton(main,"toggle","Slap Aura","Automatically slaps for you with extended hitbox",1,auraOn,auraOff)
 exti:CreateLabel(items,"Collect Items", 1)
 exti:CreateButton(items,"trigger","Item Vaccum","Automatically collects all items",2,CollectAllItemsSR)
@@ -218,4 +219,5 @@ exti:CreateLabel(items,"Auto-Use Items", 7)
 exti:CreateButton(items,"trigger","Use All Items","Automatically equips and uses all the items in your inventory.",8,UseAllItemsSR)
 exti:CreateButton(items,"trigger","Use All Permanent Boosts","Automatically equips and uses all items that give a permanent boost to stats.",9,UseAllPermanentItemsSR)
 exti:CreateButton(items,"trigger","Use All Oneshot Items","Automatically equips all items that help you oneshot people.",10,UseAllOneshotItemsSR)
+exti:CreateButton(misc,"trigger","Teleport to Slap Royale matchmaking","Automatically teleports you to the slap royale matchmaking place to start a new game",1,Teleporttomatchmaking)
 exti:FinishLoading()
