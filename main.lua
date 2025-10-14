@@ -91,12 +91,13 @@ local function CollectAllItemsSR()
 			task.wait(moveDelay)
         end
     end
+	hrp.CFrame = hrp.CFrame + Vector3.new(0,50,0)
 end
 
 local function CollectAllPermaBuffsSR()
     for i=1,3 do
         for _, tool in ipairs(itemsFolder:GetChildren()) do
-            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Bull's essence" or tool.Name=="Potion of Strength" or tool.Name=="Frog Potion" or tool.Name=="Speed Potion" or tool.Name=="Boba") then
+            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Bull's essence" or tool.Name=="Potion of Strength" or tool.Name=="Frog Potion" or tool.Name=="Speed Potion" or tool.Name=="Boba") and ok then
                 local handle = tool.Handle
                 moveTo(handle)
                 task.wait(pauseTime)
@@ -104,15 +105,21 @@ local function CollectAllPermaBuffsSR()
                 rotateCameraTo(handle)
                 task.wait(pauseTime)
                 sendFKey()
+				task.wait(pauseTime)
+				sendSpaceKey()
+			elseif ok == false then
+				task.wait(9)	
             end
+			task.wait(moveDelay)
         end
     end
+	hrp.CFrame = hrp.CFrame + Vector3.new(0,50,0)
 end
 
 local function CollectAllStrengthItemsSR()
     for i=1,3 do
         for _, tool in ipairs(itemsFolder:GetChildren()) do
-            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Bull's essence" or tool.Name=="Potion of Strength" or tool.Name=="Boba" or tool.Name=="True Power" or tool.Name=="Sphere of fury") then
+            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Bull's essence" or tool.Name=="Potion of Strength" or tool.Name=="Boba" or tool.Name=="True Power" or tool.Name=="Sphere of fury") and ok then
                 local handle = tool.Handle
                 moveTo(handle)
                 task.wait(pauseTime)
@@ -120,15 +127,21 @@ local function CollectAllStrengthItemsSR()
                 rotateCameraTo(handle)
                 task.wait(pauseTime)
                 sendFKey()
+				task.wait(pauseTime)
+				sendSpaceKey()
+			elseif ok == false then
+				task.wait(9)	
             end
+			task.wait(moveDelay)
         end
     end
+	hrp.CFrame = hrp.CFrame + Vector3.new(0,50,0)
 end
 
 local function CollectAllSpeedAndJumpItemsSR()
     for i=1,3 do
         for _, tool in ipairs(itemsFolder:GetChildren()) do
-            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Speed Potion" or tool.Name=="Frog Potion" or tool.Name=="Boba" or tool.Name=="Lightning Potion") then
+            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Speed Potion" or tool.Name=="Frog Potion" or tool.Name=="Boba" or tool.Name=="Lightning Potion") and ok then
                 local handle = tool.Handle
                 moveTo(handle)
                 task.wait(pauseTime)
@@ -136,16 +149,21 @@ local function CollectAllSpeedAndJumpItemsSR()
                 rotateCameraTo(handle)
                 task.wait(pauseTime)
                 sendFKey()
+				task.wait(pauseTime)
+				sendSpaceKey()
+			elseif ok == false then
+				task.wait(9)	
             end
+			task.wait(moveDelay)
         end
     end
+	hrp.CFrame = hrp.CFrame + Vector3.new(0,50,0)
 end
 
 local function CollectAllOneShottyItemsSR()
-    CollectAllStrengthItemsSR()
     for i=1,3 do
         for _, tool in ipairs(itemsFolder:GetChildren()) do
-            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Cube of Ice") then
+            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Cube of Ice" or tool.Name=="Bull's essence" or tool.Name=="Potion of Strength" or tool.Name=="Boba" or tool.Name=="True Power" or tool.Name=="Sphere of fury") and ok then
                 local handle = tool.Handle
                 moveTo(handle)
                 task.wait(pauseTime)
@@ -153,15 +171,21 @@ local function CollectAllOneShottyItemsSR()
                 rotateCameraTo(handle)
                 task.wait(pauseTime)
                 sendFKey()
+				task.wait(pauseTime)
+				sendSpaceKey()
+			elseif ok == false then
+				task.wait(9)	
             end
+			task.wait(moveDelay)
         end
     end
+	hrp.CFrame = hrp.CFrame + Vector3.new(0,50,0)
 end
 
 local function CollectAllHealingItemsSR()
     for i=1,3 do
         for _, tool in ipairs(itemsFolder:GetChildren()) do
-            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Apple" or tool.Name=="Bandage" or tool.Name:lower()=="first aid kit" or tool.Name=="Healing Potion" or tool.Name=="Potion of Healing" or tool.Name=="Boba") then
+            if tool:IsA("Tool") and tool:FindFirstChild("Handle") and (tool.Name=="Apple" or tool.Name=="Bandage" or tool.Name:lower()=="first aid kit" or tool.Name=="Healing Potion" or tool.Name=="Potion of Healing" or tool.Name=="Boba") and ok then
                 local handle = tool.Handle
                 moveTo(handle)
                 task.wait(pauseTime)
@@ -169,9 +193,15 @@ local function CollectAllHealingItemsSR()
                 rotateCameraTo(handle)
                 task.wait(pauseTime)
                 sendFKey()
+				task.wait(pauseTime)
+				sendSpaceKey()
+			elseif ok == false then
+				task.wait(9)	
             end
+			task.wait(moveDelay)
         end
     end
+	hrp.CFrame = hrp.CFrame + Vector3.new(0,50,0)
 end
 
 local auraDist = 30
