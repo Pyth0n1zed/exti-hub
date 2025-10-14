@@ -89,14 +89,15 @@ local function CollectItemsSR(itemNames, repeatCount)
                 sendFKey()
                 task.wait(pauseTime)
                 sendSpaceKey()
-            elseif ok == false then
-                task.wait(10)
+                task.wait(moveDelay)
+            elseif not ok then
+                task.wait(9)
             end
-            task.wait(moveDelay)
         end
     end
-    hrp.CFrame = hrp.CFrame + Vector3.new(0,200,0)
+    hrp.CFrame = hrp.CFrame + Vector3.new(0,50,0)
 end
+
 
 local function CollectAllPermanentItemsSR()
     CollectItemsSR({"Potion of Strength", "Frog Potion", "Speed Potion", "Boba", "Bull's essence"},5)
