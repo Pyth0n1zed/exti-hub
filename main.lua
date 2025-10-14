@@ -42,7 +42,10 @@ local moveDelay = 0.65
 local pauseTime = 0.1
 
 local function moveTo(part)
-    character:PivotTo(part.CFrame)
+    local direction = (part.Position - hrp.Position).Unit
+    local targetPos = part.Position - direction * 3
+    local targetCF = CFrame.new(targetPos)
+    hrp.CFrame = targetCF
 end
 
 local function faceTarget(part)
