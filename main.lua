@@ -36,7 +36,7 @@ end)
 
 
 local moveDelay = 0.65
-local pauseTime = 0.09
+local pauseTime = 0.1
 
 local function moveTo(part)
     character:PivotTo(part.CFrame)
