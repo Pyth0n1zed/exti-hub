@@ -95,7 +95,7 @@ local function CollectItemsSR(itemNames, repeatCount)
             end
         end
     end
-    hrp.CFrame = hrp.CFrame + Vector3.new(0,50,0)
+    hrp.CFrame = hrp.CFrame + Vector3.new(0,200,0)
 end
 
 
@@ -209,7 +209,7 @@ local main = exti:CreateTab("Main", 1)
 local items = exti:CreateTab("Items", 2)
 local misc = exti:CreateTab("Misc", 3)
 exti:CreateButton(main,"toggle","Slap Aura","Automatically slaps for you with extended hitbox",1,auraOn,auraOff)
-exti:CreateLabel(items,"Collect Items", 1)
+exti:CreateLabel(items,"Collect Items (best used before match starting", 1)
 exti:CreateButton(items,"trigger","Item Vaccum","Automatically collects all items",2,CollectAllItemsSR)
 exti:CreateButton(items,"trigger","Oneshot Item Vaccum","Automatically collects all items that help you oneshot people.",3,CollectAllOneShottyItemsSR)
 exti:CreateButton(items,"trigger","Strength Item Vaccum","Automatically collects all items that increase your strength.",4,CollectAllStrengthItemsSR)
