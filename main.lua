@@ -269,4 +269,5 @@ exti:CreateButton(items,"trigger","Use All Permanent Boosts","Automatically equi
 exti:CreateButton(items,"trigger","Use All Oneshot Items","Automatically equips all items that help you oneshot people.",10,UseAllOneshotItemsSR)
 exti:CreateButton(misc,"trigger","Teleport to Slap Royale matchmaking","Automatically teleports you to the slap royale matchmaking place to start a new game",1,Teleporttomatchmaking)
 exti:CreateButton(misc,"toggle","ESP","See where players are at and their usernames.",2,espCreate,destroyESP)
+exte:CreateTextInput(misc,"Loop Goto","Basically stick to a player by constantly teleporting towards them (Supports name shorthands)",3,loopgoto)
 exti:FinishLoading()
