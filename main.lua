@@ -93,7 +93,7 @@ local function CollectItemsSR(itemNames, repeatCount)
             elseif not ok then
                 task.wait(12)
 				sendSpaceKey()
-				task.wait(pauseTime)
+				task.wait(6)
             end
         end
     end
