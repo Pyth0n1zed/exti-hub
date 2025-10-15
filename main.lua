@@ -91,7 +91,9 @@ local function CollectItemsSR(itemNames, repeatCount)
                 sendSpaceKey()
                 task.wait(moveDelay)
             elseif not ok then
-                task.wait(9)
+                task.wait(12)
+				sendSpaceKey()
+				task.wait(pauseTime)
             end
         end
     end
