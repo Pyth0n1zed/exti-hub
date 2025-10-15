@@ -204,6 +204,54 @@ function Teleporttomatchmaking()
 	game:GetService("TeleportService"):Teleport(9426795465,game.Players.LocalPlayer)
 end
 
+function espCreate()
+	for _,v in pairs(game.Players:GetPlayers()) do
+		local c = v.Character
+		local highlight = Instance.new("Highlight")
+		local billboard = Instance.new("BillboardGui")
+		local textLabel = Instance.new("TextLabel)
+
+		highlight.Adornee = c
+		highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+		highlight.Enabled = true
+		highlight.OutlineColor = Color3.fromRGB(255,0,255)
+		highlight.FillTransparency = 1
+		highlight.Parent = c
+
+		billboard.Parent = c.Head
+		billboard.Size = UDim2.new(0,200,0,50)
+		billboard.AlwaysOnTop = true
+		billboard.StudsOffset = Vector3.new(0,3,0)
+
+		textLabel.Parent = billboard
+		textLabel.Size = UDim2.new(1, 0, 1, 0)
+		textLabel.BackgroundTransparency = 1
+		textLabel.Text = v.Name
+		textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+		textLabel.TextStrokeTransparency = 0
+		textLabel.TextScaled = true
+		task.spawn(function()
+			while true do
+				local distance = (cam.CFrame.Position - character.Head.Position).Magnitude
+				billboard.Size = UDim2.new(0, math.clamp(500 / distance, 50, 200), 0, math.clamp(500 / distance, 25, 200))
+				wait(0.5)
+				if c.Humanoid.Health == 0 then
+					highlight:Destroy()
+					billboard:Destroy()
+				end
+			end
+		end)
+
+	end
+ end
+
+local function destroyESP()
+	for _,v in pairs(game.Players:GetPlayers()) do
+		v.Character:FindFirstChild("Highlight"):Destroy()
+		v.Character.Head:FindFirstChild("BillboardGui"):Destroy()
+	end
+end
+
 exti:SetTitle("exti hub")
 local main = exti:CreateTab("Main", 1)
 local items = exti:CreateTab("Items", 2)
