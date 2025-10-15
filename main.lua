@@ -281,15 +281,16 @@ end
 end)
 
 function AutoWin()
-	auraOn()
+auraOn()
 	CollectAllOneShottyItemsSR()
 	while true do
 		if not player.PlayerGui:FindFirstChild("Countdown") then break end task.wait(0.1)
 	end
 	UseAllOneshotItemsSR()
 	for _,v in pairs(player:GetDescendants()) do
-		if v:FindFirstChild("Glove") then
-			v.Parent = Humanoid
+		if v:FindFirstChild("Glove") and v:IsA("Tool") then
+		    v.Parent = character
+			v:Activate()
 		end
 	end
 	loopgoto = true
@@ -299,7 +300,7 @@ function AutoWin()
 			if v.Character.Humanoid.Health > 0 then
 				name = v.Name
 			end
-			wait(1.7)
+			wait(3)
 			continue
 		end
 	end
