@@ -270,7 +270,7 @@ end
 task.spawn(function()
 while true do
 	for _,v in pairs(game.Players:GetPlayers())do	
-		if v.Name == name and loopgoto then
+		if v.Name == name and loopgoto and v.Character.Humanoid.Health > 0 then
 			hrp:PivotTo(v.Character.HumanoidRootPart.CFrame)
 		end
 	end
