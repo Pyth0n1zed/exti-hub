@@ -281,6 +281,26 @@ end)
 function AutoWin()
 	CollectAllOneShottyItemsSR()
 	UseAllOneshotItemsSR()
+	while true do
+		if not player.PlayerGui.Countdown then break end task.wait(0.1)
+	end
+	for _,v in pairs(player:GetDescendants()) do
+		if v.Glove then
+			v.Parent = Humanoid
+		end
+	end
+	loopgoto = true
+	for i,v in pairs(game.Players:GetPlayers()) do
+		if v:CharacterAdded:Wait().Humanoid.Health > 0 then
+		name = v.Name
+
+		while task.wait(0.1) do
+			if v.CharacterAdded:Wait().Humanoid.Health == 0 then
+				break
+			end
+		end
+		if character.Humanoid.Health == 0 then break end
+	end
 end
 
 exti:SetTitle("exti hub")
