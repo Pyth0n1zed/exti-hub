@@ -306,7 +306,9 @@ end
 exti:SetTitle("exti hub")
 local main = exti:CreateTab("Main", 1)
 local items = exti:CreateTab("Items", 2)
-local misc = exti:CreateTab("Misc", 3)
+local auto = exti:CreateTab("Auto",3)
+local misc = exti:CreateTab("Misc", 4)
+
 exti:CreateButton(main,"toggle","Slap Aura","Automatically slaps for you with extended hitbox",1,auraOn,auraOff)
 exti:CreateLabel(items,"Collect Items (best used before match starting", 1)
 exti:CreateButton(items,"trigger","Item Vaccum","Automatically collects all items",2,CollectAllItemsSR)
@@ -322,4 +324,5 @@ exti:CreateButton(misc,"trigger","Teleport to Slap Royale matchmaking","Automati
 exti:CreateButton(misc,"toggle","ESP","See where players are at and their usernames.",2,espCreate,destroyESP)
 exti:CreateTextInput(misc,"Loop Goto","Basically stick to a player by constantly teleporting towards them (Supports name shorthands)",3,loopgotoname)
 exti:CreateButton(misc,"toggle","Loop Goto Enable","Enable Loop Goto",4,loopgotoenable,loopgotoenable)
+exti:CreateButton(auto,"trigger","Auto win","Automatically wins the game for you (EXPERIMENTAL)",1,AutoWin)
 exti:FinishLoading()
