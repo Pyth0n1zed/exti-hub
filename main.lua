@@ -251,14 +251,27 @@ local function destroyESP()
 		v.Character.Head:FindFirstChild("BillboardGui"):Destroy()
 	end
 end
-
+local loopgoto = false
 function loopgotoname()
-
+	loopgoto = not loopgoto
+end
+local name = ""
+function loopgotoenable(t)
+	for i,v in pairs(game.Players:GetPlayers()) do
+		if string.find(t:lower(),v.Name:lower) then
+			name = v.Name
+		end
+	end
 end
 
-function loopgotoenable()
-
-end
+rs.RenderStepped:Connect(function()
+	for _,v in pairs(game.Players:GetPlayers())do	
+		if v.Name == name and loopgoto then
+			hrp:PivotTo(v.Character.HumanoidRootPart.Position)
+		end
+	end
+	wait(0.1)
+end)
 
 exti:SetTitle("exti hub")
 local main = exti:CreateTab("Main", 1)
