@@ -287,7 +287,7 @@ function AutoWin()
 	end
 	UseAllOneshotItemsSR()
 	for _,v in pairs(player:GetDescendants()) do
-		if v.Glove then
+		if v:FindFirstChild("Glove) then
 			v.Parent = Humanoid
 		end
 	end
