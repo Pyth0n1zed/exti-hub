@@ -281,6 +281,7 @@ end
 end)
 
 function AutoWin()
+	auraOn()
 	CollectAllOneShottyItemsSR()
 	while true do
 		if not player.PlayerGui:FindFirstChild("Countdown") then break end task.wait(0.1)
