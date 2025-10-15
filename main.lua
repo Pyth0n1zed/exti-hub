@@ -232,7 +232,7 @@ function espCreate()
 		textLabel.TextScaled = true
 		task.spawn(function()
 			while true do
-				local distance = (cam.CFrame.Position - character.Head.Position).Magnitude
+				local distance = (camera.CFrame.Position - character.Head.Position).Magnitude
 				billboard.Size = UDim2.new(0, math.clamp(500 / distance, 50, 200), 0, math.clamp(500 / distance, 25, 200))
 				wait(0.5)
 				if c.Humanoid.Health == 0 then
@@ -252,22 +252,23 @@ local function destroyESP()
 	end
 end
 local loopgoto = false
-function loopgotoname()
-	loopgoto = not loopgoto
-end
 local name = ""
-function loopgotoenable(t)
+function loopgotoname(t)
 	for i,v in pairs(game.Players:GetPlayers()) do
-		if string.find(t:lower(),v.Name:lower) then
+		if string.find(t:lower(),v.Name:lower()) then
 			name = v.Name
 		end
 	end
 end
 
+function loopgotoenable(t)
+	loopgoto = not loopgoto
+end
+
 rs.RenderStepped:Connect(function()
 	for _,v in pairs(game.Players:GetPlayers())do	
 		if v.Name == name and loopgoto then
-			hrp:PivotTo(v.Character.HumanoidRootPart.Position)
+			hrp:PivotTo(v.Character.HumanoidRootPart.CFrame)
 		end
 	end
 	wait(0.1)
