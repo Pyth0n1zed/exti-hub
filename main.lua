@@ -209,7 +209,7 @@ function espCreate()
 		local c = v.Character
 		local highlight = Instance.new("Highlight")
 		local billboard = Instance.new("BillboardGui")
-		local textLabel = Instance.new("TextLabel)
+		local textLabel = Instance.new("TextLabel")
 
 		highlight.Adornee = c
 		highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
@@ -268,5 +268,5 @@ exti:CreateButton(items,"trigger","Use All Items","Automatically equips and uses
 exti:CreateButton(items,"trigger","Use All Permanent Boosts","Automatically equips and uses all items that give a permanent boost to stats.",9,UseAllPermanentItemsSR)
 exti:CreateButton(items,"trigger","Use All Oneshot Items","Automatically equips all items that help you oneshot people.",10,UseAllOneshotItemsSR)
 exti:CreateButton(misc,"trigger","Teleport to Slap Royale matchmaking","Automatically teleports you to the slap royale matchmaking place to start a new game",1,Teleporttomatchmaking)
-exti:CreateButton(misc,"toggle","See where players are at and their usernames.",2,espCreate,destroyESP)
+exti:CreateButton(misc,"toggle","ESP","See where players are at and their usernames.",2,espCreate,destroyESP)
 exti:FinishLoading()
