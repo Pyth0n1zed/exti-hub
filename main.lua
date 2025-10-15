@@ -255,23 +255,27 @@ local loopgoto = false
 local name = ""
 function loopgotoname(t)
 	for i,v in pairs(game.Players:GetPlayers()) do
-		if string.find(t:lower(),v.Name:lower()) then
+		if string.find(v.Name:lower(),t:lower()) then
 			name = v.Name
+			break
 		end
 	end
 end
 
 function loopgotoenable(t)
 	loopgoto = not loopgoto
+	print(loopgoto)
 end
 
-rs.RenderStepped:Connect(function()
+task.spawn(function()
+while true do
 	for _,v in pairs(game.Players:GetPlayers())do	
 		if v.Name == name and loopgoto then
 			hrp:PivotTo(v.Character.HumanoidRootPart.CFrame)
 		end
 	end
 	wait(0.1)
+end
 end)
 
 exti:SetTitle("exti hub")
