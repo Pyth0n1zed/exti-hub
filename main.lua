@@ -278,6 +278,11 @@ while true do
 end
 end)
 
+function AutoWin()
+	CollectAllOneShottyItemsSR()
+	UseAllOneshotItemsSR()
+end
+
 exti:SetTitle("exti hub")
 local main = exti:CreateTab("Main", 1)
 local items = exti:CreateTab("Items", 2)
