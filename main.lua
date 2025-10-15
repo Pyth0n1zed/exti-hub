@@ -35,7 +35,7 @@ task.spawn(function()
 end)
 
 
-local moveDelay = 0.65
+local moveDelay = 0.8
 local pauseTime = 0.1
 
 local function moveTo(part)
@@ -93,7 +93,13 @@ local function CollectItemsSR(itemNames, repeatCount)
             elseif not ok then
                 task.wait(12)
 				sendSpaceKey()
-				task.wait(6)
+				task.wait(12)
+				for i = 1, 2 do
+   					VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.I, false, game)
+    				task.wait(0.1) -- hold
+    				VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.I, false, game)
+    				task.wait(0.2) -- wait between presses
+				end
             end
         end
     end
@@ -276,12 +282,12 @@ while true do
 			hrp:PivotTo(v.Character.HumanoidRootPart.CFrame)
 		end
 	end
-	wait(0.1)
+	wait(0.01)
 end
 end)
 
 function AutoWin()
-auraOn()
+	auraOn()
 	CollectAllOneShottyItemsSR()
 	while true do
 		if not player.PlayerGui:FindFirstChild("Countdown") then break end task.wait(0.1)
@@ -294,13 +300,46 @@ auraOn()
 		end
 	end
 	loopgoto = true
-	for i = 1, 100 do
+	local zone = game.Workspace:WaitForChild("Zone1")
+	local centerpos = zone.Position
+	local targetpos = centerpos - Vector3.new(0,100,0)
+	local part = Instance.new("Part")
+	part.Parent = game.Workspace
+	
+	part.Anchored = true
+	part.CanCollide = true
+	part.Size = Vector3.new(50,2,50)
+	part.Position = targetpos
+
+	hrp.CFrame = CFrame.new(targetpos + Vector3.new(0,5,0))
+	
+	wait(1)
+	hrp:PivotTo(part.CFrame + Vector3.new(0,1,0))
+	local alive = 20
+	while wait(0.1) do
+		
+		local aliveLabel = player.PlayerGui.HUD.HUD.AliveCounter.CounterLabel
+
+local function getAliveCount()
+    local text = tostring(aliveLabel.Text)
+    local num = text:match("%d+") -- grabs the first sequence of digits
+    return tonumber(num) or 0
+end
+
+if getAliveCount() < 6 then
+    break
+end
+
+hrp:PivotTo(part.CFrame + Vector3.new(0,1,0))
+		if alive < 6 then break end
+	end
+	for i = 1, 1000 do
 		for i,v in pairs(game.Players:GetPlayers()) do
 			if character.Humanoid.Health == 0 then break end
 			if v.Character.Humanoid.Health > 0 then
 				name = v.Name
 			end
-			wait(3)
+			wait(2.5)
 			continue
 		end
 	end
@@ -329,3 +368,9 @@ exti:CreateTextInput(misc,"Loop Goto","Basically stick to a player by constantly
 exti:CreateButton(misc,"toggle","Loop Goto Enable","Enable Loop Goto",4,loopgotoenable,loopgotoenable)
 exti:CreateButton(auto,"trigger","Auto win","Automatically wins the game for you (EXPERIMENTAL)",1,AutoWin)
 exti:FinishLoading()
+if map then
+    local originOffice = map:FindFirstChild("OriginOffice")
+    if originOffice then
+        originOffice:Destroy()
+    end
+end
