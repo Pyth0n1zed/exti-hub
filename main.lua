@@ -345,7 +345,7 @@ hrp:PivotTo(part.CFrame + Vector3.new(0,1,0))
 			if v.Character.Humanoid.Health > 0 then
 				name = v.Name
 			end
-			wait(2.5)
+			wait(4)
 			continue
 		end
 	end
