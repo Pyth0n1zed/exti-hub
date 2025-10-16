@@ -389,6 +389,9 @@ end
 
 function spectoggle()
 	spectate = not spectate
+	if not spectate then
+		camera.CameraSubject = character.Humanoid
+	end
 end
 
 exti:SetTitle("exti hub")
