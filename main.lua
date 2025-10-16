@@ -516,4 +516,3 @@ if map then
         originOffice:Destroy()
     end
 end
-AutoWinVoid()
