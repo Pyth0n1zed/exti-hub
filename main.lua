@@ -196,8 +196,9 @@ end
 function UseAllOneshotItemsSR()
 	for _,v in pairs(player:GetDescendants()) do
 		if v.Name == "Bull's essence" or v.Name == "Cube of Ice" or v.Name == "Sphere of fury" or v.Name == "Boba" or v.Name == "Potion of Strength" then
-			v.Parent = character
-			v:Activate()
+			local clone = v:Clone()
+			clone.Parent = character
+			clone:Activate()
 			task.wait(0.05)
 		end
 	end
@@ -350,7 +351,7 @@ function AutoWin()
     		return tonumber(num) or 0
 		end
 
-		if getAliveCount() < 6 then
+		if getAliveCount() < 7 then
     		break
 		end
 
