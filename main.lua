@@ -293,6 +293,10 @@ function AutoWin()
 		if not player.PlayerGui:FindFirstChild("Countdown") then break end task.wait(0.1)
 	end
 	UseAllOneshotItemsSR()
+	for i = 1, 10 do
+		sendSpaceKey()
+		task.wait(0.8)
+	end
 	for _,v in pairs(player:GetDescendants()) do
 		if v:FindFirstChild("Glove") and v:IsA("Tool") then
 		    v.Parent = character
@@ -322,7 +326,7 @@ function AutoWin()
 
 local function getAliveCount()
     local text = tostring(aliveLabel.Text)
-    local num = text:match("%d+") -- grabs the first sequence of digits
+    local num = text:match("%d+") 
     return tonumber(num) or 0
 end
 
