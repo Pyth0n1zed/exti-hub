@@ -169,7 +169,7 @@ rs.RenderStepped:Connect(function()
 	for _,v in pairs(game.Players:GetPlayers()) do
 		if v==player then continue end
 		local tchar = v.Character
-		local thrp = tchar.HumanoidRootPart
+		local thrp = tchar:FindFirstChild("HumanoidRootPart")
 		local dist = (hrp.Position - thrp.Position).Magnitude
 		if dist < auraDist + 1 then events:FindFirstChild("Slap"):FireServer(thrp) end
 	end
