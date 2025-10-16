@@ -289,6 +289,22 @@ while true do
 end
 end)
 
+function AutoKill()
+	auraOn()
+	for i = 1, 1000 do
+		for i,v in pairs(game.Players:GetPlayers()) do
+			if not v.Character then continue end
+			if not v.Character:FindFirstChild("Humanoid") then continue end
+			if character.Humanoid.Health == 0 then continue end
+			if v.Character.Humanoid.Health > 0 then
+				name = v.Name
+			end
+			wait(3.5)
+			continue
+		end
+	end
+end
+
 function AutoWin()
 	auraOn()
 	CollectAllOneShottyItemsSR()
@@ -328,46 +344,19 @@ function AutoWin()
 		
 		local aliveLabel = player.PlayerGui.HUD.HUD.AliveCounter.CounterLabel
 
-local function getAliveCount()
-    local text = tostring(aliveLabel.Text)
-    local num = text:match("%d+") 
-    return tonumber(num) or 0
-end
-
-if getAliveCount() < 6 then
-    break
-end
-
-hrp:PivotTo(part.CFrame + Vector3.new(0,1,0))
-		if alive < 6 then break end
-	end
-	for i = 1, 1000 do
-		for i,v in pairs(game.Players:GetPlayers()) do
-			if not v.Character then continue end
-			if not v.Character:FindFirstChild("Humanoid") then continue end
-			if character.Humanoid.Health == 0 then continue end
-			if v.Character.Humanoid.Health > 0 then
-				name = v.Name
-			end
-			wait(3.5)
-			continue
+		local function getAliveCount()
+    		local text = tostring(aliveLabel.Text)
+    		local num = text:match("%d+") 
+    		return tonumber(num) or 0
 		end
-	end
-end
-function AutoKill()
-	auraOn()
-	for i = 1, 1000 do
-		for i,v in pairs(game.Players:GetPlayers()) do
-			if not v.Character then continue end
-			if not v.Character:FindFirstChild("Humanoid") then continue end
-			if character.Humanoid.Health == 0 then continue end
-			if v.Character.Humanoid.Health > 0 then
-				name = v.Name
-			end
-			wait(3.5)
-			continue
+
+		if getAliveCount() < 6 then
+    		break
 		end
+
+		hrp:PivotTo(part.CFrame + Vector3.new(0,1,0))
 	end
+	AutoKill()
 end
 
 local sIndex = 0
