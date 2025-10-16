@@ -370,6 +370,27 @@ function AutoKill()
 	end
 end
 
+local sIndex = 0
+local spectate = false
+
+local function cyclespec()
+	sIndex = sIndex + 1
+	if sIndex > #game.Players:GetPlayers() then sIndex = 1 end
+	for i,v in pairs(game.Players:GetPlayers()) do
+		if not spectate then break end
+		if i == sIndex and v.Character and v.Character:FindFirstChild("Humanoid") then
+			camera.CameraSubject = v.Character.Humanoid
+		elseif not v.Character or not v.Character:FindFirstChild("Humanoid") then
+			cyclespec()
+			break
+		end
+	end
+end
+
+function spectoggle()
+	spectate = not spectate
+end
+
 exti:SetTitle("exti hub")
 local main = exti:CreateTab("Main", 1)
 local items = exti:CreateTab("Items", 2)
@@ -393,6 +414,9 @@ exti:CreateTextInput(misc,"Loop Goto","Basically stick to a player by constantly
 exti:CreateButton(misc,"toggle","Loop Goto Enable","Enable Loop Goto",4,loopgotoenable,loopgotoenable)
 exti:CreateButton(auto,"trigger","Auto win","Automatically wins the game for you (EXPERIMENTAL)",1,AutoWin)
 exti:CreateButton(auto,"trigger","Auto Kill","Automatically teleports to everybody in the server and kills them",2,AutoKill)
+exti:CreateLabel(misc, "Spectate players", 5)
+exti:CreateButton(misc, "trigger", "Spectate Cycle", "Cycle between spectating players", 6, cyclespec)
+exti:CreateButton(misc, toggle, "Enable spectate", "Enables spectating", 7, spectoggle, spectoggle)
 exti:FinishLoading()
 if map then
     local originOffice = map:FindFirstChild("OriginOffice")
