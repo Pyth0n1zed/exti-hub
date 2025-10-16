@@ -93,7 +93,7 @@ local function CollectItemsSR(itemNames, repeatCount)
             elseif not ok then
                 task.wait(12)
 				sendSpaceKey()
-				task.wait(12)
+				task.wait(10)
 				for i = 1, 2 do
    					VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.I, false, game)
     				task.wait(0.1) -- hold
