@@ -388,7 +388,7 @@ exti:CreateButton(misc,"toggle","ESP","See where players are at and their userna
 exti:CreateTextInput(misc,"Loop Goto","Basically stick to a player by constantly teleporting towards them (Supports name shorthands)",3,loopgotoname)
 exti:CreateButton(misc,"toggle","Loop Goto Enable","Enable Loop Goto",4,loopgotoenable,loopgotoenable)
 exti:CreateButton(auto,"trigger","Auto win","Automatically wins the game for you (EXPERIMENTAL)",1,AutoWin)
-exti:CreateButton(auto,"trigger","Auto Kill","Automatically teleports to everybody in the server and kills them",2,)
+exti:CreateButton(auto,"trigger","Auto Kill","Automatically teleports to everybody in the server and kills them",2,AutoKill)
 exti:FinishLoading()
 if map then
     local originOffice = map:FindFirstChild("OriginOffice")
