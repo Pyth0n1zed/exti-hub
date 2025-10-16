@@ -422,11 +422,13 @@ function killRandomWithVoid()
 
 
 end
+local part1
+
 task.spawn(function()
 			while true do
 				if hi then
 					killRandomWithVoid()
-					hrp.CFrame = game.Workspace.Zone1.CFrame + Vector3.new(0,5,0)
+					hrp.CFrame = part1.CFrame + Vector3.new(0,5,0)
 					wait(75)
 				end
 				task.wait(2)
@@ -460,7 +462,7 @@ function AutoWinVoid()
 	part.CanCollide = true
 	part.Size = Vector3.new(50,2,50)
 	part.Position = targetpos
-
+	part1 = part
 	hrp.CFrame = CFrame.new(targetpos + Vector3.new(0,5,0))
 
 	while true do
