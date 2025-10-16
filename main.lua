@@ -77,6 +77,7 @@ end
 
 local function CollectItemsSR(itemNames, repeatCount)
     repeatCount = repeatCount or 3
+	local ii = 1
     for i = 1, repeatCount do
         for _, tool in ipairs(itemsFolder:GetChildren()) do
             if tool:IsA("Tool") and tool:FindFirstChild("Handle") and table.find(itemNames, tool.Name) and ok then
@@ -86,10 +87,12 @@ local function CollectItemsSR(itemNames, repeatCount)
                 faceTarget(handle)
                 rotateCameraTo(handle)
                 task.wait(pauseTime)
+				if ii == 1 then task.wait(5) end
                 sendFKey()
                 task.wait(pauseTime)
                 sendSpaceKey()
                 task.wait(moveDelay)
+				ii = ii + 1
             elseif not ok then
                 task.wait(12)
 				sendSpaceKey()
@@ -305,6 +308,7 @@ function AutoWin()
 	end
 	loopgoto = true
 	local zone = game.Workspace:WaitForChild("Zone1")
+	task.wait(3)
 	local centerpos = zone.Position
 	local targetpos = centerpos - Vector3.new(0,100,0)
 	local part = Instance.new("Part")
