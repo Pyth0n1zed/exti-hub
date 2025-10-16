@@ -416,7 +416,7 @@ exti:CreateButton(auto,"trigger","Auto win","Automatically wins the game for you
 exti:CreateButton(auto,"trigger","Auto Kill","Automatically teleports to everybody in the server and kills them",2,AutoKill)
 exti:CreateLabel(misc, "Spectate players", 5)
 exti:CreateButton(misc, "trigger", "Spectate Cycle", "Cycle between spectating players", 6, cyclespec)
-exti:CreateButton(misc, toggle, "Enable spectate", "Enables spectating", 7, spectoggle, spectoggle)
+exti:CreateButton(misc, "toggle", "Enable spectate", "Enables spectating", 7, spectoggle, spectoggle)
 exti:FinishLoading()
 if map then
     local originOffice = map:FindFirstChild("OriginOffice")
