@@ -373,18 +373,29 @@ end
 local sIndex = 0
 local spectate = false
 
-local function cyclespec()
-	sIndex = sIndex + 1
-	if sIndex > #game.Players:GetPlayers() then sIndex = 1 end
+function searchPlayers(index)
 	for i,v in pairs(game.Players:GetPlayers()) do
 		if not spectate then break end
-		if i == sIndex and v.Character and v.Character:FindFirstChild("Humanoid") then
-			camera.CameraSubject = v.Character.Humanoid
+		if i == index and v.Character and v.Character:FindFirstChild("Humanoid") then
+			return v
 		elseif not v.Character or not v.Character:FindFirstChild("Humanoid") then
-			cyclespec()
-			break
+			continue
 		end
 	end
+	return "skibidi"
+end
+
+local function cyclespec()
+	local validPlayer
+	repeat
+		sIndex = sIndex + 1
+		if sIndex > #game.Players:GetPlayers() then sIndex = 1 end
+
+		validPlayer = searchPlayers(sIndex)
+		if validPlayer == "skibidi" then return end
+		task.wait(0.1)
+	until validPlayer ~= false or validPlayer ~= "skibidi"
+	camera.CameraSubject = validPlayer.Character.Humanoid
 end
 
 function spectoggle()
