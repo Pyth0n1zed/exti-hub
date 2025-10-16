@@ -393,33 +393,93 @@ function spectoggle()
 		camera.CameraSubject = character.Humanoid
 	end
 end
+local hi = false
+
 
 function killRandomWithVoid()
 	if game.Workspace:FindFirstChild("Map") then
-	game.Workspace:FindFirstChild("Map").Parent = game.ReplicatedStorage
-end
-
-character:PivotTo(CFrame.new(-77.1818771, 5.79619646, -702.108704))
-task.wait(2)
-VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.E, false, game)
-task.wait(5.8)
-VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.E, false, game)
-for i,v in pairs(game.Players:GetPlayers()) do
-	if v.Character then
-		if v.Character:FindFirstChild("HumanoidRootPart") and v.Character.Humanoid.Health > 0 and v ~= game.Players.LocalPlayer then
-			character:PivotTo(v.Character.HumanoidRootPart.CFrame)
-			task.wait(2)
-			break
+	game.Workspace:FindFirstChild("Map").Parent = game.ReplicatedStorage end
+	character:PivotTo(CFrame.new(-77.1818771, 5.79619646, -702.108704))
+	task.wait(2)
+	VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.E, false, game)
+	task.wait(5.8)
+	VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.E, false, game)
+	for i,v in pairs(game.Players:GetPlayers()) do
+		if v.Character then
+			if v.Character:FindFirstChild("HumanoidRootPart") and v.Character.Humanoid.Health > 0 and v ~= game.Players.LocalPlayer then
+				character:PivotTo(v.Character.HumanoidRootPart.CFrame)
+				task.wait(2)
+				break
+			end
 		end
 	end
+	if game.Workspace:FindFirstChild("Zone1") then
+		character:PivotTo(game.Workspace.Zone1.CFrame + Vector3.new(0,50,0))
+		game.ReplicatedStorage:FindFirstChild("Map").Parent = game.Workspace
+	else
+		character:PivotTo(CFrame.new(4.3729744, -44.6337852, -713.86615))	
+	end
+
+
 end
-if game.Workspace:FindFirstChild("Zone1") then
-	character:PivotTo(game.Workspace.Zone1.CFrame + Vector3.new(0,50,0))
-	game.ReplicatedStorage:FindFirstChild("Map").Parent = game.Workspace
-else
-	character:PivotTo(CFrame.new(4.3729744, -44.6337852, -713.86615))	
+task.spawn(function()
+			while true do
+				if hi then
+					killRandomWithVoid()
+					wait(75)
+				end
+				task.wait(2)
+			end
+		end)
+function AutoWinVoid()
+	CollectAllOneShottyItemsSR()
+	while true do
+		if not player.PlayerGui:FindFirstChild("Countdown") then break end task.wait(0.1)
+	end
+	UseAllOneshotItemsSR()
+	for i = 1, 10 do
+		sendSpaceKey()
+		task.wait(0.8)
+	end
+	for _,v in pairs(player:GetDescendants()) do
+		if v:FindFirstChild("Glove") and v:IsA("Tool") then
+		    v.Parent = character
+			v:Activate()
+		end
+	end
+	loopgoto = true
+	local zone = game.Workspace:WaitForChild("Zone1")
+	task.wait(3)
+	local centerpos = zone.Position
+	local targetpos = centerpos - Vector3.new(0,100,0)
+	local part = Instance.new("Part")
+	part.Parent = game.Workspace
+	
+	part.Anchored = true
+	part.CanCollide = true
+	part.Size = Vector3.new(50,2,50)
+	part.Position = targetpos
+
+	hrp.CFrame = CFrame.new(targetpos + Vector3.new(0,5,0))
+
+	while true do
+		local aliveLabel = player.PlayerGui.HUD.HUD.AliveCounter.CounterLabel
+		hi = true
+		local function getAliveCount()
+    		local text = tostring(aliveLabel.Text)
+    		local num = text:match("%d+") 
+    		return tonumber(num) or 0
+		end
+
+		if getAliveCount() < 7 then
+			hi = false
+    		break
+		end
+		task.wait(2)
+	end
+	AutoKill()
 end
-end
+
 
 exti:SetTitle("exti hub")
 local main = exti:CreateTab("Main", 1)
@@ -448,6 +508,7 @@ exti:CreateLabel(misc, "Spectate players", 5)
 exti:CreateButton(misc, "trigger", "Spectate Cycle", "Cycle between spectating players", 6, cyclespec)
 exti:CreateButton(misc, "toggle", "Enable spectate", "Enables spectating", 7, spectoggle, spectoggle)
 exti:CreateButton(auto,"trigger","Kill random person with void","Requires void, teleports them into acid (RNG)", 3, killRandomWithVoid)
+exti:CreateButton(auto,"trigger","Auto win with void method","Requires void, automatically wins for you(RNG AF)", 4, AutoWinVoid)
 exti:FinishLoading()
 if map then
     local originOffice = map:FindFirstChild("OriginOffice")
@@ -455,3 +516,4 @@ if map then
         originOffice:Destroy()
     end
 end
+AutoWinVoid()
