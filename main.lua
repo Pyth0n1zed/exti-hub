@@ -35,7 +35,7 @@ task.spawn(function()
 end)
 
 
-local moveDelay = 0.8
+local moveDelay = 0.9
 local pauseTime = 0.1
 
 local function moveTo(part)
