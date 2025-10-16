@@ -339,13 +339,13 @@ hrp:PivotTo(part.CFrame + Vector3.new(0,1,0))
 	end
 	for i = 1, 1000 do
 		for i,v in pairs(game.Players:GetPlayers()) do
-			if not v.Character then break end
-			if not v.Character:FindFirstChild("Humanoid") then break end
-			if character.Humanoid.Health == 0 then break end
+			if not v.Character then continue end
+			if not v.Character:FindFirstChild("Humanoid") then continue end
+			if character.Humanoid.Health == 0 then continue end
 			if v.Character.Humanoid.Health > 0 then
 				name = v.Name
 			end
-			wait(4)
+			wait(3.5)
 			continue
 		end
 	end
