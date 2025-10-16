@@ -330,12 +330,12 @@ local function getAliveCount()
     return tonumber(num) or 0
 end
 
-if getAliveCount() < 11 then
+if getAliveCount() < 6 then
     break
 end
 
 hrp:PivotTo(part.CFrame + Vector3.new(0,1,0))
-		if alive < 11 then break end
+		if alive < 6 then break end
 	end
 	for i = 1, 1000 do
 		for i,v in pairs(game.Players:GetPlayers()) do
