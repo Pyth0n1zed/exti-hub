@@ -196,9 +196,8 @@ end
 function UseAllOneshotItemsSR()
 	for _,v in pairs(player:GetDescendants()) do
 		if v.Name == "Bull's essence" or v.Name == "Cube of Ice" or v.Name == "Sphere of fury" or v.Name == "Boba" or v.Name == "Potion of Strength" then
-			local clone = v:Clone()
-			clone.Parent = character
-			clone:Activate()
+			v.Parent = character
+			v:Activate()
 			task.wait(0.05)
 		end
 	end
@@ -395,6 +394,33 @@ function spectoggle()
 	end
 end
 
+function killRandomWithVoid()
+	if game.Workspace:FindFirstChild("Map") then
+	game.Workspace:FindFirstChild("Map").Parent = game.ReplicatedStorage
+end
+
+character:PivotTo(CFrame.new(-77.1818771, 5.79619646, -702.108704))
+task.wait(2)
+VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.E, false, game)
+task.wait(5.8)
+VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.E, false, game)
+for i,v in pairs(game.Players:GetPlayers()) do
+	if v.Character then
+		if v.Character:FindFirstChild("HumanoidRootPart") and v.Character.Humanoid.Health > 0 and v ~= game.Players.LocalPlayer then
+			character:PivotTo(v.Character.HumanoidRootPart.CFrame)
+			task.wait(2)
+			break
+		end
+	end
+end
+if game.Workspace:FindFirstChild("Zone1") then
+	character:PivotTo(game.Workspace.Zone1.CFrame + Vector3.new(0,50,0))
+	game.ReplicatedStorage:FindFirstChild("Map").Parent = game.Workspace
+else
+	character:PivotTo(CFrame.new(4.3729744, -44.6337852, -713.86615))	
+end
+end
+
 exti:SetTitle("exti hub")
 local main = exti:CreateTab("Main", 1)
 local items = exti:CreateTab("Items", 2)
@@ -421,6 +447,7 @@ exti:CreateButton(auto,"trigger","Auto Kill","Automatically teleports to everybo
 exti:CreateLabel(misc, "Spectate players", 5)
 exti:CreateButton(misc, "trigger", "Spectate Cycle", "Cycle between spectating players", 6, cyclespec)
 exti:CreateButton(misc, "toggle", "Enable spectate", "Enables spectating", 7, spectoggle, spectoggle)
+exti:CreateButton(auto,"trigger","Kill random person with void","Requires void, teleports them into acid (RNG)", 3, killRandomWithVoid)
 exti:FinishLoading()
 if map then
     local originOffice = map:FindFirstChild("OriginOffice")
