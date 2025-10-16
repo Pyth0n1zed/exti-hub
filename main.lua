@@ -426,6 +426,7 @@ task.spawn(function()
 			while true do
 				if hi then
 					killRandomWithVoid()
+					hrp.CFrame = game.Workspace.Zone1.CFrame + Vector3.new(0,5,0)
 					wait(75)
 				end
 				task.wait(2)
