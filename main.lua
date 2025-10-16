@@ -350,6 +350,21 @@ hrp:PivotTo(part.CFrame + Vector3.new(0,1,0))
 		end
 	end
 end
+function AutoKill()
+	auraOn()
+	for i = 1, 1000 do
+		for i,v in pairs(game.Players:GetPlayers()) do
+			if not v.Character then continue end
+			if not v.Character:FindFirstChild("Humanoid") then continue end
+			if character.Humanoid.Health == 0 then continue end
+			if v.Character.Humanoid.Health > 0 then
+				name = v.Name
+			end
+			wait(3.5)
+			continue
+		end
+	end
+end
 
 exti:SetTitle("exti hub")
 local main = exti:CreateTab("Main", 1)
@@ -373,6 +388,7 @@ exti:CreateButton(misc,"toggle","ESP","See where players are at and their userna
 exti:CreateTextInput(misc,"Loop Goto","Basically stick to a player by constantly teleporting towards them (Supports name shorthands)",3,loopgotoname)
 exti:CreateButton(misc,"toggle","Loop Goto Enable","Enable Loop Goto",4,loopgotoenable,loopgotoenable)
 exti:CreateButton(auto,"trigger","Auto win","Automatically wins the game for you (EXPERIMENTAL)",1,AutoWin)
+exti:CreateButton(auto,"trigger","Auto Kill","Automatically teleports to everybody in the server and kills them",2,)
 exti:FinishLoading()
 if map then
     local originOffice = map:FindFirstChild("OriginOffice")
