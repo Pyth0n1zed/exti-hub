@@ -36,7 +36,7 @@ task.spawn(function()
 end)
 
 
-local moveDelay = 0.51
+local moveDelay = 0.075
 local pauseTime = 0.09
 
 local function moveTo(part)
@@ -82,10 +82,9 @@ local function sendSpaceKey()
 	task.wait(0.05)
 	VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.Space, false, game)
 end
-
+local ii = 1
 local function CollectItemsSR(itemNames, repeatCount)
     repeatCount = repeatCount or 3
-	local ii = 1
     for i = 1, repeatCount do
         for _, tool in ipairs(itemsFolder:GetChildren()) do
             if tool:IsA("Tool") and tool:FindFirstChild("Handle") and table.find(itemNames, tool.Name) and ok then
@@ -134,23 +133,45 @@ local function CollectItemsSR(itemNames, repeatCount)
         end
     end
     hrp.CFrame = hrp.CFrame + Vector3.new(0,200,0)
+	print(ii.." items collected")
 end
 
 
 local function CollectAllPermanentItemsSR()
-    CollectItemsSR({"Potion of Strength", "Frog Potion", "Speed Potion", "Boba", "Bull's essence"},5)
+    --CollectItemsSR({"Potion of Strength", "Frog Potion", "Speed Potion", "Boba", "Bull's essence"},5)
+	CollectItemsSR({"Potion of Strength"})
+	CollectItemsSR({"Speed Potion"})
+	CollectItemsSR({"Boba"})
+	CollectItemsSR({"Bull's essence"})
+	CollectItemsSR({"Frog potion"})
 end
 
 local function CollectAllStrengthItemsSR()
-    CollectItemsSR({"Bull's essence","Potion of Strength","Boba","True Power","Sphere of fury"},5)
+    --CollectItemsSR({"Bull's essence","Potion of Strength","Boba","True Power","Sphere of fury"},5)
+	CollectItemsSR({"Potion of Strength"})
+	CollectItemsSR({"Bull's essence"})
+	CollectItemsSR({"Boba"})
+	CollectItemsSR({"Sphere of fury"})
+	CollectItemsSR({"True Power"})
 end
 
 local function CollectAllOneShottyItemsSR()
-    CollectItemsSR({"Cube of Ice","Bull's essence","Potion of Strength","Boba","True Power","Sphere of fury"},5)
+    --CollectItemsSR({"Cube of Ice","Bull's essence","Potion of Strength","Boba","True Power","Sphere of fury"},5)
+	CollectItemsSR({"Potion of Strength"})
+	CollectItemsSR({"Bull's essence"})
+	CollectItemsSR({"Boba"})
+	CollectItemsSR({"Sphere of fury"})
+	CollectItemsSR({"True Power"})
+	CollectItemsSR({"Cube of Ice"})
 end
 
 local function CollectAllHealingItemsSR()
-    CollectItemsSR({"Apple","Bandage","First Aid Kit","Healing Potion","Potion of Healing","Boba"},5)
+    --CollectItemsSR({"Apple","Bandage","First Aid Kit","Healing Potion","Potion of Healing","Boba"},5)
+	CollectItemsSR({"Healing Potion"})
+	CollectItemsSR({"First Aid Kit"})
+	CollectItemsSR({"Bandage"})
+	CollectItemsSR({"Apple"})
+	CollectItemsSR({"Boba"})
 end
 
 local function CollectAllItemsSR()
@@ -330,15 +351,25 @@ function AutoKill()
 			continue
 		end
 	end
+	auraOff()
+end
+
+local part1
+local function forcePivotPart1()
+	if part1 then
+		for i = 1, 50 do
+			character:PivotTo(part1.CFrame + Vector3.new(0,5,0))
+			wait(0.1)
+		end
+	end
 end
 
 function AutoWin()
 	auraOn()
 	CollectAllOneShottyItemsSR()
-	while true do
-		if not player.PlayerGui:FindFirstChild("Countdown") then break end task.wait(0.1)
-	end
+	while true do if not player.PlayerGui:FindFirstChild("Countdown") then break end task.wait(0.1) end
 	UseAllOneshotItemsSR()
+	task.wait(3)
 	for i = 1, 10 do
 		sendSpaceKey()
 		task.wait(0.8)
@@ -363,7 +394,8 @@ function AutoWin()
 	part.Position = targetpos
 
 	hrp.CFrame = CFrame.new(targetpos + Vector3.new(0,5,0))
-	
+	forcePivotPart1()
+	part1 = part
 	wait(1)
 	hrp:PivotTo(part.CFrame + Vector3.new(0,1,0))
 	local alive = 20
@@ -422,15 +454,6 @@ function spectoggle()
 end
 local hi = false
 local mapRemove = false
-local part1
-local function forcePivotPart1(dur)
-	if part1 then
-		for i = 1, dur do
-			character:PivotTo(part1.CFrame + Vector3.new(0,5,0))
-			wait(0.1)
-		end
-	end
-end
 function killRandomWithVoid()
 	mapRemove = true
 	task.wait(0.5)
@@ -479,7 +502,7 @@ task.spawn(function()
 			mapClone = game.Workspace.Map:Clone()
 		end
 		
-		task.wait()
+		task.wait(0.1)
 	end
 end)
 
@@ -487,17 +510,16 @@ task.spawn(function()
 			while true do
 				if hi and part1 then
 					killRandomWithVoid()
-					forcePivotPart1(50)
-					wait(70)
+					forcePivotPart1()
+					wait(66)
 				end
 				task.wait(2)
 			end
 		end)
 function AutoWinVoid()
 	CollectAllOneShottyItemsSR()
-	while true do
-		if not player.PlayerGui:FindFirstChild("Countdown") then break end task.wait(0.1)
-	end
+	while true do if not player.PlayerGui:FindFirstChild("Countdown") then break end task.wait(0.1) end
+	task.wait(3)
 	for i = 1, 10 do
 		sendSpaceKey()
 		task.wait(0.8)
@@ -548,7 +570,7 @@ function AutoWinVoid()
 
 	
 	hrp.CFrame = CFrame.new(targetpos + Vector3.new(0,5,0))
-
+	forcePivotPart1()
 	while true do
 		local aliveLabel = player.PlayerGui.HUD.HUD.AliveCounter.CounterLabel
 		hi = true
