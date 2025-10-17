@@ -462,7 +462,7 @@ local part1
 
 task.spawn(function()
 			while true do
-				if hi then
+				if hi and part1 then
 					killRandomWithVoid()
 					hrp.CFrame = part1.CFrame + Vector3.new(0,5,0)
 					wait(70)
