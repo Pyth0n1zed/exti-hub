@@ -433,9 +433,9 @@ function killRandomWithVoid()
 	for i,v in pairs(game.Players:GetPlayers()) do
 		if v.Character then
 			if v.Character:FindFirstChild("HumanoidRootPart") and v.Character.Humanoid.Health > 0 and v ~= game.Players.LocalPlayer then
-				local dir = (v.HumanoidRootPart.Position - hrp.Position).Unit
-				local tpos1 = v.HumanoidRootPart.Position + dir*3
-				local tpos2 = v.HumanoidRootPart.Position - dir*3
+				local dir = (v.Character.HumanoidRootPart.Position - hrp.Position).Unit
+				local tpos1 = v.Character.HumanoidRootPart.Position + dir*3
+				local tpos2 = v.Character.HumanoidRootPart.Position - dir*3
 				tcf1 = CFrame.new(tpos1)
 				tcf2 = CFrame.new(tpos2)
 
