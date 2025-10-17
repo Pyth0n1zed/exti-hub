@@ -491,7 +491,10 @@ function killRandomWithVoid()
 	end
 	task.wait(0.1)
 end
-local mapClone = game.Workspace:FindFirstChild("Map"):Clone()
+local mapClone
+if game.Workspace:FindFirstChild("Map") then
+	mapClone = game.Workspace:FindFirstChild("Map"):Clone()
+end
 task.spawn(function()
 	while true do
 		if mapRemove and game.Workspace:FindFirstChild("Map") then
