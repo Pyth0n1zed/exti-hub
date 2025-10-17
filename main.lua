@@ -36,8 +36,8 @@ task.spawn(function()
 end)
 
 
-local moveDelay = 0.9
-local pauseTime = 0.1
+local moveDelay = 0.51
+local pauseTime = 0.09
 
 local function moveTo(part)
     local direction = (part.Position - hrp.Position).Unit
@@ -353,7 +353,7 @@ function AutoWin()
 	local zone = game.Workspace:WaitForChild("Zone1")
 	task.wait(3)
 	local centerpos = zone.Position
-	local targetpos = centerpos - Vector3.new(0,100,0)
+	local targetpos = centerpos - Vector3.new(0,90,0)
 	local part = Instance.new("Part")
 	part.Parent = game.Workspace
 	
@@ -459,14 +459,18 @@ function killRandomWithVoid()
 		character:PivotTo(CFrame.new(4.3729744, -44.6337852, -713.86615))	
 	end
 end
+local mapClone = game.Workspace.Map:Clone()
 task.spawn(function()
 	while true do
 		if mapRemove and game.Workspace:FindFirstChild("Map") then
-			game.Workspace.Map.Parent = game.StarterGui
-		elseif game.StarterGui:FindFirstChild("Map") and not mapRemove then
-			game.StarterGui.Map.Parent = game.Workspace
+			game.Workspace.Map:Destroy()
+		elseif not game.Workspace:FindFirstChild("Map") and not mapRemove then
+			mapClone.Parent = game.Workspace
+			mapClone = nil
+			mapClone = game.Workspace.Map:Clone()
 		end
-			task.wait(0.05)
+		
+		task.wait()
 	end
 end)
 
@@ -499,7 +503,7 @@ function AutoWinVoid()
 	local zone = game.Workspace:WaitForChild("Zone1")
 	task.wait(3)
 	local centerpos = zone.Position
-	local targetpos = centerpos - Vector3.new(0,100,0)
+	local targetpos = centerpos - Vector3.new(0,90,0)
 	local part = Instance.new("Part")
 	part.Parent = game.Workspace
 	
