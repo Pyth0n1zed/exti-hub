@@ -465,6 +465,7 @@ task.spawn(function()
 		elseif game.StarterGui:FindFirstChild("Map") and not mapRemove then
 			game.StarterGui.Map.Parent = game.Workspace
 		end
+			task.wait(0.05)
 	end
 end)
 
