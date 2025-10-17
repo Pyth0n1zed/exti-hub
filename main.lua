@@ -336,8 +336,9 @@ while true do
 	wait(0.01)
 end
 end)
-
+local isKilling = false
 function AutoKill()
+	isKilling = true
 	auraOn()
 	for i = 1, 1000 do
 		for i,v in pairs(game.Players:GetPlayers()) do
@@ -353,6 +354,7 @@ function AutoKill()
 		end
 	end
 	auraOff()
+	isKilling = false
 end
 
 local part1
@@ -402,7 +404,7 @@ function AutoWin()
 	hrp:PivotTo(part.CFrame + Vector3.new(0,1,0))
 	local alive = 20
 	while wait(0.1) do
-		
+		if isKilling then break end
 		local aliveLabel = player.PlayerGui.HUD.HUD.AliveCounter.CounterLabel
 
 		local function getAliveCount()
@@ -417,7 +419,7 @@ function AutoWin()
 
 		hrp:PivotTo(part.CFrame + Vector3.new(0,1,0))
 	end
-	AutoKill()
+	if not isKilling then AutoKill() end
 end
 
 local sIndex = 0
@@ -581,6 +583,7 @@ function AutoWinVoid()
 	hrp.CFrame = CFrame.new(targetpos + Vector3.new(0,5,0))
 	forcePivotPart1()
 	while true do
+		if isKilling then break end
 		local aliveLabel = player.PlayerGui.HUD.HUD.AliveCounter.CounterLabel
 		hi = true
 		local function getAliveCount()
@@ -593,10 +596,10 @@ function AutoWinVoid()
 			hi = false
     		break
 		end
-		task.wait(2)
+		task.wait(0.1)
 	end
 	UseAllOneshotItemsSR()
-	AutoKill()
+	if not isKilling then AutoKill() end
 	part1 = nil
 end
 
