@@ -494,9 +494,11 @@ function killRandomWithVoid()
 	task.wait(0.1)
 end
 local mapClone
-if game.Workspace:FindFirstChild("Map"):FindFirstChild("AcidAbnormality") then
-	mapClone = game.Workspace:FindFirstChild("Map").AcidAbnormality:Clone()
-	mapClone.Name = "AcidAbnormality"
+if game.Workspace:FindFirstChild("Map") then
+	if game.Workspace:FindFirstChild("Map"):FindFirstChild("AcidAbnormality") then
+		mapClone = game.Workspace:FindFirstChild("Map").AcidAbnormality:Clone()
+		mapClone.Name = "AcidAbnormality"
+	end
 end
 task.spawn(function()
 	while true do
