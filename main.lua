@@ -420,11 +420,11 @@ function spectoggle()
 	end
 end
 local hi = false
-
-
+local mapRemove = false
+local part1
 function killRandomWithVoid()
-	if game.Workspace:FindFirstChild("Map") then
-	game.Workspace:FindFirstChild("Map").Parent = game.ReplicatedStorage end
+	mapRemove = true
+	task.wait(0.5)
 	character:PivotTo(CFrame.new(-77.1818771, 5.79619646, -702.108704))
 	task.wait(2)
 	VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.E, false, game)
@@ -438,11 +438,9 @@ function killRandomWithVoid()
 				local tpos2 = v.Character.HumanoidRootPart.Position - dir*3
 				tcf1 = CFrame.new(tpos1)
 				tcf2 = CFrame.new(tpos2)
-
 				hrp:PivotTo(tcf1)
 				wait(0.3)
 				auraOn()
-				hrp:PivotTo(tcf2)
 				wait(0.2)
 				auraOff()
 				break
@@ -450,15 +448,25 @@ function killRandomWithVoid()
 		end
 	end
 	if game.Workspace:FindFirstChild("Zone1") then
-		character:PivotTo(game.Workspace.Zone1.CFrame + Vector3.new(0,50,0))
-		game.ReplicatedStorage:FindFirstChild("Map").Parent = game.Workspace
+		if part1 then
+			character:PivotTo(part1.CFrame + Vector3.new(0,5,0)
+		else
+			character:PivotTo(game.Workspace.Zone1.CFrame + Vector3.new(0,50,0)
+		end
+		mapRemove = false
 	else
 		character:PivotTo(CFrame.new(4.3729744, -44.6337852, -713.86615))	
 	end
-
-
 end
-local part1
+task.spawn(function()
+	while true do
+		if mapRemove and game.Workspace:FindFirstChild("Map") then
+			game.Workspace.Map.Parent = game.StarterGui
+		elseif game.StarterGui:FindFirstChild("Map") and not mapRemove then
+			game.StarterGui.Map.Parent = game.Workspace
+		end
+	end
+end)
 
 task.spawn(function()
 			while true do
@@ -498,6 +506,32 @@ function AutoWinVoid()
 	part.Size = Vector3.new(50,2,50)
 	part.Position = targetpos
 	part1 = part
+
+	local size = part.Size
+	local cf = part.CFrame
+
+	local wallThickness = 5
+	local wallHeight = 25
+	local color = Color3.fromRGB(130, 130, 130)
+
+	local function makePart(offset, partSize)
+		local p = Instance.new("Part")
+		p.Anchored = true
+		p.Color = color
+		p.Size = partSize
+		p.CFrame = cf * CFrame.new(offset)
+		p.Parent = workspace
+		return p
+	end
+
+	makePart(Vector3.new(0, wallHeight/2 + size.Y/2, -size.Z/2 + wallThickness/2), Vector3.new(size.X + wallThickness*2, wallHeight, wallThickness)) -- front
+	makePart(Vector3.new(0, wallHeight/2 + size.Y/2, size.Z/2 - wallThickness/2), Vector3.new(size.X + wallThickness*2, wallHeight, wallThickness))  -- back
+	makePart(Vector3.new(-size.X/2 + wallThickness/2, wallHeight/2 + size.Y/2, 0), Vector3.new(wallThickness, wallHeight, size.Z))                 -- left
+	makePart(Vector3.new(size.X/2 - wallThickness/2, wallHeight/2 + size.Y/2, 0), Vector3.new(wallThickness, wallHeight, size.Z))                  -- right
+
+	makePart(Vector3.new(0, wallHeight + size.Y/2, 0), Vector3.new(size.X + wallThickness*2, wallThickness, size.Z + wallThickness*2))             -- roof
+
+	
 	hrp.CFrame = CFrame.new(targetpos + Vector3.new(0,5,0))
 
 	while true do
@@ -517,6 +551,7 @@ function AutoWinVoid()
 	end
 	UseAllOneshotItemsSR()
 	AutoKill()
+	part1 = nil
 end
 
 
