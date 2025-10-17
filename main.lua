@@ -347,7 +347,8 @@ function AutoKill()
 			if v.Character.Humanoid.Health > 0 then
 				name = v.Name
 			end
-			wait(3.5)
+			forcePivotPart1()
+			if not part1 then task.wait(3.5) end
 			continue
 		end
 	end
@@ -493,17 +494,18 @@ function killRandomWithVoid()
 	task.wait(0.1)
 end
 local mapClone
-if game.Workspace:FindFirstChild("Map") then
-	mapClone = game.Workspace:FindFirstChild("Map"):Clone()
+if game.Workspace:FindFirstChild("Map"):FindFirstChild("AcidAbnormality") then
+	mapClone = game.Workspace:FindFirstChild("Map").AcidAbnormality:Clone()
+	mapClone.Name = "AcidAbnormality"
 end
 task.spawn(function()
 	while true do
 		if mapRemove and game.Workspace:FindFirstChild("Map") then
 			game.Workspace.Map:Destroy()
 		elseif not game.Workspace:FindFirstChild("Map") and not mapRemove then
-			mapClone.Parent = game.Workspace
+			mapClone.Parent = game.Workspace.Map
 			mapClone = nil
-			mapClone = game.Workspace.Map:Clone()
+			mapClone = game.Workspace.Map.AcidAbnormality:Clone()
 		end
 		
 		task.wait(0.1)
