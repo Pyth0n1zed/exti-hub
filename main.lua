@@ -45,7 +45,7 @@ local function moveTo(part)
     hrp.CFrame = targetCF
 end
 
-local function moveToForward(part)
+local function moveTo2(part)
     local direction = (part.Position - hrp.Position).Unit
     local targetPos = part.Position + direction * 3
     local targetCF = CFrame.new(targetPos)
@@ -118,6 +118,7 @@ local function CollectItemsSR(itemNames, repeatCount)
                 	sendSpaceKey()
                		task.wait(moveDelay)
 				end
+				ii = ii + 1
             elseif not ok then
                 task.wait(12)
 				sendSpaceKey()
@@ -454,7 +455,7 @@ task.spawn(function()
 				if hi then
 					killRandomWithVoid()
 					hrp.CFrame = part1.CFrame + Vector3.new(0,5,0)
-					wait(75)
+					wait(70)
 				end
 				task.wait(2)
 			end
