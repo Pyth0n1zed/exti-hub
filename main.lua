@@ -1,3 +1,4 @@
+
 local exti = loadstring(game:HttpGet("https://raw.githubusercontent.com/Pyth0n1zed/GUI-Framework-Roblox/refs/heads/main/script.lua"))()()
 local Players = game:GetService("Players")
 local hitbox = Instance.new("Part")
@@ -449,9 +450,9 @@ function killRandomWithVoid()
 	end
 	if game.Workspace:FindFirstChild("Zone1") then
 		if part1 then
-			character:PivotTo(part1.CFrame + Vector3.new(0,5,0)
+			character:PivotTo(part1.CFrame + Vector3.new(0,5,0))
 		else
-			character:PivotTo(game.Workspace.Zone1.CFrame + Vector3.new(0,50,0)
+			character:PivotTo(game.Workspace.Zone1.CFrame + Vector3.new(0,50,0))
 		end
 		mapRemove = false
 	else
