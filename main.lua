@@ -45,6 +45,13 @@ local function moveTo(part)
     hrp.CFrame = targetCF
 end
 
+local function moveToForward(part)
+    local direction = (part.Position - hrp.Position).Unit
+    local targetPos = part.Position + direction * 3
+    local targetCF = CFrame.new(targetPos)
+    hrp.CFrame = targetCF
+end
+
 local function faceTarget(part)
     local lookC = CFrame.lookAt(hrp.Position,part.Position)
 	local _,y,_ = lookC:ToEulerAnglesYXZ()
@@ -81,6 +88,11 @@ local function CollectItemsSR(itemNames, repeatCount)
     for i = 1, repeatCount do
         for _, tool in ipairs(itemsFolder:GetChildren()) do
             if tool:IsA("Tool") and tool:FindFirstChild("Handle") and table.find(itemNames, tool.Name) and ok then
+				local currentItems = 0
+				for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+					currentItems = currentItems + 1
+				end
+				local currentcurrentItems = 0
                 local handle = tool.Handle
                 moveTo(handle)
                 task.wait(pauseTime)
@@ -92,7 +104,20 @@ local function CollectItemsSR(itemNames, repeatCount)
                 task.wait(pauseTime)
                 sendSpaceKey()
                 task.wait(moveDelay)
-				ii = ii + 1
+				for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+					currentcurrentItems = currentcurrentItems + 1
+				end
+				if currentcurrentItems == currentItems then
+					moveTo2(handle)
+                	task.wait(pauseTime)
+                	faceTarget(handle)
+                	rotateCameraTo(handle)
+                	task.wait(pauseTime)
+                	sendFKey()
+                	task.wait(pauseTime)
+                	sendSpaceKey()
+               		task.wait(moveDelay)
+				end
             elseif not ok then
                 task.wait(12)
 				sendSpaceKey()
