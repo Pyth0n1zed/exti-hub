@@ -423,6 +423,14 @@ end
 local hi = false
 local mapRemove = false
 local part1
+local function forcePivotPart1(dur)
+	if part1 then
+		for i = 1, dur do
+			character:PivotTo(part1.CFrame + Vector3.new(0,5,0))
+			wait(0.1)
+		end
+	end
+end
 function killRandomWithVoid()
 	mapRemove = true
 	task.wait(0.5)
@@ -458,8 +466,9 @@ function killRandomWithVoid()
 	else
 		character:PivotTo(CFrame.new(4.3729744, -44.6337852, -713.86615))	
 	end
+	task.wait(0.1)
 end
-local mapClone = game.Workspace.Map:Clone()
+local mapClone = game.Workspace:FindFirstChild("Map"):Clone()
 task.spawn(function()
 	while true do
 		if mapRemove and game.Workspace:FindFirstChild("Map") then
@@ -478,7 +487,7 @@ task.spawn(function()
 			while true do
 				if hi and part1 then
 					killRandomWithVoid()
-					hrp.CFrame = part1.CFrame + Vector3.new(0,5,0)
+					forcePivotPart1(50)
 					wait(70)
 				end
 				task.wait(2)
