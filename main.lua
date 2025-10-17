@@ -337,6 +337,16 @@ while true do
 end
 end)
 local isKilling = false
+local part1
+local function forcePivotPart1()
+	if part1 then
+		for i = 1, 50 do
+			character:PivotTo(part1.CFrame + Vector3.new(0,5,0))
+			wait(0.1)
+		end
+	end
+end
+
 function AutoKill()
 	isKilling = true
 	auraOn()
@@ -349,22 +359,12 @@ function AutoKill()
 				name = v.Name
 			end
 			forcePivotPart1()
-			if not part1 then task.wait(3.5) end
+			task.wait(3.5)
 			continue
 		end
 	end
 	auraOff()
 	isKilling = false
-end
-
-local part1
-local function forcePivotPart1()
-	if part1 then
-		for i = 1, 50 do
-			character:PivotTo(part1.CFrame + Vector3.new(0,5,0))
-			wait(0.1)
-		end
-	end
 end
 
 function AutoWin()
@@ -600,7 +600,6 @@ function AutoWinVoid()
 	end
 	UseAllOneshotItemsSR()
 	if not isKilling then AutoKill() end
-	part1 = nil
 end
 
 
