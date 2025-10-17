@@ -374,6 +374,7 @@ function AutoWin()
 		sendSpaceKey()
 		task.wait(0.8)
 	end
+	task.wait(10)
 	for _,v in pairs(player:GetDescendants()) do
 		if v:FindFirstChild("Glove") and v:IsA("Tool") then
 		    v.Parent = character
@@ -527,6 +528,7 @@ function AutoWinVoid()
 		sendSpaceKey()
 		task.wait(0.8)
 	end
+	task.wait(10)
 	for _,v in pairs(player:GetDescendants()) do
 		if v:FindFirstChild("Glove") and v:IsA("Tool") then
 		    v.Parent = character
