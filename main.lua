@@ -36,7 +36,7 @@ task.spawn(function()
 end)
 
 
-local moveDelay = 0.075
+local moveDelay = 0.1
 local pauseTime = 0.09
 
 local function moveTo(part)
@@ -458,6 +458,8 @@ end
 local hi = false
 local mapRemove = false
 function killRandomWithVoid()
+	local currentAuraState = auraEnabled
+	auraEnabled = false
 	mapRemove = true
 	task.wait(0.5)
 	character:PivotTo(CFrame.new(-77.1818771, 5.79619646, -702.108704))
@@ -490,6 +492,7 @@ function killRandomWithVoid()
 		character:PivotTo(CFrame.new(4.3729744, -44.6337852, -713.86615))	
 	end
 	task.wait(0.1)
+	auraEnabled = currentAuraState
 end
 local mapClone
 if game.Workspace:FindFirstChild("Map") then
@@ -523,9 +526,11 @@ task.spawn(function()
 			end
 		end)
 function AutoWinVoid()
+	auraOn()
 	CollectAllOneShottyItemsSR()
 	while true do if not player.PlayerGui:FindFirstChild("Countdown") then break end task.wait(0.1) end
-	task.wait(3)
+	task.wait(2.25)
+	UseAllOneshotItemsSR()
 	for i = 1, 10 do
 		sendSpaceKey()
 		task.wait(0.8)
@@ -588,7 +593,7 @@ function AutoWinVoid()
     		return tonumber(num) or 0
 		end
 
-		if getAliveCount() < 7 then
+		if getAliveCount() < 5 then
 			hi = false
     		break
 		end
@@ -633,4 +638,7 @@ if map then
     if originOffice then
         originOffice:Destroy()
     end
+end
+if game.ReplicatedStorage:FindFirstChild("Events") then
+	
 end
