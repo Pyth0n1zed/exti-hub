@@ -358,7 +358,6 @@ function AutoKill()
 			if v.Character.Humanoid.Health > 0 then
 				name = v.Name
 			end
-			forcePivotPart1()
 			task.wait(3.5)
 			continue
 		end
@@ -475,10 +474,7 @@ function killRandomWithVoid()
 				tcf1 = CFrame.new(tpos1)
 				tcf2 = CFrame.new(tpos2)
 				hrp:PivotTo(tcf1)
-				wait(0.3)
-				auraOn()
-				wait(0.2)
-				auraOff()
+				task.wait(0.5)
 				break
 			end
 		end
