@@ -13,3 +13,5 @@ ITEM VACCUM IS RECCOMENDED BE USED BEFORE ROUND STARTING
 thanks celeron for helping a bit with this
 
 you should check out gui framework on my profile too ima add documentation dw
+
+big update coming for 1.0.0, debug features, rewrite, auto win n stuff
