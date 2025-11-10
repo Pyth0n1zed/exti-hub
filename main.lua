@@ -13,6 +13,7 @@ local map = workspace:FindFirstChild("Map")
 local ts = game:GetService("TweenService")
 local rs = game:GetService("RunService")
 local events = game.ReplicatedStorage:FindFirstChild("Events")
+local autoWin = false
 if map then
     local originOffice = map:FindFirstChild("OriginOffice")
     if originOffice then
@@ -35,7 +36,8 @@ task.spawn(function()
 	end
 end)
 
-
+local defMoveDelay = 0.05
+local defPauseTime = 0.09
 local moveDelay = 0.1
 local pauseTime = 0.09
 
@@ -94,7 +96,12 @@ local function CollectItemsSR(itemNames, repeatCount)
 				end
 				local currentcurrentItems = 0
                 local handle = tool.Handle
-                moveTo(handle)
+                moveDelay = ((hrp.Position - tool.Handle.Position).Magnitude/125) * defMoveDelay
+				if moveDelay < defMoveDelay then moveDelay = defMoveDelay end
+				if moveDelay > 0.4 then moveDelay = 0.4 end
+
+
+				moveTo(handle)
                 task.wait(pauseTime)
                 faceTarget(handle)
                 rotateCameraTo(handle)
@@ -119,7 +126,7 @@ local function CollectItemsSR(itemNames, repeatCount)
                		task.wait(moveDelay)
 				end
 				ii = ii + 1
-            elseif not ok then
+            elseif not ok and not autoWin then
                 task.wait(12)
 				sendSpaceKey()
 				task.wait(10)
@@ -129,7 +136,9 @@ local function CollectItemsSR(itemNames, repeatCount)
     				VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.I, false, game)
     				task.wait(0.2) -- wait between presses
 				end
-            end
+			elseif not ok and autoWin then
+				return
+			end
         end
     end
     hrp.CFrame = hrp.CFrame + Vector3.new(0,200,0)
@@ -203,7 +212,7 @@ auraRange.Transparency = 0.9
 auraRange.Size = Vector3.new(auraDist*2,auraDist*2,auraDist*2)
 auraRange.CanCollide = false
 
-
+local autoWinName = nil
 
 rs.RenderStepped:Connect(function()
 	
@@ -215,11 +224,14 @@ rs.RenderStepped:Connect(function()
 		return
 	end
 	for _,v in pairs(game.Players:GetPlayers()) do
+		if autoWinName then if autoWinName ~= v.Name then continue end end
 		if v==player then continue end
+		if not auraEnabled then return end
 		local tchar = v.Character
 		local thrp = tchar:FindFirstChild("HumanoidRootPart")
+		if not thrp then continue end
 		local dist = (hrp.Position - thrp.Position).Magnitude
-		if dist < auraDist + 1 then events:FindFirstChild("Slap"):FireServer(thrp) end
+		if dist < 67 then events:FindFirstChild("Slap"):FireServer(thrp) end
 	end
 end)
 
@@ -602,6 +614,94 @@ function AutoWinVoid()
 	UseAllOneshotItemsSR()
 	if not isKilling then AutoKill() end
 end
+function AutoWin2()
+if game.Workspace:FindFirstChild("Map"):FindFirstChild("AcidAbnormality") then
+		game.Workspace:FindFirstChild("Map").AcidAbnormality:Destroy()
+	end
+	autoWin = true
+	CollectItemsSR({"Bomb"})
+	CollectAllOneShottyItemsSR()
+	repeat task.wait() until not ok
+	task.wait(3)
+	local ii = 1
+	for _,v in pairs(player:GetDescendants()) do
+		if v.Name == "Bomb" and ii <7 then
+			v.Parent = character
+			v:Activate()
+			ii = ii + 1
+			task.wait(3)
+		end
+	end
+	UseAllOneshotItemsSR()
+	while task.wait() do
+		if ok then task.wait(3); break end
+	end
+	VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.Space, false, game)
+    task.wait(0.1) -- hold
+    VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.Space, false, game)
+	task.wait(0.1)
+	character:PivotTo(CFrame.new(41.9398575, 28.8037186, -322.898193))
+	task.wait(1)
+	auraOn()
+	for _,v in pairs(player:GetDescendants()) do
+		if v:IsA("Tool") then
+		if v:FindFirstChild("Glove") then
+			v.Parent = character
+			v:Activate()
+		end
+		end
+	end
+	task.wait(1)
+	local leastHealth = nil
+	local prevPlayer = nil
+	while task.wait() do
+		for _,v in pairs(game.Players:GetPlayers()) do
+					autoWinName = v.Name
+
+			local tchar = v.Character
+			if not tchar then continue end
+			local thrp = tchar:FindFirstChild("HumanoidRootPart")
+			if not thrp then continue end
+			if not tchar:FindFirstChild("Humanoid") then continue end
+			if tchar.Humanoid.Health == 0 then continue end
+			if thrp.Position.Y - 300 > 0 then continue end
+			if v == player then continue end
+			name = v.Name
+			loopgoto = true
+			local waitTime = 0
+			local iceCount = 0
+			for i,v in pairs(character:GetChildren()) do
+				if v.Name == "IceSlap" then
+					iceCount = iceCount + 1
+				end
+			end
+			task.wait(0.5)
+			loopgoto = false
+			if game.Workspace:FindFirstChild("Zone1") then
+				character:PivotTo(game.Workspace:FindFirstChild("Zone1").CFrame + Vector3.new(0,16700,0))
+			else
+				character:PivotTo(CFrame.new(41.9398575, 16028.8037186, -322.898193))		
+			end
+			if not prevPlayer and iceCount > 0 then
+				waitTime = 1.75*(iceCount/2)
+			elseif prevPlayer and iceCount > 0 then
+				waitTime = (1.75*(prevPlayer.Position-thrp.Position).Magnitude/700)*iceCount/2	
+			elseif prevPlayer and iceCount == 0 then
+				waitTime = 1.75*(prevPlayer.Position-thrp.Position).Magnitude/700
+			end
+			if waitTime > 2.5 then
+				waitTime = 2.5
+			end
+			task.wait(waitTime)
+			prevPlayer = thrp
+		end
+		local t = {}
+		for i,v in pairs(game.Players:GetPlayers()) do
+			if v.Character:FindFirstChild("Humanoid").Health > 0 then table.insert(t, v) end
+		end
+		if #t == 1 then break end
+	end
+end
 
 
 exti:SetTitle("exti hub")
@@ -625,7 +725,7 @@ exti:CreateButton(misc,"trigger","Teleport to Slap Royale matchmaking","Automati
 exti:CreateButton(misc,"toggle","ESP","See where players are at and their usernames.",2,espCreate,destroyESP)
 exti:CreateTextInput(misc,"Loop Goto","Basically stick to a player by constantly teleporting towards them (Supports name shorthands)",3,loopgotoname)
 exti:CreateButton(misc,"toggle","Loop Goto Enable","Enable Loop Goto",4,loopgotoenable,loopgotoenable)
-exti:CreateButton(auto,"trigger","Auto win","Automatically wins the game for you (EXPERIMENTAL)",1,AutoWin)
+exti:CreateButton(auto,"trigger","Auto win","Automatically wins the game for you (EXPERIMENTAL)",1,AutoWin2)
 exti:CreateButton(auto,"trigger","Auto Kill","Automatically teleports to everybody in the server and kills them",2,AutoKill)
 exti:CreateLabel(misc, "Spectate players", 5)
 exti:CreateButton(misc, "trigger", "Spectate Cycle", "Cycle between spectating players", 6, cyclespec)
