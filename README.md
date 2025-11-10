@@ -5,9 +5,7 @@ Loadstring: `loadstring(game:HttpGet("https://raw.githubusercontent.com/Pyth0n1z
 Has: Slap Aura, Item Vaccum, use all (grab all OR grab items that help oneshot ppl (e.g. all strength boosting items, cube of ice))
 esp, join slap royale matchmaking
 
-AUTO WI NSOON
-
-Not perfect yet, sometimes item vaccum can throw you into lava or acid
+AUTO WIn is here
 
 ITEM VACCUM IS RECCOMENDED BE USED BEFORE ROUND STARTING
 
