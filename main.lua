@@ -141,7 +141,7 @@ local function CollectItemsSR(itemNames, repeatCount)
 			end
         end
     end
-    hrp.CFrame = hrp.CFrame + Vector3.new(0,200,0)
+    hrp.CFrame = hrp.CFrame + Vector3.new(0,100,0)
 	print(ii.." items collected")
 end
 
@@ -383,11 +383,15 @@ function AutoWin()
 	CollectAllOneShottyItemsSR()
 	while true do if not player.PlayerGui:FindFirstChild("Countdown") then break end task.wait(0.1) end
 	UseAllOneshotItemsSR()
-	task.wait(3)
-	for i = 1, 10 do
-		sendSpaceKey()
-		task.wait(0.8)
-	end
+	repeat task.wait() until ok
+	task.wait(0.2)
+	sendSpaceKey()
+	sendSpaceKey()
+	sendSpaceKey()
+	task.wait(10)
+	sendSpaceKey()
+	sendSpaceKey()
+	sendSpaceKey()
 	task.wait(10)
 	for _,v in pairs(player:GetDescendants()) do
 		if v:FindFirstChild("Glove") and v:IsA("Tool") then
@@ -395,24 +399,7 @@ function AutoWin()
 			v:Activate()
 		end
 	end
-	loopgoto = true
-	local zone = game.Workspace:WaitForChild("Zone1")
-	task.wait(3)
-	local centerpos = zone.Position
-	local targetpos = centerpos - Vector3.new(0,90,0)
-	local part = Instance.new("Part")
-	part.Parent = game.Workspace
-	
-	part.Anchored = true
-	part.CanCollide = true
-	part.Size = Vector3.new(50,2,50)
-	part.Position = targetpos
-
-	hrp.CFrame = CFrame.new(targetpos + Vector3.new(0,5,0))
-	forcePivotPart1()
-	part1 = part
-	wait(1)
-	hrp:PivotTo(part.CFrame + Vector3.new(0,1,0))
+	repeat character:PivotTo(CFrame.new(41.9398575, 16028.8037186, -322.898193));task.wait() until game.Workspace:FindFirstChild("Zone1")
 	local alive = 20
 	while wait(0.1) do
 		if isKilling then break end
@@ -424,13 +411,62 @@ function AutoWin()
     		return tonumber(num) or 0
 		end
 
-		if getAliveCount() < 7 then
+		if getAliveCount() < 12 then
     		break
 		end
 
-		hrp:PivotTo(part.CFrame + Vector3.new(0,1,0))
+		hrp:PivotTo(game.Workspace.Zone1.CFrame + Vector3.new(0,16700,0))
 	end
-	if not isKilling then AutoKill() end
+	if not isKilling then
+		local prevPlayer = nil
+		while task.wait() do
+		for _,v in pairs(game.Players:GetPlayers()) do
+					autoWinName = v.Name
+
+			local tchar = v.Character
+			if not tchar then continue end
+			local thrp = tchar:FindFirstChild("HumanoidRootPart")
+			if not thrp then continue end
+			if not tchar:FindFirstChild("Humanoid") then continue end
+			if tchar.Humanoid.Health == 0 then continue end
+			if thrp.Position.Y - 300 > 0 then continue end
+			if v == player then continue end
+			name = v.Name
+			loopgoto = true
+			local waitTime = 0
+			local iceCount = 0
+			for i,v in pairs(character:GetChildren()) do
+				if v.Name == "IceSlap" then
+					iceCount = iceCount + 1
+				end
+			end
+			task.wait(0.5)
+			loopgoto = false
+			if game.Workspace:FindFirstChild("Zone1") then
+				character:PivotTo(game.Workspace:FindFirstChild("Zone1").CFrame + Vector3.new(0,16700,0))
+			else
+				character:PivotTo(CFrame.new(41.9398575, 16028.8037186, -322.898193))		
+			end
+			if not prevPlayer and iceCount > 0 then
+				waitTime = 2.5*(iceCount/2)
+			elseif prevPlayer and iceCount > 0 then
+				waitTime = (2.5*(prevPlayer.Position-thrp.Position).Magnitude/700)*iceCount/2	
+			elseif prevPlayer and iceCount == 0 then
+				waitTime = 2.5*(prevPlayer.Position-thrp.Position).Magnitude/700
+			end
+			if waitTime > 2.5 then
+				waitTime = 2.5
+			end
+			task.wait(waitTime)
+			prevPlayer = thrp
+		end
+		local t = {}
+		for i,v in pairs(game.Players:GetPlayers()) do
+			if v.Character:FindFirstChild("Humanoid").Health > 0 then table.insert(t, v) end
+		end
+		if #t == 1 then break end
+	end
+	end
 end
 
 local sIndex = 0
@@ -493,16 +529,7 @@ function killRandomWithVoid()
 			end
 		end
 	end
-	if game.Workspace:FindFirstChild("Zone1") then
-		if part1 then
-			character:PivotTo(part1.CFrame + Vector3.new(0,5,0))
-		else
-			character:PivotTo(game.Workspace.Zone1.CFrame + Vector3.new(0,50,0))
-		end
-		mapRemove = false
-	else
-		character:PivotTo(CFrame.new(4.3729744, -44.6337852, -713.86615))	
-	end
+	
 	task.wait(0.1)
 	auraEnabled = currentAuraState
 end
@@ -529,10 +556,10 @@ end)
 
 task.spawn(function()
 			while true do
-				if hi and part1 then
+				if hi then
 					killRandomWithVoid()
-					forcePivotPart1()
-					wait(66)
+					hi = false
+					wait(70)
 				end
 				task.wait(2)
 			end
@@ -541,12 +568,16 @@ function AutoWinVoid()
 	auraOn()
 	CollectAllOneShottyItemsSR()
 	while true do if not player.PlayerGui:FindFirstChild("Countdown") then break end task.wait(0.1) end
-	task.wait(2.25)
 	UseAllOneshotItemsSR()
-	for i = 1, 10 do
-		sendSpaceKey()
-		task.wait(0.8)
-	end
+	repeat task.wait() until ok
+	task.wait(0.2)
+	sendSpaceKey()
+	sendSpaceKey()
+	sendSpaceKey()
+	task.wait(10)
+	sendSpaceKey()
+	sendSpaceKey()
+	sendSpaceKey()
 	task.wait(10)
 	for _,v in pairs(player:GetDescendants()) do
 		if v:FindFirstChild("Glove") and v:IsA("Tool") then
@@ -555,46 +586,13 @@ function AutoWinVoid()
 		end
 	end
 	loopgoto = true
-	local zone = game.Workspace:WaitForChild("Zone1")
-	task.wait(3)
-	local centerpos = zone.Position
-	local targetpos = centerpos - Vector3.new(0,90,0)
-	local part = Instance.new("Part")
-	part.Parent = game.Workspace
+	repeat 
+		character:PivotTo(CFrame.new(41.9398575, 16028.8037186, -322.898193));task.wait() 
+	until game.Workspace:FindFirstChild("Zone1")
+	task.wait()
+	local zone = game.Workspace:FindFirstChild("Zone1")
 	
-	part.Anchored = true
-	part.CanCollide = true
-	part.Size = Vector3.new(50,2,50)
-	part.Position = targetpos
-	part1 = part
-
-	local size = part.Size
-	local cf = part.CFrame
-
-	local wallThickness = 5
-	local wallHeight = 25
-	local color = Color3.fromRGB(130, 130, 130)
-
-	local function makePart(offset, partSize)
-		local p = Instance.new("Part")
-		p.Anchored = true
-		p.Color = color
-		p.Size = partSize
-		p.CFrame = cf * CFrame.new(offset)
-		p.Parent = workspace
-		return p
-	end
-
-	makePart(Vector3.new(0, wallHeight/2 + size.Y/2, -size.Z/2 + wallThickness/2), Vector3.new(size.X + wallThickness*2, wallHeight, wallThickness)) -- front
-	makePart(Vector3.new(0, wallHeight/2 + size.Y/2, size.Z/2 - wallThickness/2), Vector3.new(size.X + wallThickness*2, wallHeight, wallThickness))  -- back
-	makePart(Vector3.new(-size.X/2 + wallThickness/2, wallHeight/2 + size.Y/2, 0), Vector3.new(wallThickness, wallHeight, size.Z))                 -- left
-	makePart(Vector3.new(size.X/2 - wallThickness/2, wallHeight/2 + size.Y/2, 0), Vector3.new(wallThickness, wallHeight, size.Z))                  -- right
-
-	makePart(Vector3.new(0, wallHeight + size.Y/2, 0), Vector3.new(size.X + wallThickness*2, wallThickness, size.Z + wallThickness*2))             -- roof
-
 	
-	hrp.CFrame = CFrame.new(targetpos + Vector3.new(0,5,0))
-	forcePivotPart1()
 	while true do
 		if isKilling then break end
 		local aliveLabel = player.PlayerGui.HUD.HUD.AliveCounter.CounterLabel
@@ -605,14 +603,64 @@ function AutoWinVoid()
     		return tonumber(num) or 0
 		end
 
-		if getAliveCount() < 5 then
+		if getAliveCount() < 6 then
 			hi = false
     		break
 		end
+		if not hi then character:PivotTo(zone.CFrame + Vector3.new(0,16000,0)) end
 		task.wait(0.1)
 	end
 	UseAllOneshotItemsSR()
-	if not isKilling then AutoKill() end
+	if not isKilling then
+		local prevPlayer = nil
+		while task.wait() do
+		for _,v in pairs(game.Players:GetPlayers()) do
+					autoWinName = v.Name
+
+			local tchar = v.Character
+			if not tchar then continue end
+			local thrp = tchar:FindFirstChild("HumanoidRootPart")
+			if not thrp then continue end
+			if not tchar:FindFirstChild("Humanoid") then continue end
+			if tchar.Humanoid.Health == 0 then continue end
+			if thrp.Position.Y - 300 > 0 then continue end
+			if v == player then continue end
+			name = v.Name
+			loopgoto = true
+			local waitTime = 0
+			local iceCount = 0
+			for i,v in pairs(character:GetChildren()) do
+				if v.Name == "IceSlap" then
+					iceCount = iceCount + 1
+				end
+			end
+			task.wait(0.5)
+			loopgoto = false
+			if game.Workspace:FindFirstChild("Zone1") then
+				character:PivotTo(game.Workspace:FindFirstChild("Zone1").CFrame + Vector3.new(0,16700,0))
+			else
+				character:PivotTo(CFrame.new(41.9398575, 16028.8037186, -322.898193))		
+			end
+			if not prevPlayer and iceCount > 0 then
+				waitTime = 2.5*(iceCount/2)
+			elseif prevPlayer and iceCount > 0 then
+				waitTime = (2.5*(prevPlayer.Position-thrp.Position).Magnitude/700)*iceCount/2	
+			elseif prevPlayer and iceCount == 0 then
+				waitTime = 2.5*(prevPlayer.Position-thrp.Position).Magnitude/700
+			end
+			if waitTime > 2.5 then
+				waitTime = 2.5
+			end
+			task.wait(waitTime)
+			prevPlayer = thrp
+		end
+		local t = {}
+		for i,v in pairs(game.Players:GetPlayers()) do
+			if v.Character:FindFirstChild("Humanoid").Health > 0 then table.insert(t, v) end
+		end
+		if #t == 1 then break end
+	end
+	end
 end
 function AutoWin2()
 if game.Workspace:FindFirstChild("Map"):FindFirstChild("AcidAbnormality") then
@@ -683,14 +731,14 @@ if game.Workspace:FindFirstChild("Map"):FindFirstChild("AcidAbnormality") then
 				character:PivotTo(CFrame.new(41.9398575, 16028.8037186, -322.898193))		
 			end
 			if not prevPlayer and iceCount > 0 then
-				waitTime = 1.75*(iceCount/2)
+				waitTime = 2.25*(iceCount/2)
 			elseif prevPlayer and iceCount > 0 then
-				waitTime = (1.75*(prevPlayer.Position-thrp.Position).Magnitude/700)*iceCount/2	
+				waitTime = (2.25*(prevPlayer.Position-thrp.Position).Magnitude/700)*iceCount/2	
 			elseif prevPlayer and iceCount == 0 then
-				waitTime = 1.75*(prevPlayer.Position-thrp.Position).Magnitude/700
+				waitTime = 2.25*(prevPlayer.Position-thrp.Position).Magnitude/700
 			end
-			if waitTime > 2.5 then
-				waitTime = 2.5
+			if waitTime > 2.25 then
+				waitTime = 2.25
 			end
 			task.wait(waitTime)
 			prevPlayer = thrp
@@ -705,7 +753,7 @@ end
 
 
 exti:SetTitle("exti hub")
-local main = exti:CreateTab("Main", 1)
+local main = exti:CreateTab("Combat", 1)
 local items = exti:CreateTab("Items", 2)
 local auto = exti:CreateTab("Auto",3)
 local misc = exti:CreateTab("Misc", 4)
@@ -725,13 +773,13 @@ exti:CreateButton(misc,"trigger","Teleport to Slap Royale matchmaking","Automati
 exti:CreateButton(misc,"toggle","ESP","See where players are at and their usernames.",2,espCreate,destroyESP)
 exti:CreateTextInput(misc,"Loop Goto","Basically stick to a player by constantly teleporting towards them (Supports name shorthands)",3,loopgotoname)
 exti:CreateButton(misc,"toggle","Loop Goto Enable","Enable Loop Goto",4,loopgotoenable,loopgotoenable)
-exti:CreateButton(auto,"trigger","Auto win","Automatically wins the game for you (EXPERIMENTAL)",1,AutoWin2)
-exti:CreateButton(auto,"trigger","Auto Kill","Automatically teleports to everybody in the server and kills them",2,AutoKill)
+exti:CreateButton(auto,"trigger","Auto win","Automatically wins the game for you, can get 20+ kills.",1,AutoWin2)
 exti:CreateLabel(misc, "Spectate players", 5)
 exti:CreateButton(misc, "trigger", "Spectate Cycle", "Cycle between spectating players", 6, cyclespec)
 exti:CreateButton(misc, "toggle", "Enable spectate", "Enables spectating", 7, spectoggle, spectoggle)
-exti:CreateButton(auto,"trigger","Kill random person with void","Requires void, teleports them into acid (RNG)", 3, killRandomWithVoid)
-exti:CreateButton(auto,"trigger","Auto win with void method","Requires void, automatically wins for you(RNG AF)", 4, AutoWinVoid)
+exti:CreateButton(auto,"trigger","Auto win with waiting method","Automatically wins for you(takes a long time)", 2, AutoWin)
+
+--exti:CreateButton(auto,"trigger","Auto win with void method","Requires void, automatically wins for you(RNG, takes a while)", 3, AutoWinVoid)
 exti:FinishLoading()
 if map then
     local originOffice = map:FindFirstChild("OriginOffice")
@@ -742,3 +790,6 @@ end
 if game.ReplicatedStorage:FindFirstChild("Events") then
 	
 end
+if game.Workspace:FindFirstChild("Map"):FindFirstChild("AcidAbnormality") then
+		game.Workspace:FindFirstChild("Map").AcidAbnormality:Destroy()
+	end
