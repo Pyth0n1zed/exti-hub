@@ -27,7 +27,7 @@ task.spawn(function()
 		if asd then
 			if tonumber(asd.Countdown.TimeLeft.Text) < 3 then
 				ok = false
-				task.wait(9)
+				task.wait(10)
 				ok = true
 				asd:Destroy()
 			end
@@ -85,10 +85,13 @@ local function sendSpaceKey()
 	VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.Space, false, game)
 end
 local ii = 1
-local function CollectItemsSR(itemNames, repeatCount)
+local function CollectItemsSR(itemNames, repeatCount, amount)
+    if not amount then amount = 67 end
+    local cii = 1
     repeatCount = repeatCount or 3
     for i = 1, repeatCount do
         for _, tool in ipairs(itemsFolder:GetChildren()) do
+			if cii == amount then break end
             if tool:IsA("Tool") and tool:FindFirstChild("Handle") and table.find(itemNames, tool.Name) and ok then
 				local currentItems = 0
 				for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
@@ -98,7 +101,7 @@ local function CollectItemsSR(itemNames, repeatCount)
                 local handle = tool.Handle
                 moveDelay = ((hrp.Position - tool.Handle.Position).Magnitude/125) * defMoveDelay
 				if moveDelay < defMoveDelay then moveDelay = defMoveDelay end
-				if moveDelay > 0.4 then moveDelay = 0.4 end
+				if moveDelay > 0.6 then moveDelay = 0.6 end
 
 
 				moveTo(handle)
@@ -107,6 +110,7 @@ local function CollectItemsSR(itemNames, repeatCount)
                 rotateCameraTo(handle)
                 task.wait(pauseTime)
 				if ii == 1 then task.wait(5) end
+				if ii == 2 then task.wait(1) end
                 sendFKey()
                 task.wait(pauseTime)
                 sendSpaceKey()
@@ -126,10 +130,13 @@ local function CollectItemsSR(itemNames, repeatCount)
                		task.wait(moveDelay)
 				end
 				ii = ii + 1
+				cii = cii + 1
             elseif not ok and not autoWin then
                 task.wait(12)
 				sendSpaceKey()
-				task.wait(10)
+				task.wait(1)
+				character:PivotTo(CFrame.new(41.9398575, 28.8037186, -322.898193))
+				task.wait(1)
 				for i = 1, 2 do
    					VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.I, false, game)
     				task.wait(0.1) -- hold
@@ -382,17 +389,12 @@ function AutoWin()
 	auraOn()
 	CollectAllOneShottyItemsSR()
 	while true do if not player.PlayerGui:FindFirstChild("Countdown") then break end task.wait(0.1) end
-	UseAllOneshotItemsSR()
+	
 	repeat task.wait() until ok
-	task.wait(0.2)
+	if hrp.Position.Y - 300 > 0 then task.wait(3) end
 	sendSpaceKey()
-	sendSpaceKey()
-	sendSpaceKey()
-	task.wait(10)
-	sendSpaceKey()
-	sendSpaceKey()
-	sendSpaceKey()
-	task.wait(10)
+	character:PivotTo(CFrame.new(41.9398575, 16028.8037186, -322.898193))
+	UseAllOneshotItemsSR()
 	for _,v in pairs(player:GetDescendants()) do
 		if v:FindFirstChild("Glove") and v:IsA("Tool") then
 		    v.Parent = character
@@ -450,15 +452,19 @@ function AutoWin()
 			if not prevPlayer and iceCount > 0 then
 				waitTime = 2.5*(iceCount/2)
 			elseif prevPlayer and iceCount > 0 then
-				waitTime = (2.5*(prevPlayer.Position-thrp.Position).Magnitude/700)*iceCount/2	
+				waitTime = (2.5*(prevPlayer.Position-thrp.Position).Magnitude/1000)*iceCount/2	
 			elseif prevPlayer and iceCount == 0 then
-				waitTime = 2.5*(prevPlayer.Position-thrp.Position).Magnitude/700
+				waitTime = 2.5*(prevPlayer.Position-thrp.Position).Magnitude/1000
 			end
-			if waitTime > 2.5 then
-				waitTime = 2.5
+			if waitTime < 0.7 then
+				waitTime = 0.7
+			end
+			if waitTime > 4 then
+				waitTime = 4
 			end
 			task.wait(waitTime)
 			prevPlayer = thrp
+			sendSpaceKey()
 		end
 		local t = {}
 		for i,v in pairs(game.Players:GetPlayers()) do
@@ -540,19 +546,7 @@ if game.Workspace:FindFirstChild("Map") then
 		mapClone.Name = "AcidAbnormality"
 	end
 end
-task.spawn(function()
-	while true do
-		if mapRemove and game.Workspace:FindFirstChild("Map") then
-			game.Workspace.Map:Destroy()
-		elseif not game.Workspace:FindFirstChild("Map") and not mapRemove then
-			mapClone.Parent = game.Workspace.Map
-			mapClone = nil
-			mapClone = game.Workspace.Map.AcidAbnormality:Clone()
-		end
-		
-		task.wait(0.1)
-	end
-end)
+
 
 task.spawn(function()
 			while true do
@@ -663,14 +657,26 @@ function AutoWinVoid()
 	end
 end
 function AutoWin2()
-if game.Workspace:FindFirstChild("Map"):FindFirstChild("AcidAbnormality") then
+    if game.Workspace:FindFirstChild("Map"):FindFirstChild("AcidAbnormality") then
 		game.Workspace:FindFirstChild("Map").AcidAbnormality:Destroy()
 	end
 	autoWin = true
+	local potCount = 0
 	CollectItemsSR({"Bomb"})
-	CollectAllOneShottyItemsSR()
+	CollectItemsSR({"Potion of Strength"})
+	for _,v in pairs(player:GetDescendants()) do
+		if v.Name == "Potion of Strength" then potCount = potCount + 1 end
+	end
+	local bullGrab = 20
+	bullGrab = bullGrab - 2*potCount
+	if bullGrab < 0 then bullGrab = 0 end
+	if potCount == 0 then bullGrab = 5 end
+
+	CollectItemsSR({"Bull's essence"},1, bullGrab)
+	CollectItemsSR({"Cube of Ice"})
+	CollectItemsSR({"Boba"})
 	repeat task.wait() until not ok
-	task.wait(3)
+	task.wait(5)
 	local ii = 1
 	for _,v in pairs(player:GetDescendants()) do
 		if v.Name == "Bomb" and ii <7 then
@@ -712,7 +718,7 @@ if game.Workspace:FindFirstChild("Map"):FindFirstChild("AcidAbnormality") then
 			if not thrp then continue end
 			if not tchar:FindFirstChild("Humanoid") then continue end
 			if tchar.Humanoid.Health == 0 then continue end
-			if thrp.Position.Y - 300 > 0 then continue end
+			if thrp.Position.Y - 100 > 0 then continue end
 			if v == player then continue end
 			name = v.Name
 			loopgoto = true
@@ -733,15 +739,16 @@ if game.Workspace:FindFirstChild("Map"):FindFirstChild("AcidAbnormality") then
 			if not prevPlayer and iceCount > 0 then
 				waitTime = 2.25*(iceCount/2)
 			elseif prevPlayer and iceCount > 0 then
-				waitTime = (2.25*(prevPlayer.Position-thrp.Position).Magnitude/700)*iceCount/2	
+				waitTime = (2.25*(prevPlayer.Position-thrp.Position).Magnitude/1000)*iceCount/2	
 			elseif prevPlayer and iceCount == 0 then
-				waitTime = 2.25*(prevPlayer.Position-thrp.Position).Magnitude/700
+				waitTime = 2.25*(prevPlayer.Position-thrp.Position).Magnitude/1000
 			end
-			if waitTime > 2.25 then
-				waitTime = 2.25
+			if waitTime < 0.7 then
+				waitTime = 0.7
 			end
 			task.wait(waitTime)
 			prevPlayer = thrp
+			sendSpaceKey()
 		end
 		local t = {}
 		for i,v in pairs(game.Players:GetPlayers()) do
@@ -773,11 +780,11 @@ exti:CreateButton(misc,"trigger","Teleport to Slap Royale matchmaking","Automati
 exti:CreateButton(misc,"toggle","ESP","See where players are at and their usernames.",2,espCreate,destroyESP)
 exti:CreateTextInput(misc,"Loop Goto","Basically stick to a player by constantly teleporting towards them (Supports name shorthands)",3,loopgotoname)
 exti:CreateButton(misc,"toggle","Loop Goto Enable","Enable Loop Goto",4,loopgotoenable,loopgotoenable)
-exti:CreateButton(auto,"trigger","Auto win","Automatically wins the game for you, can get 20+ kills.",1,AutoWin2)
+exti:CreateButton(auto,"trigger","Auto Detonator","Automatically gets det. Faculty highly reccomended",2,AutoWin2)
 exti:CreateLabel(misc, "Spectate players", 5)
 exti:CreateButton(misc, "trigger", "Spectate Cycle", "Cycle between spectating players", 6, cyclespec)
 exti:CreateButton(misc, "toggle", "Enable spectate", "Enables spectating", 7, spectoggle, spectoggle)
-exti:CreateButton(auto,"trigger","Auto win with waiting method","Automatically wins for you(takes a long time)", 2, AutoWin)
+exti:CreateButton(auto,"trigger","Auto win","Automatically wins for you, typically gets spy.", 1, AutoWin)
 
 --exti:CreateButton(auto,"trigger","Auto win with void method","Requires void, automatically wins for you(RNG, takes a while)", 3, AutoWinVoid)
 exti:FinishLoading()
@@ -787,9 +794,7 @@ if map then
         originOffice:Destroy()
     end
 end
-if game.ReplicatedStorage:FindFirstChild("Events") then
-	
-end
+
 if game.Workspace:FindFirstChild("Map"):FindFirstChild("AcidAbnormality") then
-		game.Workspace:FindFirstChild("Map").AcidAbnormality:Destroy()
-	end
+	game.Workspace:FindFirstChild("Map").AcidAbnormality:Destroy()
+end
