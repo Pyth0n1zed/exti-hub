@@ -14,6 +14,34 @@ local ts = game:GetService("TweenService")
 local rs = game:GetService("RunService")
 local events = game.ReplicatedStorage:FindFirstChild("Events")
 local autoWin = false
+local wKeyPressed = false
+local sKeyPressed = false
+local aKeyPressed = false
+local dKeyPressed = false
+local tpWalkSpeed = 0
+uis.InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.W then
+        wKeyPressed = true
+	elseif input.KeyCode == Enum.KeyCode.A then
+		aKeyPressed = true
+	elseif input.KeyCode == Enum.KeyCode.S then
+        sKeyPressed = true
+	elseif input.KeyCode == Enum.KeyCode.D then
+        dKeyPressed = true
+    end
+end)
+
+uis.InputEnded:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.W then
+        wKeyPressed = false
+	elseif input.KeyCode == Enum.KeyCode.A then
+		aKeyPressed = false
+	elseif input.KeyCode == Enum.KeyCode.S then
+        sKeyPressed = false
+	elseif input.KeyCode == Enum.KeyCode.D then
+        dKeyPressed = false
+    end
+end)
 if map then
     local originOffice = map:FindFirstChild("OriginOffice")
     if originOffice then
@@ -135,8 +163,9 @@ local function CollectItemsSR(itemNames, repeatCount, amount)
 				exti:Notify("Please do not attempt to move or turn your camera, Grab All Items will continue to pick up items after the game has started.")
                 task.wait(4)
 				game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("BusJumping"):FireServer()
-				task.wait(0.1)
+				task.wait()
 				character:PivotTo(CFrame.new(41.9398575, 28.8037186, -322.898193))
+				ok = true
 				task.wait(1)
 				for i = 1, 2 do
    					VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.I, false, game)
@@ -222,24 +251,36 @@ auraRange.CanCollide = false
 
 local autoWinName = nil
 
-rs.RenderStepped:Connect(function()
+rs.RenderStepped:Connect(function(dt)
 	
-	if not hasGloveEquipped then return end
 	if auraEnabled then
 		auraRange.Transparency = 0.9
 	else
 		auraRange.Transparency=1
-		return
 	end
 	for _,v in pairs(game.Players:GetPlayers()) do
+		if not hasGloveEquipped then continue end
 		if autoWinName then if autoWinName ~= v.Name then continue end end
 		if v==player then continue end
-		if not auraEnabled then return end
+		if not auraEnabled then continue end
 		local tchar = v.Character
 		local thrp = tchar:FindFirstChild("HumanoidRootPart")
 		if not thrp then continue end
 		local dist = (hrp.Position - thrp.Position).Magnitude
 		if dist < 67 then events:FindFirstChild("Slap"):FireServer(thrp) end
+	end
+
+	if wKeyPressed then
+		hrp.CFrame = hrp.CFrame + camera.CFrame.LookVector*tpWalkSpeed*dt
+	end
+	if sKeyPressed then
+		hrp.CFrame = hrp.CFrame - camera.CFrame.LookVector*tpWalkSpeed*dt
+	end
+	if dKeyPressed then
+		hrp.CFrame = hrp.CFrame + camera.CFrame.RightVector*tpWalkSpeed*dt
+	end
+	if aKeyPressed then
+		hrp.CFrame = hrp.CFrame - camera.CFrame.RightVector*tpWalkSpeed*dt
 	end
 end)
 
@@ -780,6 +821,7 @@ exti:CreateButton(items,"trigger","Use All Oneshot Items","Automatically equips 
 exti:CreateButton(misc,"trigger","Teleport to Slap Royale matchmaking","Automatically teleports you to the slap royale matchmaking place to start a new game",1,Teleporttomatchmaking)
 exti:CreateButton(misc,"toggle","ESP","See where players are at and their usernames.",2,espCreate,destroyESP)
 exti:CreateTextInput(misc,"Loop Goto","Basically stick to a player by constantly teleporting towards them (Supports name shorthands)",3,loopgotoname)
+exti:CreateTextInput(main, "Walk Speed","Adjust your speed safely. Input 0 to use default roblox speed.",2,function(input) tpWalkSpeed = tonumber(input)-hrp.Parent.Humanoid.WalkSpeed or 0 end)
 exti:CreateButton(misc,"toggle","Loop Goto Enable","Enable Loop Goto",4,loopgotoenable,loopgotoenable)
 exti:CreateButton(auto,"trigger","Auto Detonator","Automatically gets det. Faculty highly reccomended",2,AutoWin2)
 exti:CreateLabel(misc, "Spectate players", 5)
