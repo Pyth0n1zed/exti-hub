@@ -132,9 +132,10 @@ local function CollectItemsSR(itemNames, repeatCount, amount)
 				ii = ii + 1
 				cii = cii + 1
             elseif not ok and not autoWin then
-                task.wait(12)
-				sendSpaceKey()
-				task.wait(1)
+				exti:Notify("Please do not attempt to move or turn your camera, Grab All Items will continue to pick up items after the game has started.")
+                task.wait(4)
+				game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("BusJumping"):FireServer()
+				task.wait(0.1)
 				character:PivotTo(CFrame.new(41.9398575, 28.8037186, -322.898193))
 				task.wait(1)
 				for i = 1, 2 do
