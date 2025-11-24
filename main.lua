@@ -269,7 +269,8 @@ rs.RenderStepped:Connect(function(dt)
 		local dist = (hrp.Position - thrp.Position).Magnitude
 		if dist < 67 then events:FindFirstChild("Slap"):FireServer(thrp) end
 	end
-	local vec = Vector3.new(0,0,0)
+	if tpWalkSpeed ~= 0 then
+		local vec = Vector3.new(0,0,0)
 	if wKeyPressed then
 		--hrp.CFrame = hrp.CFrame + camera.CFrame.LookVector*tpWalkSpeed*dt
 		vec = vec+camera.CFrame.LookVector
@@ -286,10 +287,13 @@ rs.RenderStepped:Connect(function(dt)
 		--hrp.CFrame = hrp.CFrame - camera.CFrame.RightVector*tpWalkSpeed*dt
 		vec = vec-camera.CFrame.RightVector
 	end
-	--hrp:PivotTo(hrp.CFrame + CFrame.new(vec*dt*tpWalkSpeed,Vector3.new(camera.CFrame.LookVector.X,0,camera.CFrame.LookVector.Z)))
+	if vec.Magnitude > 0 then
+		vec = vec.Unit
+	end
 	local pcf = hrp.CFrame
 	vec = hrp.Position+vec*dt*tpWalkSpeed
-	hrp:PivotTo(CFrame.new(Vector3.new(vec.X, hrp.Position.Y, vec.Z))*CFrame.Angles(0,select(2,pcf.LookVector:ToEulerAnglesYXZ()),0)
+	hrp:PivotTo(CFrame.new(Vector3.new(vec.X, hrp.Position.Y, vec.Z))*CFrame.Angles(0,select(2,pcf:ToEulerAnglesYXZ()),0))
+	end
 end)
 function auraOn()
 	auraEnabled = true
@@ -828,7 +832,7 @@ exti:CreateButton(items,"trigger","Use All Oneshot Items","Automatically equips 
 exti:CreateButton(misc,"trigger","Teleport to Slap Royale matchmaking","Automatically teleports you to the slap royale matchmaking place to start a new game",1,Teleporttomatchmaking)
 exti:CreateButton(misc,"toggle","ESP","See where players are at and their usernames.",2,espCreate,destroyESP)
 exti:CreateTextInput(misc,"Loop Goto","Basically stick to a player by constantly teleporting towards them (Supports name shorthands)",3,loopgotoname)
-exti:CreateTextInput(main, "Walk Speed","Adjust your speed safely. Input 0 to use default roblox speed.",2,function(input) tpWalkSpeed = tonumber(input)-hrp.Parent.Humanoid.WalkSpeed or 0 end)
+exti:CreateTextInput(main, "Walk Speed","Adjust your speed safely. Input 0 to use default roblox speed.",2,function(input) tpWalkSpeed = tonumber(input) or 0 end)
 exti:CreateButton(misc,"toggle","Loop Goto Enable","Enable Loop Goto",4,loopgotoenable,loopgotoenable)
 exti:CreateButton(auto,"trigger","Auto Detonator","Automatically gets det. Faculty highly reccomended",2,AutoWin2)
 exti:CreateLabel(misc, "Spectate players", 5)
@@ -847,4 +851,20 @@ end
 
 if game.Workspace:FindFirstChild("Map"):FindFirstChild("AcidAbnormality") then
 	game.Workspace:FindFirstChild("Map").AcidAbnormality:Destroy()
+end
+local startX = 41
+local startZ = -322
+local yLevel = -55
+local partSize = 2000
+local gridSize = 15
+
+for i = 0, gridSize - 1 do
+    for j = 0, gridSize - 1 do
+        local part = Instance.new("Part")
+        part.Size = Vector3.new(partSize, 15, partSize)
+        part.Position = Vector3.new(startX + i * partSize,yLevel,startZ + j * partSize)
+        part.Anchored = true
+        part.Color = Color3.fromRGB(255, 0, 0)
+        part.Parent = workspace
+    end
 end
