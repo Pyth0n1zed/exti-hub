@@ -329,7 +329,7 @@ function UseAllPermanentItemsSR()
 			items = items + 1
 		end
 	end
-	exti:Notify(tostring(items).." have been used successfully.", 5)
+	exti:Notify(tostring(items).." items have been used successfully.", 5)
 end
 function UseAllOneshotItemsSR()
 	local items = 0
@@ -341,7 +341,7 @@ function UseAllOneshotItemsSR()
 			items = items + 1
 		end
 	end
-	exti:Notify(tostring(items).." have been used successfully.", 5)
+	exti:Notify(tostring(items).." items have been used successfully.", 5)
 end
 function UseAllItemsSR()
 	local items = 0
@@ -353,9 +353,10 @@ function UseAllItemsSR()
 			items = items + 1
 		end
 	end
-	exti:Notify(tostring(items).." have been used successfully.", 5)
+	exti:Notify(tostring(items).." items have been used successfully.", 5)
 end
 function Teleporttomatchmaking()
+	exti:Notify("Teleporting.. please wait a second!", 67)
 	game:GetService("TeleportService"):Teleport(9426795465,game.Players.LocalPlayer)
 end
 
