@@ -269,19 +269,25 @@ rs.RenderStepped:Connect(function(dt)
 		local dist = (hrp.Position - thrp.Position).Magnitude
 		if dist < 67 then events:FindFirstChild("Slap"):FireServer(thrp) end
 	end
-
+	local vec = Vector3.new(0,0,0)
 	if wKeyPressed then
-		hrp.CFrame = hrp.CFrame + camera.CFrame.LookVector*tpWalkSpeed*dt
+		--hrp.CFrame = hrp.CFrame + camera.CFrame.LookVector*tpWalkSpeed*dt
+		vec = vec+camera.CFrame.LookVector
 	end
 	if sKeyPressed then
-		hrp.CFrame = hrp.CFrame - camera.CFrame.LookVector*tpWalkSpeed*dt
+		--hrp.CFrame = hrp.CFrame - camera.CFrame.LookVector*tpWalkSpeed*dt
+		vec = vec-camera.CFrame.LookVector
 	end
 	if dKeyPressed then
-		hrp.CFrame = hrp.CFrame + camera.CFrame.RightVector*tpWalkSpeed*dt
+		--hrp.CFrame = hrp.CFrame + camera.CFrame.RightVector*tpWalkSpeed*dt
+		vec = vec+camera.CFrame.RightVector
 	end
 	if aKeyPressed then
-		hrp.CFrame = hrp.CFrame - camera.CFrame.RightVector*tpWalkSpeed*dt
+		--hrp.CFrame = hrp.CFrame - camera.CFrame.RightVector*tpWalkSpeed*dt
+		vec = vec-camera.CFrame.RightVector
 	end
+	--hrp:PivotTo(hrp.CFrame + CFrame.new(vec*dt*tpWalkSpeed,Vector3.new(camera.CFrame.LookVector.X,0,camera.CFrame.LookVector.Z)))
+	hrp.CFrame = CFrame.new(hrp.Position+vec*dt*tpWalkSpeed,Vector3.new(camera.CFrame.LookVector.X,0,camera.CFrame.LookVector.Z))
 end)
 
 function auraOn()
