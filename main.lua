@@ -461,7 +461,7 @@ end
 
 function AutoWin()
 	DisableVacNotif = true
-	exti:Notify("While this function is running, please do not move your character or camera. It will kill all people once playerCount < 12.", 10)
+	exti:Notify("While this function is running, please do not move your character or camera. It will kill all people once playerCount < 12.", 20)
 	auraOn()
 	CollectAllOneShottyItemsSR()
 	while true do if not player.PlayerGui:FindFirstChild("Countdown") then break end task.wait(0.1) end
@@ -733,6 +733,7 @@ function AutoWinVoid()
 	end
 end
 function AutoWin2()
+	exti:Notify("While this function is running, please do not move your character or camera.", 15)
     if game.Workspace:FindFirstChild("Map"):FindFirstChild("AcidAbnormality") then
 		game.Workspace:FindFirstChild("Map").AcidAbnormality:Destroy()
 	end
