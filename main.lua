@@ -13,6 +13,7 @@ local map = workspace:FindFirstChild("Map")
 local ts = game:GetService("TweenService")
 local rs = game:GetService("RunService")
 local events = game.ReplicatedStorage:FindFirstChild("Events")
+local DisableVacNotif = false
 local autoWin = false
 local wKeyPressed = false
 local sKeyPressed = false
@@ -160,7 +161,9 @@ local function CollectItemsSR(itemNames, repeatCount, amount)
 				ii = ii + 1
 				cii = cii + 1
             elseif not ok and not autoWin then
-				exti:Notify("Please do not attempt to move or turn your camera, Grab All Items will continue to pick up items after the game has started.")
+				if not DisableVacNotif then
+					exti:Notify("Please do not attempt to move or turn your camera, Grab All Items will continue to pick up items after the game has started.", 8)
+				end
                 task.wait(4)
 				game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("BusJumping"):FireServer()
 				task.wait()
@@ -190,6 +193,7 @@ local function CollectAllPermanentItemsSR()
 	CollectItemsSR({"Boba"})
 	CollectItemsSR({"Bull's essence"})
 	CollectItemsSR({"Frog Potion"})
+	exti:Notify("Item collection complete. You may now move your character and camera.", 5)
 end
 
 local function CollectAllStrengthItemsSR()
@@ -199,6 +203,7 @@ local function CollectAllStrengthItemsSR()
 	CollectItemsSR({"Boba"})
 	CollectItemsSR({"Sphere of fury"})
 	CollectItemsSR({"True Power"})
+	exti:Notify("Item collection complete. You may now move your character and camera.", 5)
 end
 
 local function CollectAllOneShottyItemsSR()
@@ -209,6 +214,7 @@ local function CollectAllOneShottyItemsSR()
 	CollectItemsSR({"Sphere of fury"})
 	CollectItemsSR({"True Power"})
 	CollectItemsSR({"Cube of Ice"})
+	exti:Notify("Item collection complete. You may now move your character and camera.", 5)
 end
 
 local function CollectAllHealingItemsSR()
@@ -218,10 +224,12 @@ local function CollectAllHealingItemsSR()
 	CollectItemsSR({"Bandage"})
 	CollectItemsSR({"Apple"})
 	CollectItemsSR({"Boba"})
+	exti:Notify("Item collection complete. You may now move your character and camera.", 5)
 end
 
 local function CollectAllItemsSR()
 	CollectItemsSR({"Potion of Strength","Frog Potion","Speed Potion","Boba","Bull's essence","True Power","Sphere of fury","Cube of Ice","Apple","Bandage","First Aid Kit","Healing Potion","Potion of Healing"},5)
+	exti:Notify("Item collection complete. You may now move your character and camera.", 5)
 end
 
 local auraDist = 30
@@ -271,65 +279,76 @@ rs.RenderStepped:Connect(function(dt)
 	end
 	if tpWalkSpeed ~= 0 then
 		local vec = Vector3.new(0,0,0)
-	if wKeyPressed then
+		if wKeyPressed then
 		--hrp.CFrame = hrp.CFrame + camera.CFrame.LookVector*tpWalkSpeed*dt
-		vec = vec+camera.CFrame.LookVector
-	end
-	if sKeyPressed then
+			vec = vec+camera.CFrame.LookVector
+		end
+		if sKeyPressed then
 		--hrp.CFrame = hrp.CFrame - camera.CFrame.LookVector*tpWalkSpeed*dt
-		vec = vec-camera.CFrame.LookVector
-	end
-	if dKeyPressed then
+			vec = vec-camera.CFrame.LookVector
+		end
+		if dKeyPressed then
 		--hrp.CFrame = hrp.CFrame + camera.CFrame.RightVector*tpWalkSpeed*dt
-		vec = vec+camera.CFrame.RightVector
-	end
-	if aKeyPressed then
+			vec = vec+camera.CFrame.RightVector
+		end
+		if aKeyPressed then
 		--hrp.CFrame = hrp.CFrame - camera.CFrame.RightVector*tpWalkSpeed*dt
-		vec = vec-camera.CFrame.RightVector
-	end
-	if vec.Magnitude > 0 then
-		vec = vec.Unit
-	end
-	local pcf = hrp.CFrame
-	vec = hrp.Position+vec*dt*tpWalkSpeed
-	hrp:PivotTo(CFrame.new(Vector3.new(vec.X, hrp.Position.Y, vec.Z))*CFrame.Angles(0,select(2,pcf:ToEulerAnglesYXZ()),0))
+			vec = vec-camera.CFrame.RightVector
+		end
+		if vec.Magnitude > 0 then
+			vec = vec.Unit
+		end
+		local pcf = hrp.CFrame
+		vec = hrp.Position+vec*dt*tpWalkSpeed
+		hrp:PivotTo(CFrame.new(Vector3.new(vec.X, hrp.Position.Y, vec.Z))*CFrame.Angles(0,select(2,pcf:ToEulerAnglesYXZ()),0))
 	end
 end)
 function auraOn()
 	auraEnabled = true
+	exti:Notify("Slap Aura enabled.", 3)
 end
 
 function auraOff()
 	auraEnabled = false
+	exti:Notify("Slap Aura disabled.", 3)
 end
 
 
 function UseAllPermanentItemsSR()
+	local items = 0
 	for _,v in pairs(player:GetDescendants()) do
 		if v.Name == "Bull's essence" or v.Name == "Speed Potion" or v.Name == "Frog Potion" or v.Name == "Boba" or v.Name == "Potion of Strength" then
 			v.Parent = character
 			v:Activate()
 			task.wait(0.05)
+			items = items + 1
 		end
 	end
+	exti:Notify(tostring(items).." have been used successfully.", 5)
 end
 function UseAllOneshotItemsSR()
+	local items = 0
 	for _,v in pairs(player:GetDescendants()) do
 		if v.Name == "Bull's essence" or v.Name == "Cube of Ice" or v.Name == "Sphere of fury" or v.Name == "Boba" or v.Name == "Potion of Strength" then
 			v.Parent = character
 			v:Activate()
 			task.wait(0.05)
+			items = items + 1
 		end
 	end
+	exti:Notify(tostring(items).." have been used successfully.", 5)
 end
 function UseAllItemsSR()
+	local items = 0
 	for _,v in pairs(player:GetDescendants()) do
 		if v:IsA("Tool") then
 			v.Parent = character
 			v:Activate()
 			task.wait(0.05)
+			items = items + 1
 		end
 	end
+	exti:Notify(tostring(items).." have been used successfully.", 5)
 end
 function Teleporttomatchmaking()
 	game:GetService("TeleportService"):Teleport(9426795465,game.Players.LocalPlayer)
@@ -374,6 +393,7 @@ function espCreate()
 		end)
 
 	end
+	exti:Notify("ESP Enabled.", 3)
  end
 
 local function destroyESP()
@@ -381,6 +401,7 @@ local function destroyESP()
 		v.Character:FindFirstChild("Highlight"):Destroy()
 		v.Character.Head:FindFirstChild("BillboardGui"):Destroy()
 	end
+	exti:Notify("ESP Disabled.", 3)
 end
 local loopgoto = false
 local name = ""
@@ -439,6 +460,8 @@ function AutoKill()
 end
 
 function AutoWin()
+	DisableVacNotif = true
+	exti:Notify("While this function is running, please do not move your character or camera. It will kill all people once playerCount < 12.", 10)
 	auraOn()
 	CollectAllOneShottyItemsSR()
 	while true do if not player.PlayerGui:FindFirstChild("Countdown") then break end task.wait(0.1) end
