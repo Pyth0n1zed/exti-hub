@@ -885,7 +885,7 @@ if game.Workspace:FindFirstChild("Map"):FindFirstChild("AcidAbnormality") then
 end
 local startX = 41
 local startZ = -322
-local yLevel = -55
+local yLevel = -65
 local partSize = 2000
 local gridSize = 15
 
