@@ -287,8 +287,7 @@ rs.RenderStepped:Connect(function(dt)
 		vec = vec-camera.CFrame.RightVector
 	end
 	--hrp:PivotTo(hrp.CFrame + CFrame.new(vec*dt*tpWalkSpeed,Vector3.new(camera.CFrame.LookVector.X,0,camera.CFrame.LookVector.Z)))
-	hrp.CFrame = CFrame.new(Vector3.new((hrp.Position+vec*dt*tpWalkSpeed).X,hrp.Position.Y,(hrp.Position+vec*dt*tpWalkSpeed).Z),(Vector3.new((hrp.Position+vec*dt*tpWalkSpeed).X,hrp.Position.Y,(hrp.Position+vec*dt*tpWalkSpeed).Z)+Vector3.new(camera.CFrame.LookVector.X,0,camera.CFrame.LookVector.Z)))
-end)
+	hrp.CFrame = CFrame.new(Vector3.new((hrp.Position+vec*dt*tpWalkSpeed).X, hrp.Position.Y, (hrp.Position+vec*dt*tpWalkSpeed).Z))
 
 function auraOn()
 	auraEnabled = true
