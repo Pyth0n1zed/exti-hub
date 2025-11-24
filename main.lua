@@ -187,6 +187,7 @@ end
 
 
 local function CollectAllPermanentItemsSR()
+	exti:Notify("Item collection started. Please do not move your character or camera.", 5)
     --CollectItemsSR({"Potion of Strength", "Frog Potion", "Speed Potion", "Boba", "Bull's essence"},5)
 	CollectItemsSR({"Potion of Strength"})
 	CollectItemsSR({"Speed Potion"})
@@ -197,6 +198,7 @@ local function CollectAllPermanentItemsSR()
 end
 
 local function CollectAllStrengthItemsSR()
+	exti:Notify("Item collection started. Please do not move your character or camera.", 5)
     --CollectItemsSR({"Bull's essence","Potion of Strength","Boba","True Power","Sphere of fury"},5)
 	CollectItemsSR({"Potion of Strength"})
 	CollectItemsSR({"Bull's essence"})
@@ -207,6 +209,7 @@ local function CollectAllStrengthItemsSR()
 end
 
 local function CollectAllOneShottyItemsSR()
+	exti:Notify("Item collection started. Please do not move your character or camera.", 5)
     --CollectItemsSR({"Cube of Ice","Bull's essence","Potion of Strength","Boba","True Power","Sphere of fury"},5)
 	CollectItemsSR({"Potion of Strength"})
 	CollectItemsSR({"Bull's essence"})
@@ -218,6 +221,7 @@ local function CollectAllOneShottyItemsSR()
 end
 
 local function CollectAllHealingItemsSR()
+	exti:Notify("Item collection started. Please do not move your character or camera.", 5)
     --CollectItemsSR({"Apple","Bandage","First Aid Kit","Healing Potion","Potion of Healing","Boba"},5)
 	CollectItemsSR({"Healing Potion"})
 	CollectItemsSR({"First Aid Kit"})
@@ -228,6 +232,7 @@ local function CollectAllHealingItemsSR()
 end
 
 local function CollectAllItemsSR()
+	exti:Notify("Item collection started. Please do not move your character or camera.", 5)
 	CollectItemsSR({"Potion of Strength","Frog Potion","Speed Potion","Boba","Bull's essence","True Power","Sphere of fury","Cube of Ice","Apple","Bandage","First Aid Kit","Healing Potion","Potion of Healing"},5)
 	exti:Notify("Item collection complete. You may now move your character and camera.", 5)
 end
