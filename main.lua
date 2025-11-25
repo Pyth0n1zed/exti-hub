@@ -747,8 +747,7 @@ exti:CreateLabel(misc, "Spectate players", 5)
 exti:CreateButton(misc, "trigger", "Spectate Cycle", "Cycle between spectating players", 6, cyclespec)
 exti:CreateButton(misc, "toggle", "Enable spectate", "Enables spectating", 7, spectoggle, spectoggle)
 exti:CreateButton(auto,"trigger","Auto win","Automatically wins for you, typically gets spy.", 1, AutoWin)
-local report = ""
-local reported = false
+exti:CreateLabel(support,"https://discord.gg/3zyrZTzt8B",1)
 --exti:CreateButton(auto,"trigger","Auto win with void method","Requires void, automatically wins for you(RNG, takes a while)", 3, AutoWinVoid)
 exti:FinishLoading()
 if map then
