@@ -497,7 +497,7 @@ end
 
 function AutoWin()
 	DisableVacNotif = true
-	exti:Notify("While this function is running, please do not move your character or camera. It will kill all people once playerCount < 12.", 20)
+	exti:Notify("While this function is running, please do not move your character or camera. It will kill all people once playerCount < 7.", 20)
 	auraOn()
 	CollectAllOneShottyItemsSR()
 	while true do if not player.PlayerGui:FindFirstChild("Countdown") then break end task.wait(0.1) end
@@ -525,7 +525,7 @@ function AutoWin()
     		return tonumber(num) or 0
 		end
 
-		if getAliveCount() < 12 then
+		if getAliveCount() < 7 then
     		break
 		end
 
@@ -754,7 +754,7 @@ exti:CreateButton(auto,"trigger","Auto Detonator","Automatically gets det. Facul
 exti:CreateLabel(misc, "Spectate players", 5)
 exti:CreateButton(misc, "trigger", "Spectate Cycle", "Cycle between spectating players", 6, cyclespec)
 exti:CreateButton(misc, "toggle", "Enable spectate", "Enables spectating", 7, spectoggle, spectoggle)
-exti:CreateButton(auto,"trigger","Auto win","Automatically wins for you, typically gets spy.", 1, AutoWin)
+exti:CreateButton(auto,"trigger","Auto win","Automatically wins for you, typically gets charge.", 1, AutoWin)
 exti:CreateLabel(support,"https://discord.gg/3zyrZTzt8B",1)
 --exti:CreateButton(auto,"trigger","Auto win with void method","Requires void, automatically wins for you(RNG, takes a while)", 3, AutoWinVoid)
 exti:FinishLoading()
