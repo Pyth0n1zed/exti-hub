@@ -429,7 +429,8 @@ task.spawn(function()
 while true do
 	for _,v in pairs(game.Players:GetPlayers())do	
 		if v.Name == name and loopgoto and v.Character.Humanoid.Health > 0 then
-			hrp:PivotTo(CFrame.new((v.Character.HumanoidRootPart.Position).X),(v.Character.HumanoidRootPart.Position).Y-7,(v.Character.HumanoidRootPart.Position).Z)
+			local vec = v.Character.HumanoidRootPart.Position - Vector3.new(0,7,0)
+			game:GetService("TweenService"):Create(hrp,TweenInfo.new(0.1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out),{CFrame = CFrame.new(vec)}):Play()
 		end
 	end
 	wait(0.01)
@@ -745,7 +746,7 @@ function AutoWin2()
 	end
 	autoWin = true
 	local potCount = 0
-	CollectItemsSR({"Bomb"})
+	CollectItemsSR({"Bomb"},3,5)
 	CollectItemsSR({"Potion of Strength"})
 	for _,v in pairs(player:GetDescendants()) do
 		if v.Name == "Potion of Strength" then potCount = potCount + 1 end
@@ -770,13 +771,9 @@ function AutoWin2()
 		end
 	end
 	UseAllOneshotItemsSR()
-	while task.wait() do
-		if ok then task.wait(3); break end
-	end
-	VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.Space, false, game)
-    task.wait(0.1) -- hold
-    VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.Space, false, game)
-	task.wait(0.1)
+	
+	game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("BusJumping"):FireServer()
+	task.wait(0.5)
 	character:PivotTo(CFrame.new(41.9398575, 28.8037186, -322.898193))
 	task.wait(1)
 	auraOn()
@@ -870,7 +867,7 @@ exti:CreateLabel(misc, "Spectate players", 5)
 exti:CreateButton(misc, "trigger", "Spectate Cycle", "Cycle between spectating players", 6, cyclespec)
 exti:CreateButton(misc, "toggle", "Enable spectate", "Enables spectating", 7, spectoggle, spectoggle)
 exti:CreateButton(auto,"trigger","Auto win","Automatically wins for you, typically gets spy.", 1, AutoWin)
-
+					
 --exti:CreateButton(auto,"trigger","Auto win with void method","Requires void, automatically wins for you(RNG, takes a while)", 3, AutoWinVoid)
 exti:FinishLoading()
 if map then
