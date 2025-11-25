@@ -558,9 +558,9 @@ function AutoWin()
 			task.wait(0.01)
 
 			if game.Workspace:FindFirstChild("Zone1") then
-				character:PivotTo(game.Workspace:FindFirstChild("Zone1").CFrame + Vector3.new(0,32700,0))
+				character:PivotTo(game.Workspace:FindFirstChild("Zone1").CFrame + Vector3.new(0,16700,0))
 			else
-				character:PivotTo(CFrame.new(41.9398575, 32028.8037186, -322.898193))		
+				character:PivotTo(CFrame.new(41.9398575, 16028.8037186, -322.898193))		
 			end
 			if not prevPlayer and iceCount > 0 then
 				waitTime = 2.25*(iceCount/2)
@@ -693,9 +693,9 @@ function AutoWin2()
 			loopgoto = false
 			task.wait(0.01)
 			if game.Workspace:FindFirstChild("Zone1") then
-				character:PivotTo(game.Workspace:FindFirstChild("Zone1").CFrame + Vector3.new(0,32700,0))
+				character:PivotTo(game.Workspace:FindFirstChild("Zone1").CFrame + Vector3.new(0,16700,0))
 			else
-				character:PivotTo(CFrame.new(41.9398575, 32028.8037186, -322.898193))		
+				character:PivotTo(CFrame.new(41.9398575, 16028.8037186, -322.898193))		
 			end
 			if not prevPlayer and iceCount > 0 then
 				waitTime = 2.25*(iceCount/2)
