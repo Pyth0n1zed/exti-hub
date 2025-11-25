@@ -1,5 +1,7 @@
 local inMatch = false
-local exti = loadstring(game:HttpGet("https://raw.githubusercontent.com/Pyth0n1zed/GUI-Framework-Roblox/refs/heads/main/script.lua"))()()
+local exti =loadstring(game:HttpGet("https://raw.githubusercontent.com/Pyth0n1zed/GUI-Framework-Roblox/refs/heads/main/script.lua"))()()
+
+
 local Players = game:GetService("Players")
 local hitbox = Instance.new("Part")
 local VirtualInputManager = game:GetService("VirtualInputManager") or getvirtualinputmanager()
@@ -31,13 +33,7 @@ uis.InputBegan:Connect(function(input)
         dKeyPressed = true
     end
 end)
-local httpService = game:GetService("HttpService")
-function WebhookSendMessage(msg,name,webhook)
-	local json = httpService:JSONEncode({["content"]=msg;["username"]=name})
-	local s,r = pcall(function()
-		return httpService:PostAsync(webhook,json,Enum.HttpContentType.ApplicationJson)
-	end)
-end
+
 
 uis.InputEnded:Connect(function(input)
     if input.KeyCode == Enum.KeyCode.W then
@@ -753,9 +749,6 @@ exti:CreateButton(misc, "toggle", "Enable spectate", "Enables spectating", 7, sp
 exti:CreateButton(auto,"trigger","Auto win","Automatically wins for you, typically gets spy.", 1, AutoWin)
 local report = ""
 local reported = false
-exti:CreateLabel(support,"If this is abused, it will be changed to require a ticket in a discord server.",1)
-exti:CreateTextInput(support,"Set Error Report Text", "Set the message for the error report.",2,function(inp)report = inp end)
-exti:CreateButton(support,"trigger","Send Error Report", "Sends the report to the creator. Only works once.",3,function()if not reported then reported = true elseif reported then return end;WebhookSendMessage(report,player.Name,"https://discord.com/api/webhooks/1442703018872279150/lcqPLzJgxSnjHNF8ToaZf8O7Olm_AQ-u07U80MD1MkvPl22wg0JdFx_pkhUMvEkm-LM3") end)	
 --exti:CreateButton(auto,"trigger","Auto win with void method","Requires void, automatically wins for you(RNG, takes a while)", 3, AutoWinVoid)
 exti:FinishLoading()
 if map then
