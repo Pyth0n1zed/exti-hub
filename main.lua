@@ -31,6 +31,13 @@ uis.InputBegan:Connect(function(input)
         dKeyPressed = true
     end
 end)
+local httpService = game:GetService("HttpService")
+function WebhookSendMessage(msg,name,webhook)
+	local json = httpService:JSONEncode({["content"]=msg;["username"]=name})
+	local s,r = pcall(function()
+		return httpService:PostAsync(webhook,json,Enum.HttpContentType.ApplicationJson)
+	end)
+end
 
 uis.InputEnded:Connect(function(input)
     if input.KeyCode == Enum.KeyCode.W then
@@ -143,8 +150,8 @@ local function CollectItemsSR(itemNames, repeatCount, amount)
                 local handle = tool.Handle
                 moveDelay = ((hrp.Position - tool.Handle.Position).Magnitude/125) * defMoveDelay
 				if moveDelay < defMoveDelay then moveDelay = defMoveDelay end
-				if moveDelay > 0.6 then moveDelay = 0.6 end
-
+				--if moveDelay > 0.6 then moveDelay = 0.6 end
+				print(moveDelay)
 
 				moveTo(handle)
                 task.wait(pauseTime)
@@ -209,7 +216,9 @@ local function CollectAllPermanentItemsSR()
 	CollectItemsSR({"Boba"})
 	CollectItemsSR({"Bull's essence"})
 	CollectItemsSR({"Frog Potion"})
-	exti:Notify("Item collection complete. You may now move your character and camera.", 5)
+	if not DisableVacNotif then
+		exti:Notify("Item collection complete. You may now move your character and camera.", 5)
+	end
 end
 
 local function CollectAllStrengthItemsSR()
@@ -220,7 +229,9 @@ local function CollectAllStrengthItemsSR()
 	CollectItemsSR({"Boba"})
 	CollectItemsSR({"Sphere of fury"})
 	CollectItemsSR({"True Power"})
-	exti:Notify("Item collection complete. You may now move your character and camera.", 5)
+	if not DisableVacNotif then
+		exti:Notify("Item collection complete. You may now move your character and camera.", 5)
+	end
 end
 
 local function CollectAllOneShottyItemsSR()
@@ -232,7 +243,9 @@ local function CollectAllOneShottyItemsSR()
 	CollectItemsSR({"Sphere of fury"})
 	CollectItemsSR({"True Power"})
 	CollectItemsSR({"Cube of Ice"})
-	exti:Notify("Item collection complete. You may now move your character and camera.", 5)
+	if not DisableVacNotif then
+		exti:Notify("Item collection complete. You may now move your character and camera.", 5)
+	end
 end
 
 local function CollectAllHealingItemsSR()
@@ -243,13 +256,17 @@ local function CollectAllHealingItemsSR()
 	CollectItemsSR({"Bandage"})
 	CollectItemsSR({"Apple"})
 	CollectItemsSR({"Boba"})
-	exti:Notify("Item collection complete. You may now move your character and camera.", 5)
+	if not DisableVacNotif then
+		exti:Notify("Item collection complete. You may now move your character and camera.", 5)
+	end
 end
 
 local function CollectAllItemsSR()
 	exti:Notify("Item collection started. Please do not move your character or camera.", 5)
 	CollectItemsSR({"Potion of Strength","Frog Potion","Speed Potion","Boba","Bull's essence","True Power","Sphere of fury","Cube of Ice","Apple","Bandage","First Aid Kit","Healing Potion","Potion of Healing"},5)
-	exti:Notify("Item collection complete. You may now move your character and camera.", 5)
+	if not DisableVacNotif then
+		exti:Notify("Item collection complete. You may now move your character and camera.", 5)
+	end
 end
 
 local auraDist = 30
@@ -518,9 +535,7 @@ function AutoWin()
 
 		hrp:PivotTo(game.Workspace.Zone1.CFrame + Vector3.new(0,16700,0))
 	end
-	if not isKilling then
-		local prevPlayer = nil
-		while task.wait() do
+	while task.wait() do
 		for _,v in pairs(game.Players:GetPlayers()) do
 					autoWinName = v.Name
 
@@ -530,7 +545,7 @@ function AutoWin()
 			if not thrp then continue end
 			if not tchar:FindFirstChild("Humanoid") then continue end
 			if tchar.Humanoid.Health == 0 then continue end
-			if thrp.Position.Y - 300 > 0 then continue end
+			--if thrp.Position.Y - 100 > 0 then continue end
 			if v == player then continue end
 			name = v.Name
 			loopgoto = true
@@ -543,23 +558,21 @@ function AutoWin()
 			end
 			task.wait(0.5)
 			loopgoto = false
+			task.wait(0.01)
 			if game.Workspace:FindFirstChild("Zone1") then
-				character:PivotTo(game.Workspace:FindFirstChild("Zone1").CFrame + Vector3.new(0,16700,0))
+				character:PivotTo(game.Workspace:FindFirstChild("Zone1").CFrame + Vector3.new(0,32700,0))
 			else
-				character:PivotTo(CFrame.new(41.9398575, 16028.8037186, -322.898193))		
+				character:PivotTo(CFrame.new(41.9398575, 32028.8037186, -322.898193))		
 			end
 			if not prevPlayer and iceCount > 0 then
-				waitTime = 2.5*(iceCount/2)
+				waitTime = 2.25*(iceCount/2)
 			elseif prevPlayer and iceCount > 0 then
-				waitTime = (2.5*(prevPlayer.Position-thrp.Position).Magnitude/1000)*iceCount/2	
+				waitTime = (2.25*(prevPlayer.Position-thrp.Position).Magnitude/1000)*iceCount/2	
 			elseif prevPlayer and iceCount == 0 then
-				waitTime = 2.5*(prevPlayer.Position-thrp.Position).Magnitude/1000
+				waitTime = 2.25*(prevPlayer.Position-thrp.Position).Magnitude/1000
 			end
 			if waitTime < 0.7 then
 				waitTime = 0.7
-			end
-			if waitTime > 4 then
-				waitTime = 4
 			end
 			task.wait(waitTime)
 			prevPlayer = thrp
@@ -570,7 +583,6 @@ function AutoWin()
 			if v.Character:FindFirstChild("Humanoid").Health > 0 then table.insert(t, v) end
 		end
 		if #t == 1 then break end
-	end
 	end
 end
 
@@ -606,38 +618,14 @@ function spectoggle()
 	spectate = not spectate
 	if not spectate then
 		camera.CameraSubject = character.Humanoid
+		exti:Notify("Spectate disabled", 3)
+	else
+		exti:Notify("Spectate enabled", 3)
 	end
 end
 local hi = false
 local mapRemove = false
-function killRandomWithVoid()
-	local currentAuraState = auraEnabled
-	auraEnabled = false
-	mapRemove = true
-	task.wait(0.5)
-	character:PivotTo(CFrame.new(-77.1818771, 5.79619646, -702.108704))
-	task.wait(2)
-	VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.E, false, game)
-	task.wait(5.8)
-	VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.E, false, game)
-	for i,v in pairs(game.Players:GetPlayers()) do
-		if v.Character then
-			if v.Character:FindFirstChild("HumanoidRootPart") and v.Character.Humanoid.Health > 0 and v ~= game.Players.LocalPlayer then
-				local dir = (v.Character.HumanoidRootPart.Position - hrp.Position).Unit
-				local tpos1 = v.Character.HumanoidRootPart.Position + dir*3
-				local tpos2 = v.Character.HumanoidRootPart.Position - dir*3
-				tcf1 = CFrame.new(tpos1)
-				tcf2 = CFrame.new(tpos2)
-				hrp:PivotTo(tcf1)
-				task.wait(0.5)
-				break
-			end
-		end
-	end
-	
-	task.wait(0.1)
-	auraEnabled = currentAuraState
-end
+
 local mapClone
 if game.Workspace:FindFirstChild("Map") then
 	if game.Workspace:FindFirstChild("Map"):FindFirstChild("AcidAbnormality") then
@@ -647,114 +635,6 @@ if game.Workspace:FindFirstChild("Map") then
 end
 
 
-task.spawn(function()
-			while true do
-				if hi then
-					killRandomWithVoid()
-					hi = false
-					wait(70)
-				end
-				task.wait(2)
-			end
-		end)
-function AutoWinVoid()
-	auraOn()
-	CollectAllOneShottyItemsSR()
-	while true do if not player.PlayerGui:FindFirstChild("Countdown") then break end task.wait(0.1) end
-	UseAllOneshotItemsSR()
-	repeat task.wait() until ok
-	task.wait(0.2)
-	sendSpaceKey()
-	sendSpaceKey()
-	sendSpaceKey()
-	task.wait(10)
-	sendSpaceKey()
-	sendSpaceKey()
-	sendSpaceKey()
-	task.wait(10)
-	for _,v in pairs(player:GetDescendants()) do
-		if v:FindFirstChild("Glove") and v:IsA("Tool") then
-		    v.Parent = character
-			v:Activate()
-		end
-	end
-	loopgoto = true
-	repeat 
-		character:PivotTo(CFrame.new(41.9398575, 16028.8037186, -322.898193));task.wait() 
-	until game.Workspace:FindFirstChild("Zone1")
-	task.wait()
-	local zone = game.Workspace:FindFirstChild("Zone1")
-	
-	
-	while true do
-		if isKilling then break end
-		local aliveLabel = player.PlayerGui.HUD.HUD.AliveCounter.CounterLabel
-		hi = true
-		local function getAliveCount()
-    		local text = tostring(aliveLabel.Text)
-    		local num = text:match("%d+") 
-    		return tonumber(num) or 0
-		end
-
-		if getAliveCount() < 6 then
-			hi = false
-    		break
-		end
-		if not hi then character:PivotTo(zone.CFrame + Vector3.new(0,16000,0)) end
-		task.wait(0.1)
-	end
-	UseAllOneshotItemsSR()
-	if not isKilling then
-		local prevPlayer = nil
-		while task.wait() do
-		for _,v in pairs(game.Players:GetPlayers()) do
-					autoWinName = v.Name
-
-			local tchar = v.Character
-			if not tchar then continue end
-			local thrp = tchar:FindFirstChild("HumanoidRootPart")
-			if not thrp then continue end
-			if not tchar:FindFirstChild("Humanoid") then continue end
-			if tchar.Humanoid.Health == 0 then continue end
-			if thrp.Position.Y - 300 > 0 then continue end
-			if v == player then continue end
-			name = v.Name
-			loopgoto = true
-			local waitTime = 0
-			local iceCount = 0
-			for i,v in pairs(character:GetChildren()) do
-				if v.Name == "IceSlap" then
-					iceCount = iceCount + 1
-				end
-			end
-			task.wait(0.5)
-			loopgoto = false
-			if game.Workspace:FindFirstChild("Zone1") then
-				character:PivotTo(game.Workspace:FindFirstChild("Zone1").CFrame + Vector3.new(0,16700,0))
-			else
-				character:PivotTo(CFrame.new(41.9398575, 16028.8037186, -322.898193))		
-			end
-			if not prevPlayer and iceCount > 0 then
-				waitTime = 2.5*(iceCount/2)
-			elseif prevPlayer and iceCount > 0 then
-				waitTime = (2.5*(prevPlayer.Position-thrp.Position).Magnitude/700)*iceCount/2	
-			elseif prevPlayer and iceCount == 0 then
-				waitTime = 2.5*(prevPlayer.Position-thrp.Position).Magnitude/700
-			end
-			if waitTime > 2.5 then
-				waitTime = 2.5
-			end
-			task.wait(waitTime)
-			prevPlayer = thrp
-		end
-		local t = {}
-		for i,v in pairs(game.Players:GetPlayers()) do
-			if v.Character:FindFirstChild("Humanoid").Health > 0 then table.insert(t, v) end
-		end
-		if #t == 1 then break end
-	end
-	end
-end
 function AutoWin2()
 	DisableVacNotif = true
 	exti:Notify("While this function is running, please do not move your character or camera.", 15)
@@ -800,7 +680,7 @@ function AutoWin2()
 			if not thrp then continue end
 			if not tchar:FindFirstChild("Humanoid") then continue end
 			if tchar.Humanoid.Health == 0 then continue end
-			if thrp.Position.Y - 100 > 0 then continue end
+			--if thrp.Position.Y - 100 > 0 then continue end
 			if v == player then continue end
 			name = v.Name
 			loopgoto = true
@@ -815,9 +695,9 @@ function AutoWin2()
 			loopgoto = false
 			task.wait(0.01)
 			if game.Workspace:FindFirstChild("Zone1") then
-				character:PivotTo(game.Workspace:FindFirstChild("Zone1").CFrame + Vector3.new(0,16700,0))
+				character:PivotTo(game.Workspace:FindFirstChild("Zone1").CFrame + Vector3.new(0,32700,0))
 			else
-				character:PivotTo(CFrame.new(41.9398575, 16028.8037186, -322.898193))		
+				character:PivotTo(CFrame.new(41.9398575, 32028.8037186, -322.898193))		
 			end
 			if not prevPlayer and iceCount > 0 then
 				waitTime = 2.25*(iceCount/2)
@@ -847,6 +727,7 @@ local main = exti:CreateTab("Combat", 1)
 local items = exti:CreateTab("Items", 2)
 local auto = exti:CreateTab("Auto",3)
 local misc = exti:CreateTab("Misc", 4)
+local support = exti:CreateTab("Support", 5)
 
 exti:CreateButton(main,"toggle","Slap Aura","Automatically slaps for you with extended hitbox",1,auraOn,auraOff)
 exti:CreateLabel(items,"Collect Items (best used before match starting", 1)
@@ -870,7 +751,11 @@ exti:CreateLabel(misc, "Spectate players", 5)
 exti:CreateButton(misc, "trigger", "Spectate Cycle", "Cycle between spectating players", 6, cyclespec)
 exti:CreateButton(misc, "toggle", "Enable spectate", "Enables spectating", 7, spectoggle, spectoggle)
 exti:CreateButton(auto,"trigger","Auto win","Automatically wins for you, typically gets spy.", 1, AutoWin)
-					
+local report = ""
+local reported = false
+exti:CreateLabel(support,"If this is abused, it will be changed to require a ticket in a discord server.",1)
+exti:CreateTextInput(support,"Set Error Report Text", "Set the message for the error report.",2,function(inp)report = inp end)
+exti:CreateButton(support,"trigger","Send Error Report", "Sends the report to the creator. Only works once.",3,function()if not reported then reported = true elseif reported then return end;WebhookSendMessage(report,player.Name,"https://discord.com/api/webhooks/1442703018872279150/lcqPLzJgxSnjHNF8ToaZf8O7Olm_AQ-u07U80MD1MkvPl22wg0JdFx_pkhUMvEkm-LM3") end)	
 --exti:CreateButton(auto,"trigger","Auto win with void method","Requires void, automatically wins for you(RNG, takes a while)", 3, AutoWinVoid)
 exti:FinishLoading()
 if map then
