@@ -568,10 +568,13 @@ function AutoWin()
 			elseif prevPlayer and iceCount == 0 then
 				waitTime = 2.25*(prevPlayer.Position-thrp.Position).Magnitude/1000
 			end
-			print(waitTime)
 			if waitTime < 0.7 then
 				waitTime = 0.7
 			end
+			if waitTime > 5 then
+				waitTime = 5
+			end
+			print(waitTime)
 			task.wait(waitTime)
 			prevPlayer = thrp
 			sendSpaceKey()
@@ -703,10 +706,13 @@ function AutoWin2()
 			elseif prevPlayer and iceCount == 0 then
 				waitTime = 2.25*(prevPlayer.Position-thrp.Position).Magnitude/1000
 			end
-			print(waitTime)
 			if waitTime < 0.7 then
 				waitTime = 0.7
 			end
+			if waitTime > 5 then
+				waitTime = 5
+			end
+			print(waitTime)
 			task.wait(waitTime)
 			prevPlayer = thrp
 			sendSpaceKey()
