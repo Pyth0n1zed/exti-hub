@@ -556,7 +556,7 @@ function AutoWin()
 			task.wait(0.5)
 			loopgoto = false
 			task.wait(0.01)
-			hrp.AssemblyLinearVelocity = Vector3.new(0,0,0)
+
 			if game.Workspace:FindFirstChild("Zone1") then
 				character:PivotTo(game.Workspace:FindFirstChild("Zone1").CFrame + Vector3.new(0,32700,0))
 			else
@@ -692,7 +692,6 @@ function AutoWin2()
 			task.wait(0.5)
 			loopgoto = false
 			task.wait(0.01)
-			hrp.AssemblyLinearVelocity = Vector3.new(0,0,0)
 			if game.Workspace:FindFirstChild("Zone1") then
 				character:PivotTo(game.Workspace:FindFirstChild("Zone1").CFrame + Vector3.new(0,32700,0))
 			else
