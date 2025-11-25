@@ -538,6 +538,12 @@ function AutoWin()
 	character:PivotTo(CFrame.new(41.9398575, 28.8037186, -322.898193))
 	task.wait(1)
 	local prevPlayer = nil
+	for _,v in pairs(player:GetDescendants()) do
+		if v:FindFirstChild("Glove") and v:IsA("Tool") then
+		    v.Parent = character
+			v:Activate()
+		end
+	end
 	while task.wait() do
 		for _,v in pairs(game.Players:GetPlayers()) do
 					autoWinName = v.Name
