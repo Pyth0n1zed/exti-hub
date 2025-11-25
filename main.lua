@@ -1,4 +1,4 @@
-
+local inMatch = false
 local exti = loadstring(game:HttpGet("https://raw.githubusercontent.com/Pyth0n1zed/GUI-Framework-Roblox/refs/heads/main/script.lua"))()()
 local Players = game:GetService("Players")
 local hitbox = Instance.new("Part")
@@ -56,7 +56,9 @@ task.spawn(function()
 		if asd then
 			if tonumber(asd.Countdown.TimeLeft.Text) < 3 then
 				ok = false
-				task.wait(10)
+				task.wait(3)
+				inMatch = true
+				task.wait(8)
 				ok = true
 				asd:Destroy()
 			end
@@ -113,6 +115,17 @@ local function sendSpaceKey()
 	task.wait(0.05)
 	VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.Space, false, game)
 end
+function explode()
+	local iii = 1
+	for _,v in pairs(player:GetDescendants()) do
+		if v.Name == "Bomb" and iii <7 then
+			v.Parent = character
+			v:Activate()
+			iii = iii + 1
+			task.wait(3)
+		end
+	end
+end
 local ii = 1
 local function CollectItemsSR(itemNames, repeatCount, amount)
     if not amount then amount = 67 end
@@ -160,7 +173,9 @@ local function CollectItemsSR(itemNames, repeatCount, amount)
 				end
 				ii = ii + 1
 				cii = cii + 1
-            elseif not ok and not autoWin then
+            elseif not ok then
+				repeat task.wait() until inMatch
+				if autoWin then explode() end
 				if not DisableVacNotif then
 					exti:Notify("Please do not attempt to move or turn your camera, Grab All Items will continue to pick up items after the game has started.", 8)
 				end
@@ -176,8 +191,8 @@ local function CollectItemsSR(itemNames, repeatCount, amount)
     				VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.I, false, game)
     				task.wait(0.2) -- wait between presses
 				end
-			elseif not ok and autoWin then
-				return
+			--elseif not ok and autoWin then
+				--return
 			end
         end
     end
@@ -741,36 +756,22 @@ function AutoWinVoid()
 	end
 end
 function AutoWin2()
+	DisableVacNotif = true
 	exti:Notify("While this function is running, please do not move your character or camera.", 15)
     if game.Workspace:FindFirstChild("Map"):FindFirstChild("AcidAbnormality") then
 		game.Workspace:FindFirstChild("Map").AcidAbnormality:Destroy()
 	end
 	autoWin = true
 	local potCount = 0
-	CollectItemsSR({"Bomb"},3,5)
+	CollectItemsSR({"Bomb"},3,4)
 	CollectItemsSR({"Potion of Strength"})
-	for _,v in pairs(player:GetDescendants()) do
-		if v.Name == "Potion of Strength" then potCount = potCount + 1 end
-	end
-	local bullGrab = 20
-	bullGrab = bullGrab - 2*potCount
-	if bullGrab < 0 then bullGrab = 0 end
-	if potCount == 0 then bullGrab = 5 end
 
-	CollectItemsSR({"Bull's essence"},1, bullGrab)
+	CollectItemsSR({"Bull's essence"})
 	CollectItemsSR({"Cube of Ice"})
 	CollectItemsSR({"Boba"})
-	repeat task.wait() until not ok
-	task.wait(5)
-	local ii = 1
-	for _,v in pairs(player:GetDescendants()) do
-		if v.Name == "Bomb" and ii <7 then
-			v.Parent = character
-			v:Activate()
-			ii = ii + 1
-			task.wait(3)
-		end
-	end
+	repeat task.wait() until inMatch
+	explode()
+	task.wait(1)
 	UseAllOneshotItemsSR()
 	
 	game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("BusJumping"):FireServer()
