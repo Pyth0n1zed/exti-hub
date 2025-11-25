@@ -531,6 +531,7 @@ function AutoWin()
 
 		hrp:PivotTo(game.Workspace.Zone1.CFrame + Vector3.new(0,16700,0))
 	end
+	local prevPlayer = nil
 	while task.wait() do
 		for _,v in pairs(game.Players:GetPlayers()) do
 					autoWinName = v.Name
@@ -567,6 +568,7 @@ function AutoWin()
 			elseif prevPlayer and iceCount == 0 then
 				waitTime = 2.25*(prevPlayer.Position-thrp.Position).Magnitude/1000
 			end
+			print(waitTime)
 			if waitTime < 0.7 then
 				waitTime = 0.7
 			end
