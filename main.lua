@@ -812,6 +812,7 @@ function AutoWin2()
 			end
 			task.wait(0.5)
 			loopgoto = false
+			task.wait(0.01)
 			if game.Workspace:FindFirstChild("Zone1") then
 				character:PivotTo(game.Workspace:FindFirstChild("Zone1").CFrame + Vector3.new(0,16700,0))
 			else
