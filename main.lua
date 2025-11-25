@@ -432,8 +432,10 @@ function espCreate()
 
 local function destroyESP()
 	for _,v in pairs(game.Players:GetPlayers()) do
-		v.Character:FindFirstChild("Highlight"):Destroy()
-		v.Character.Head:FindFirstChild("BillboardGui"):Destroy()
+		if v.Character then
+			v.Character:FindFirstChild("Highlight"):Destroy()
+			v.Character.Head:FindFirstChild("BillboardGui"):Destroy()
+		end
 	end
 	exti:Notify("ESP Disabled.", 3)
 end
@@ -457,7 +459,7 @@ task.spawn(function()
 while true do
 	for _,v in pairs(game.Players:GetPlayers())do	
 		if v.Name == name and loopgoto and v.Character.Humanoid.Health > 0 then
-			local vec = v.Character.HumanoidRootPart.Position - Vector3.new(0,7,0)
+			local vec = v.Character.HumanoidRootPart.Position - Vector3.new(0,10,0)
 			game:GetService("TweenService"):Create(hrp,TweenInfo.new(0.01,Enum.EasingStyle.Linear,Enum.EasingDirection.Out),{CFrame = CFrame.new(vec)}):Play()
 			task.wait(0.01)
 		end
@@ -502,20 +504,22 @@ function AutoWin()
 	CollectAllOneShottyItemsSR()
 	while true do if not player.PlayerGui:FindFirstChild("Countdown") then break end task.wait(0.1) end
 	
-	repeat task.wait() until ok
-	if hrp.Position.Y - 300 > 0 then task.wait(3) end
-	sendSpaceKey()
-	character:PivotTo(CFrame.new(41.9398575, 16028.8037186, -322.898193))
+	repeat task.wait() until inMatch
+	game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("BusJumping"):FireServer()
+
+	character:PivotTo(CFrame.new(41.9398575, 28.8037186, -322.898193))
+	task.wait(0.1)
 	UseAllOneshotItemsSR()
+	character:PivotTo(CFrame.new(41.9398575, 3067.8037186, -322.898193))
 	for _,v in pairs(player:GetDescendants()) do
 		if v:FindFirstChild("Glove") and v:IsA("Tool") then
 		    v.Parent = character
 			v:Activate()
 		end
 	end
-	repeat character:PivotTo(CFrame.new(41.9398575, 16028.8037186, -322.898193));task.wait() until game.Workspace:FindFirstChild("Zone1")
+	repeat character:PivotTo(CFrame.new(41.9398575, 1528.8037186, -322.898193));task.wait() until game.Workspace:FindFirstChild("Zone1")
 	local alive = 20
-	while wait(0.1) do
+	while task.wait() do
 		if isKilling then break end
 		local aliveLabel = player.PlayerGui.HUD.HUD.AliveCounter.CounterLabel
 
@@ -529,8 +533,10 @@ function AutoWin()
     		break
 		end
 
-		hrp:PivotTo(game.Workspace.Zone1.CFrame + Vector3.new(0,16700,0))
+		hrp:PivotTo(game.Workspace.Zone1.CFrame + Vector3.new(0,1700,0))
 	end
+	character:PivotTo(CFrame.new(41.9398575, 28.8037186, -322.898193))
+	task.wait(1)
 	local prevPlayer = nil
 	while task.wait() do
 		for _,v in pairs(game.Players:GetPlayers()) do
@@ -571,6 +577,9 @@ function AutoWin()
 			end
 			if waitTime < 0.7 then
 				waitTime = 0.7
+			end
+			if waitTime > 5 then
+				waitTime = 5
 			end
 			print(waitTime)
 			task.wait(waitTime)
