@@ -767,7 +767,7 @@ exti:CreateLabel(misc, "Spectate players", 5)
 exti:CreateButton(misc, "trigger", "Spectate Cycle", "Cycle between spectating players", 6, cyclespec)
 exti:CreateButton(misc, "toggle", "Enable spectate", "Enables spectating", 7, spectoggle, spectoggle)
 exti:CreateButton(auto,"trigger","Auto win","Automatically wins for you, typically gets charge.", 1, AutoWin)
-exti:CreateButton(misc,"trigger","Load Anti Exploit Module","Loads the anti exploit module to catch and kill other exploiters",7,function()loadstring(game:HttpGet("https://raw.githubusercontent.com/Pyth0n1zed/exti-hub/refs/heads/main/antiExploit.lua"))() end
+exti:CreateButton(misc,"trigger","Load Anti Exploit Module","Loads the anti exploit module to catch and kill other exploiters",7,function()loadstring(game:HttpGet("https://raw.githubusercontent.com/Pyth0n1zed/exti-hub/refs/heads/main/antiExploit.lua"))() end)
 --exti:CreateButton(auto,"trigger","Auto win with void method","Requires void, automatically wins for you(RNG, takes a while)", 3, AutoWinVoid)
 exti:FinishLoading()
 if map then
