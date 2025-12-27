@@ -21,6 +21,7 @@ local wKeyPressed = false
 local sKeyPressed = false
 local aKeyPressed = false
 local dKeyPressed = false
+local postBusItemVac = true
 local tpWalkSpeed = 0
 uis.InputBegan:Connect(function(input)
     if input.KeyCode == Enum.KeyCode.W then
@@ -178,6 +179,7 @@ local function CollectItemsSR(itemNames, repeatCount, amount)
 				cii = cii + 1
             elseif not ok then
 				repeat task.wait() until inMatch
+				if postBusItemVac then continue end
 				if autoWin then explode() end
 				if not DisableVacNotif then
 					exti:Notify("Please do not attempt to move or turn your camera, Grab All Items will continue to pick up items after the game has started.", 8)
@@ -649,6 +651,7 @@ end
 
 
 function AutoWin2()
+	postBusItemVac = false
 	DisableVacNotif = true
 	exti:Notify("While this function is running, please do not move your character or camera.", 15)
     if game.Workspace:FindFirstChild("Map"):FindFirstChild("AcidAbnormality") then
