@@ -745,6 +745,7 @@ function AutoWin2()
 		end
 		if #t == 1 then break end
 	end
+	TeleportService:Teleport(9426795465, lp)
 end
 
 
