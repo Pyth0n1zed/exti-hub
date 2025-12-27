@@ -540,7 +540,7 @@ function AutoWin()
     		return tonumber(num) or 0
 		end
 
-		if getAliveCount() < 7 then
+		if getAliveCount() < 17 then
     		break
 		end
 
