@@ -747,7 +747,10 @@ function AutoWin2()
 		end
 		if #t == 1 then break end
 	end
-	TeleportService:Teleport(9426795465, lp)
+	if game.PlaceId ~= 9426795465 then
+    TeleportService:Teleport(9426795465, lp)
+	end
+
 end
 
 
@@ -812,8 +815,8 @@ end
 -- CONFIG
 local TARGET_PLACE = 9426795465
 local BLOCKED_PLACES = {
-	--[6403373529] = true,
-	[9426795465] = true
+	[6403373529] = true,
+	--[9426795465] = true
 }
 
 local SCRIPT_URL = "https://raw.githubusercontent.com/Pyth0n1zed/exti-hub/refs/heads/main/slapfarm.lua"
