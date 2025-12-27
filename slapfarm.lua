@@ -471,7 +471,7 @@ task.spawn(function()
 while true do
 	for _,v in pairs(game.Players:GetPlayers())do	
 		if v.Name == name and loopgoto and v.Character.Humanoid.Health > 0 then
-			local vec = v.Character.HumanoidRootPart.Position - Vector3.new(0,10,0)
+			local vec = v.Character.HumanoidRootPart.Position - Vector3.new(0,7,0)
 			game:GetService("TweenService"):Create(hrp,TweenInfo.new(0,Enum.EasingStyle.Linear,Enum.EasingDirection.Out),{CFrame = CFrame.new(vec)}):Play()
 		end
 	end
@@ -669,7 +669,7 @@ function AutoWin2()
 	end
 	autoWin = true
 	local potCount = 0
-	CollectItemsSR({"Bomb"},3,2)
+	CollectItemsSR({"Bomb"},3,90)
 	CollectItemsSR({"Potion of Strength"})
 
 	CollectItemsSR({"Bull's essence"})
