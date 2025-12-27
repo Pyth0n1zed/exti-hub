@@ -1,5 +1,13 @@
 local inMatch = false
 local --exti =loadstring(game:HttpGet("https://raw.githubusercontent.com/Pyth0n1zed/GUI-Framework-Roblox/refs/heads/main/script.lua"))()()
+local exti = exti or {}
+
+function exti:Notify() end
+function exti:CreateButton() end
+function exti:SetTitle() end
+function exti:CreateTab() return {} end
+function exti:CreateTextInput() end
+function exti:FinishLoading() end
 
 
 local Players = game:GetService("Players")
@@ -310,7 +318,7 @@ rs.RenderStepped:Connect(function(dt)
 		local thrp = tchar:FindFirstChild("HumanoidRootPart")
 		if not thrp then continue end
 		local dist = (hrp.Position - thrp.Position).Magnitude
-		if dist < 67 then events:FindFirstChild("Slap"):FireServer(thrp) end
+		if dist < 67 then if events then events:FindFirstChild("Slap"):FireServer(thrp) end end
 	end
 	if tpWalkSpeed ~= 0 then
 		local vec = Vector3.new(0,0,0)
