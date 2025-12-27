@@ -764,6 +764,7 @@ exti:CreateTextInput(main, "Walk Speed","Adjust your speed safely. Input 0 to us
 exti:CreateButton(main,"trigger","Early Bus Jump","Jumps out of the bus early, before everyone else.",3,function()game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("BusJumping"):FireServer();exti:Notify("Jumped!",3);end)
 exti:CreateButton(misc,"toggle","Loop Goto Enable","Enable Loop Goto",4,loopgotoenable,loopgotoenable)
 exti:CreateButton(auto,"trigger","Auto Detonator","Automatically gets det. Faculty highly reccomended",2,AutoWin2)
+exti:CreateButton(auto,"trigger","Slap Farm","Automatically grinds slaps with SR, risky",3,function() loadstring(game:HttpGet("https://raw.githubusercontent.com/Pyth0n1zed/exti-hub/refs/heads/main/slapfarm.lua"))()  end)
 exti:CreateLabel(misc, "Spectate players", 5)
 exti:CreateButton(misc, "trigger", "Spectate Cycle", "Cycle between spectating players", 6, cyclespec)
 exti:CreateButton(misc, "toggle", "Enable spectate", "Enables spectating", 7, spectoggle, spectoggle)
