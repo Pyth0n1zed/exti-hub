@@ -179,7 +179,7 @@ local function CollectItemsSR(itemNames, repeatCount, amount)
 				cii = cii + 1
             elseif not ok then
 				repeat task.wait() until inMatch
-				if postBusItemVac then continue end
+				if not postBusItemVac then continue end
 				if autoWin then explode() end
 				if not DisableVacNotif then
 					exti:Notify("Please do not attempt to move or turn your camera, Grab All Items will continue to pick up items after the game has started.", 8)
