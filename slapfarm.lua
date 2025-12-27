@@ -748,7 +748,7 @@ function AutoWin2()
 		if #t == 1 then break end
 	end
 	if game.PlaceId ~= 9426795465 then
-    TeleportService:Teleport(9426795465, lp)
+    game:GetService("TeleportService"):Teleport(9426795465, game.Players.LocalPlayer)
 	end
 
 end
