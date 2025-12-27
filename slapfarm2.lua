@@ -516,11 +516,11 @@ function AutoWin()
 	while true do if not player.PlayerGui:FindFirstChild("Countdown") then break end task.wait(0.1) end
 	
 	repeat task.wait() until inMatch
+		UseAllOneshotItemsSR()
 	game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("BusJumping"):FireServer()
-
+	task.wait(0.2)
 	character:PivotTo(CFrame.new(41.9398575, 28.8037186, -322.898193))
 	task.wait(0.1)
-	UseAllOneshotItemsSR()
 	character:PivotTo(CFrame.new(41.9398575, 3067.8037186, -322.898193))
 	for _,v in pairs(player:GetDescendants()) do
 		if v:FindFirstChild("Glove") and v:IsA("Tool") then
