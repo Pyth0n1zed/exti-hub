@@ -506,11 +506,11 @@ function AutoWin()
 	while true do if not player.PlayerGui:FindFirstChild("Countdown") then break end task.wait(0.1) end
 	
 	repeat task.wait() until inMatch
+		UseAllOneshotItemsSR()
 	game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("BusJumping"):FireServer()
-
+	task.wait(0.2)
 	character:PivotTo(CFrame.new(41.9398575, 28.8037186, -322.898193))
 	task.wait(0.1)
-	UseAllOneshotItemsSR()
 	character:PivotTo(CFrame.new(41.9398575, 3067.8037186, -322.898193))
 	for _,v in pairs(player:GetDescendants()) do
 		if v:FindFirstChild("Glove") and v:IsA("Tool") then
@@ -520,6 +520,7 @@ function AutoWin()
 	end
 	repeat character:PivotTo(CFrame.new(41.9398575, 1528.8037186, -322.898193));task.wait() until game.Workspace:FindFirstChild("Zone1")
 	local alive = 20
+		hrp.Anchored = true
 	while task.wait() do
 		if isKilling then break end
 		local aliveLabel = player.PlayerGui.HUD.HUD.AliveCounter.CounterLabel
@@ -530,14 +531,16 @@ function AutoWin()
     		return tonumber(num) or 0
 		end
 
-		if getAliveCount() < 7 then
+		if getAliveCount() < 17 then
     		break
 		end
 
 		hrp:PivotTo(game.Workspace.Zone1.CFrame + Vector3.new(0,1700,0))
 	end
+	task.wait(3)
 	character:PivotTo(CFrame.new(41.9398575, 28.8037186, -322.898193))
 	task.wait(1)
+		hrp.Anchored = false
 	local prevPlayer = nil
 	for _,v in pairs(player:GetDescendants()) do
 		if v:FindFirstChild("Glove") and v:IsA("Tool") then
@@ -571,22 +574,22 @@ function AutoWin()
 			task.wait(0.01)
 
 			if game.Workspace:FindFirstChild("Zone1") then
-				character:PivotTo(game.Workspace:FindFirstChild("Zone1").CFrame + Vector3.new(0,16700,0))
+				character:PivotTo(game.Workspace:FindFirstChild("Zone1").CFrame + Vector3.new(0,1500,0))
 			else
-				character:PivotTo(CFrame.new(41.9398575, 16028.8037186, -322.898193))		
+				character:PivotTo(CFrame.new(41.9398575, 1500.8037186, -322.898193))		
 			end
 			if not prevPlayer and iceCount > 0 then
-				waitTime = 2.25*(iceCount/2)
+				waitTime = 1.1*(iceCount/2)
 			elseif prevPlayer and iceCount > 0 then
-				waitTime = (2.25*(prevPlayer.Position-thrp.Position).Magnitude/1000)*iceCount/2	
+				waitTime = (1.1*(prevPlayer.Position-thrp.Position).Magnitude/1000)*iceCount/2	
 			elseif prevPlayer and iceCount == 0 then
-				waitTime = 2.25*(prevPlayer.Position-thrp.Position).Magnitude/1000
+				waitTime = 1.1*(prevPlayer.Position-thrp.Position).Magnitude/1000
 			end
 			if waitTime < 0.7 then
 				waitTime = 0.7
 			end
-			if waitTime > 5 then
-				waitTime = 5
+			if waitTime > 2.5 then
+				waitTime = 2.5
 			end
 			print(waitTime)
 			task.wait(waitTime)
@@ -599,6 +602,8 @@ function AutoWin()
 		end
 		if #t == 1 then break end
 	end
+end
+
 end
 
 local sIndex = 0
