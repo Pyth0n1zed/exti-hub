@@ -714,17 +714,17 @@ function AutoWin2()
 				character:PivotTo(CFrame.new(41.9398575, 16028.8037186, -322.898193))		
 			end
 			if not prevPlayer and iceCount > 0 then
-				waitTime = 2.25*(iceCount/2)
+				waitTime = 1.5*(iceCount/2)
 			elseif prevPlayer and iceCount > 0 then
-				waitTime = (2.25*(prevPlayer.Position-thrp.Position).Magnitude/1000)*iceCount/2	
+				waitTime = (1.5*(prevPlayer.Position-thrp.Position).Magnitude/1000)*iceCount/2	
 			elseif prevPlayer and iceCount == 0 then
-				waitTime = 2.25*(prevPlayer.Position-thrp.Position).Magnitude/1000
+				waitTime = 1.5*(prevPlayer.Position-thrp.Position).Magnitude/1000
 			end
 			if waitTime < 0.7 then
 				waitTime = 0.7
 			end
-			if waitTime > 5 then
-				waitTime = 5
+			if waitTime > 3 then
+				waitTime = 3
 			end
 			print(waitTime)
 			task.wait(waitTime)
