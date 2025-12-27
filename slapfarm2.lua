@@ -530,6 +530,7 @@ function AutoWin()
 	end
 	repeat character:PivotTo(CFrame.new(41.9398575, 1528.8037186, -322.898193));task.wait() until game.Workspace:FindFirstChild("Zone1")
 	local alive = 20
+		hrp.Anchored = true
 	while task.wait() do
 		if isKilling then break end
 		local aliveLabel = player.PlayerGui.HUD.HUD.AliveCounter.CounterLabel
@@ -549,6 +550,7 @@ function AutoWin()
 	task.wait(3)
 	character:PivotTo(CFrame.new(41.9398575, 28.8037186, -322.898193))
 	task.wait(1)
+		hrp.Anchored = false
 	local prevPlayer = nil
 	for _,v in pairs(player:GetDescendants()) do
 		if v:FindFirstChild("Glove") and v:IsA("Tool") then
