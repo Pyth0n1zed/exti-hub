@@ -664,13 +664,12 @@ function AutoWin2()
 	CollectItemsSR({"Boba"})
 	repeat task.wait() until inMatch
 	explode()
-	task.wait(1)
 	UseAllOneshotItemsSR()
 	
 	game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("BusJumping"):FireServer()
-	task.wait(0.5)
+	task.wait(0.2)
 	character:PivotTo(CFrame.new(41.9398575, 28.8037186, -322.898193))
-	task.wait(1)
+	task.wait(0.3)
 	auraOn()
 	for _,v in pairs(player:GetDescendants()) do
 		if v:IsA("Tool") then
@@ -680,7 +679,7 @@ function AutoWin2()
 		end
 		end
 	end
-	task.wait(1)
+	task.wait(0.3)
 	local prevPlayer = nil
 	while task.wait() do
 		for _,v in pairs(game.Players:GetPlayers()) do
