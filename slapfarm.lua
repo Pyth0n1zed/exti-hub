@@ -669,7 +669,7 @@ function AutoWin2()
 	end
 	autoWin = true
 	local potCount = 0
-	CollectItemsSR({"Bomb"},3,1)
+	CollectItemsSR({"Bomb"},3,2)
 	CollectItemsSR({"Potion of Strength"})
 
 	CollectItemsSR({"Bull's essence"})
