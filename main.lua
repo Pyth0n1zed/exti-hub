@@ -460,11 +460,10 @@ while true do
 	for _,v in pairs(game.Players:GetPlayers())do	
 		if v.Name == name and loopgoto and v.Character.Humanoid.Health > 0 then
 			local vec = v.Character.HumanoidRootPart.Position - Vector3.new(0,10,0)
-			game:GetService("TweenService"):Create(hrp,TweenInfo.new(0.01,Enum.EasingStyle.Linear,Enum.EasingDirection.Out),{CFrame = CFrame.new(vec)}):Play()
-			task.wait(0.01)
+			game:GetService("TweenService"):Create(hrp,TweenInfo.new(0,Enum.EasingStyle.Linear,Enum.EasingDirection.Out),{CFrame = CFrame.new(vec)}):Play()
 		end
 	end
-	wait(0.01)
+	task.wait()
 end
 end)
 local isKilling = false
