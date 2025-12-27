@@ -598,8 +598,8 @@ function AutoWin()
 			if waitTime < 0.7 then
 				waitTime = 0.7
 			end
-			if waitTime > 2 then
-				waitTime = 2
+			if waitTime > 2.5 then
+				waitTime = 2.5
 			end
 			print(waitTime)
 			task.wait(waitTime)
