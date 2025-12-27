@@ -546,6 +546,7 @@ function AutoWin()
 
 		hrp:PivotTo(game.Workspace.Zone1.CFrame + Vector3.new(0,1700,0))
 	end
+	task.wait(3)
 	character:PivotTo(CFrame.new(41.9398575, 28.8037186, -322.898193))
 	task.wait(1)
 	local prevPlayer = nil
