@@ -690,6 +690,8 @@ end end
 				if bc ~= 0 then break end
 		end
 	end
+		print(bc)
+		task.wait(1)
 	if bc < 8 then if game.PlaceId ~= 9426795465 then
 		
     game:GetService("TeleportService"):Teleport(9426795465, game.Players.LocalPlayer)
