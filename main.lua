@@ -122,14 +122,17 @@ end
 function explode()
 	local iii = 1
 	for _,v in pairs(player:GetDescendants()) do
+		if v.Name == "Forcefield Crystal" then
+			v.Parent = character
+			v:Activate()
+			task.wait(0.1)
+		end
+	end
+	for _,v in pairs(player:GetDescendants()) do
 		if v.Name == "Bomb" then
 			v.Parent = character
 			v:Activate()
 			iii = iii + 1
-			task.wait(0.1)
-		elseif v.Name == "Forcefield Crystal" then
-			v.Parent = character
-			v:Activate()
 			task.wait(0.1)
 		end
 	end
