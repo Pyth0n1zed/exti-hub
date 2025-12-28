@@ -808,9 +808,9 @@ if map then
     end
 end
 
-if game.Workspace:FindFirstChild("Map"):FindFirstChild("AcidAbnormality") then
+if game.Workspace:FindFirstChild("Map") then if game.Workspace:FindFirstChild("Map"):FindFirstChild("AcidAbnormality") then
 	game.Workspace:FindFirstChild("Map").AcidAbnormality:Destroy()
-end
+end end
 local startX = 41
 local startZ = -322
 local yLevel = -65
