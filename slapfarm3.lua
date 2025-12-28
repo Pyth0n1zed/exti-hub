@@ -677,15 +677,15 @@ function AutoWin2()
 end end
 	autoWin = true
 	local potCount = 0
-	CollectItemsSR({"Forcefield Crystal"},3,2)
-	CollectItemsSR({"Bomb"},3,67)
 	local bc = 0
-	for _,v in pairs(game.Players.LocalPlayer:GetDescendants()) do
+	for _,v in pairs(game.Workspace.Items:GetChildren()) do
 			if v.Name == "Bomb" then bc = bc + 1 end
 		end
 	if bc < 8 then if game.PlaceId ~= 9426795465 then
     game:GetService("TeleportService"):Teleport(9426795465, game.Players.LocalPlayer)
 	end end
+	CollectItemsSR({"Forcefield Crystal"},3,2)
+	CollectItemsSR({"Bomb"},3,67)
 	CollectItemsSR({"Potion of Strength"})
 
 	CollectItemsSR({"Bull's essence"})
