@@ -663,13 +663,14 @@ end
 function AutoWin2()
 	postBusItemVac = false
 	DisableVacNotif = true
-	--exti:Notify("While this function is running, please do not move your character or camera.", 15)
+	exti:Notify("While this function is running, please do not move your character or camera.", 15)
     if game.Workspace:FindFirstChild("Map"):FindFirstChild("AcidAbnormality") then
 		game.Workspace:FindFirstChild("Map").AcidAbnormality:Destroy()
 	end
 	autoWin = true
 	local potCount = 0
-	CollectItemsSR({"Bomb"},3,90)
+	CollectItemsSR({"Forcefield Crystal"},3,2)
+	CollectItemsSR({"Bomb"},3,67)
 	CollectItemsSR({"Potion of Strength"})
 
 	CollectItemsSR({"Bull's essence"})
@@ -680,7 +681,7 @@ function AutoWin2()
 	UseAllOneshotItemsSR()
 	
 	game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("BusJumping"):FireServer()
-	task.wait(0.2)
+	task.wait(2)
 	character:PivotTo(CFrame.new(41.9398575, 28.8037186, -322.898193))
 	task.wait(0.3)
 	auraOn()
@@ -697,7 +698,14 @@ function AutoWin2()
 	while task.wait() do
 		for _,v in pairs(game.Players:GetPlayers()) do
 					autoWinName = v.Name
-
+			for _,v in pairs(player:GetDescendants()) do
+		if v:IsA("Tool") then
+		if v:FindFirstChild("Glove") then
+			v.Parent = character
+			v:Activate()
+		end
+		end
+	end
 			local tchar = v.Character
 			if not tchar then continue end
 			local thrp = tchar:FindFirstChild("HumanoidRootPart")
@@ -724,17 +732,17 @@ function AutoWin2()
 				character:PivotTo(CFrame.new(41.9398575, 16028.8037186, -322.898193))		
 			end
 			if not prevPlayer and iceCount > 0 then
-				waitTime = 1.1*(iceCount/2)
+				waitTime = 1.5*(iceCount/2)
 			elseif prevPlayer and iceCount > 0 then
-				waitTime = (1.1*(prevPlayer.Position-thrp.Position).Magnitude/1000)*iceCount/2	
+				waitTime = (1.5*(prevPlayer.Position-thrp.Position).Magnitude/1000)*iceCount/2	
 			elseif prevPlayer and iceCount == 0 then
-				waitTime = 1.1*(prevPlayer.Position-thrp.Position).Magnitude/1000
+				waitTime = 1.5*(prevPlayer.Position-thrp.Position).Magnitude/1000
 			end
 			if waitTime < 0.7 then
 				waitTime = 0.7
 			end
-			if waitTime > 2.5 then
-				waitTime = 2.5
+			if waitTime > 3 then
+				waitTime = 3
 			end
 			print(waitTime)
 			task.wait(waitTime)
