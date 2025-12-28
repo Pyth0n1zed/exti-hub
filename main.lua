@@ -125,7 +125,7 @@ function explode()
 		if v.Name == "Forcefield Crystal" then
 			v.Parent = character
 			v:Activate()
-			task.wait(0.1)
+			task.wait(0.5)
 		end
 	end
 	for _,v in pairs(player:GetDescendants()) do
@@ -133,7 +133,7 @@ function explode()
 			v.Parent = character
 			v:Activate()
 			iii = iii + 1
-			task.wait(0.1)
+			task.wait(0.3)
 		end
 	end
 end
@@ -671,7 +671,7 @@ function AutoWin2()
 	end
 	autoWin = true
 	local potCount = 0
-	CollectItemsSR({"Forcefield crystal"},3,2)
+	CollectItemsSR({"Forcefield Crystal"},3,2)
 	CollectItemsSR({"Bomb"},3,67)
 	CollectItemsSR({"Potion of Strength"})
 
