@@ -832,6 +832,7 @@ end
 local TARGET_PLACE = 9426795465
 local BLOCKED_PLACES = {
 	[6403373529] = true,
+	[124596094333302] = true,
 	--[9426795465] = true
 }
 
