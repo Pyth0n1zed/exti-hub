@@ -682,7 +682,11 @@ end end
 	for _,v in pairs(game.Workspace.Items:GetChildren()) do
 			if v.Name == "Bomb" then bc = bc + 1 end
 		end
+	if bc == 0 then repeat task.wait(1)for _,v in pairs(game.Workspace.Items:GetChildren()) do
+			if v.Name == "Bomb" then bc = bc + 1 end
+		end until bc > 0
 	if bc < 8 then if game.PlaceId ~= 9426795465 then
+		
     game:GetService("TeleportService"):Teleport(9426795465, game.Players.LocalPlayer)
 	end end
 	CollectItemsSR({"Forcefield Crystal"},3,2)
