@@ -787,6 +787,7 @@ exti:CreateButton(misc,"toggle","Loop Goto Enable","Enable Loop Goto",4,loopgoto
 exti:CreateButton(auto,"trigger","Auto Detonator","Automatically gets det. Faculty highly reccomended",2,AutoWin2)
 exti:CreateButton(auto,"trigger","Slap Farm Regular","Automatically grinds slaps with SR, risky",3,function() loadstring(game:HttpGet("https://raw.githubusercontent.com/Pyth0n1zed/exti-hub/refs/heads/main/slapfarm2.lua"))()  end)
 exti:CreateButton(auto,"trigger","Slap Farm Deto","Automatically grinds slaps with SR, risky",4,function() loadstring(game:HttpGet("https://raw.githubusercontent.com/Pyth0n1zed/exti-hub/refs/heads/main/slapfarm.lua"))()  end)
+exti:CreateButton(auto,"trigger","Slap Farm Safe","Slap grinds if RNG to insta-win is good, slower, safer",5,function() loadstring(game:HttpGet("https://raw.githubusercontent.com/Pyth0n1zed/exti-hub/refs/heads/main/slapfarm3.lua"))()  end)
 exti:CreateLabel(misc, "Spectate players", 5)
 exti:CreateButton(misc, "trigger", "Spectate Cycle", "Cycle between spectating players", 6, cyclespec)
 exti:CreateButton(misc, "toggle", "Enable spectate", "Enables spectating", 7, spectoggle, spectoggle)
