@@ -130,6 +130,7 @@ function explode()
 	end
 	for _,v in pairs(player:GetDescendants()) do
 		if v.Name == "Bomb" then
+			if iii == 7 then task.wait(2)
 			v.Parent = character
 			v:Activate()
 			iii = iii + 1
