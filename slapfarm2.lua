@@ -1,5 +1,5 @@
 
-if not(game.PlaceId == 9426795465 or game.PlaceId == 6403373529) then
+if not(game.PlaceId == 9426795465 or game.PlaceId == 6403373529 or game.PlaceId == 124596094333302) then
 	local inMatch = false
 --local --exti =loadstring(game:HttpGet("https://raw.githubusercontent.com/Pyth0n1zed/GUI-Framework-Roblox/refs/heads/main/script.lua"))()()
 local exti = exti or {}
