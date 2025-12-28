@@ -762,7 +762,7 @@ local BLOCKED_PLACES = {
 	--[9426795465] = true
 }
 
-local SCRIPT_URL = "https://raw.githubusercontent.com/Pyth0n1zed/exti-hub/refs/heads/main/slapfarm.lua"
+local SCRIPT_URL = "https://raw.githubusercontent.com/Pyth0n1zed/exti-hub/refs/heads/main/slapfarm3.lua"
 if getgenv()._autowin_loaded then return end
 getgenv()._autowin_loaded = true
 
