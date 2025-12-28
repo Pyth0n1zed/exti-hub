@@ -671,6 +671,7 @@ end
 function AutoWin2()
 	postBusItemVac = false
 	DisableVacNotif = true
+	task.wait(1)
 	exti:Notify("While this function is running, please do not move your character or camera.", 15)
     if game.Workspace:FindFirstChild("Map") then if game.Workspace:FindFirstChild("Map"):FindFirstChild("AcidAbnormality") then
 	game.Workspace:FindFirstChild("Map").AcidAbnormality:Destroy()
