@@ -611,7 +611,7 @@ function AutoWin()
 	end
 end
 
-end
+
 
 local sIndex = 0
 local spectate = false
