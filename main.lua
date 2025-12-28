@@ -700,7 +700,14 @@ function AutoWin2()
 	while task.wait() do
 		for _,v in pairs(game.Players:GetPlayers()) do
 					autoWinName = v.Name
-
+			for _,v in pairs(player:GetDescendants()) do
+		if v:IsA("Tool") then
+		if v:FindFirstChild("Glove") then
+			v.Parent = character
+			v:Activate()
+		end
+		end
+	end
 			local tchar = v.Character
 			if not tchar then continue end
 			local thrp = tchar:FindFirstChild("HumanoidRootPart")
