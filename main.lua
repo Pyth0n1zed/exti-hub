@@ -683,7 +683,7 @@ function AutoWin2()
 	UseAllOneshotItemsSR()
 	
 	game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("BusJumping"):FireServer()
-	task.wait(0.2)
+	task.wait(2)
 	character:PivotTo(CFrame.new(41.9398575, 28.8037186, -322.898193))
 	task.wait(0.3)
 	auraOn()
