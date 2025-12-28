@@ -672,9 +672,9 @@ function AutoWin2()
 	postBusItemVac = false
 	DisableVacNotif = true
 	exti:Notify("While this function is running, please do not move your character or camera.", 15)
-    if game.Workspace:FindFirstChild("Map"):FindFirstChild("AcidAbnormality") then
-		game.Workspace:FindFirstChild("Map").AcidAbnormality:Destroy()
-	end
+    if game.Workspace:FindFirstChild("Map") then if game.Workspace:FindFirstChild("Map"):FindFirstChild("AcidAbnormality") then
+	game.Workspace:FindFirstChild("Map").AcidAbnormality:Destroy()
+end end
 	autoWin = true
 	local potCount = 0
 	CollectItemsSR({"Forcefield Crystal"},3,2)
