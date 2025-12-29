@@ -681,6 +681,9 @@ potCount = potCount + 1
 			end
 		end
 		if potCount < 8 then 
+			if game.PlaceId ~= 9426795465 then
+    game:GetService("TeleportService"):Teleport(9426795465, game.Players.LocalPlayer)
+	end
 		end
 	CollectItemsSR({"Forcefield Crystal"},3,2)
 	CollectItemsSR({"Bomb"},3,67)
@@ -720,6 +723,9 @@ potCount = potCount + 1
 		end
 	end
 			local tchar = v.Character
+			if hrp.Parent.Humanoid.Health ==0 then if game.PlaceId ~= 9426795465 then
+    game:GetService("TeleportService"):Teleport(9426795465, game.Players.LocalPlayer)
+	end end
 			if not tchar then continue end
 			local thrp = tchar:FindFirstChild("HumanoidRootPart")
 			if not thrp then continue end
