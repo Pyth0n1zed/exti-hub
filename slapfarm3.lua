@@ -723,6 +723,8 @@ end end
 	task.wait(0.3)
 	local prevPlayer = nil
 	while task.wait() do
+					if hrp.Parent.Humanoid.Health == 0 then break end
+
 		for _,v in pairs(game.Players:GetPlayers()) do
 					autoWinName = v.Name
 			for _,v in pairs(player:GetDescendants()) do
@@ -742,7 +744,6 @@ end end
 			--if thrp.Position.Y - 100 > 0 then continue end
 			if v == player then continue end
 			name = v.Name
-			if hrp.Parent.Humanoid.Health == 0 then break end
 			loopgoto = true
 			local waitTime = 0
 			local iceCount = 0
