@@ -595,6 +595,7 @@ function AutoWin()
 			elseif prevPlayer and iceCount == 0 then
 				waitTime = 1.1*(prevPlayer.Position-thrp.Position).Magnitude/1000
 			end
+				if hrp.Parent.Humanoid.Health == 0 then break end
 			if waitTime < 0.7 then
 				waitTime = 0.7
 			end
