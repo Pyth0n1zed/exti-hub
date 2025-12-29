@@ -723,7 +723,10 @@ end end
 	task.wait(0.3)
 	local prevPlayer = nil
 	while task.wait() do
-					if hrp.Parent.Humanoid.Health == 0 then break end
+					if hrp.Parent.Humanoid.Health == 0 then if game.PlaceId ~= 9426795465 then
+		
+    game:GetService("TeleportService"):Teleport(9426795465, game.Players.LocalPlayer)
+	end end
 
 		for _,v in pairs(game.Players:GetPlayers()) do
 					autoWinName = v.Name
@@ -752,6 +755,10 @@ end end
 					iceCount = iceCount + 1
 				end
 			end
+				if hrp.Parent.Humanoid.Health == 0 then if game.PlaceId ~= 9426795465 then
+		
+    game:GetService("TeleportService"):Teleport(9426795465, game.Players.LocalPlayer)
+	end end
 			task.wait(0.5)
 			loopgoto = false
 			task.wait(0.01)
@@ -779,6 +786,10 @@ end end
 			sendSpaceKey()
 		end
 		local t = {}
+			if hrp.Parent.Humanoid.Health == 0 then if game.PlaceId ~= 9426795465 then
+		
+    game:GetService("TeleportService"):Teleport(9426795465, game.Players.LocalPlayer)
+	end end
 		for i,v in pairs(game.Players:GetPlayers()) do
 			if v.Character:FindFirstChild("Humanoid").Health > 0 then table.insert(t, v) end
 		end
