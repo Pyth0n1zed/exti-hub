@@ -680,6 +680,7 @@ if v.Name == "Bomb" then
 potCount = potCount + 1
 			end
 		end
+		if potCount == 0 then game.Workspace.Items:WaitForChild("Bomb",5) end
 		if potCount < 8 then 
 			if game.PlaceId ~= 9426795465 then
     game:GetService("TeleportService"):Teleport(9426795465, game.Players.LocalPlayer)
