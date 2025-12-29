@@ -671,7 +671,6 @@ end
 function AutoWin2()
 	postBusItemVac = false
 	DisableVacNotif = true
-	task.wait(1)
 	exti:Notify("While this function is running, please do not move your character or camera.", 15)
     if game.Workspace:FindFirstChild("Map") then if game.Workspace:FindFirstChild("Map"):FindFirstChild("AcidAbnormality") then
 	game.Workspace:FindFirstChild("Map").AcidAbnormality:Destroy()
@@ -682,16 +681,17 @@ end end
 	for _,v in pairs(game.Workspace.Items:GetChildren()) do
 			if v.Name == "Bomb" then bc = bc + 1 end
 		end
+		local iiii = 0
 	if bc == 0 then 
-		while task.wait(1) do
+		while task.wait() do
 			for _,v in pairs(game.Workspace.Items:GetChildren()) do
 			if v.Name == "Bomb" then bc = bc + 1 end
 		end
 				if bc ~= 0 then break end
 		end
+			iiii = iiii + 1
+			if iiii == 500 then break end
 	end
-		print(bc)
-		task.wait(1)
 	if bc < 8 then if game.PlaceId ~= 9426795465 then
 		
     game:GetService("TeleportService"):Teleport(9426795465, game.Players.LocalPlayer)
@@ -742,6 +742,7 @@ end end
 			--if thrp.Position.Y - 100 > 0 then continue end
 			if v == player then continue end
 			name = v.Name
+			if hrp.Parent.Humanoid.Health == 0 then break end
 			loopgoto = true
 			local waitTime = 0
 			local iceCount = 0
