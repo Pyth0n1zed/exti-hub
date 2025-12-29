@@ -126,6 +126,7 @@ function explode()
 			v.Parent = character
 			v:Activate()
 			task.wait(0.5)
+			break
 		end
 	end
 	for _,v in pairs(player:GetDescendants()) do
@@ -134,7 +135,7 @@ function explode()
 			v.Parent = character
 			v:Activate()
 			iii = iii + 1
-			task.wait(0.3)
+			task.wait(0.1)
 		end
 	end
 end
@@ -774,6 +775,10 @@ exti:CreateButton(items,"trigger","Oneshot Item Vaccum","Automatically collects 
 exti:CreateButton(items,"trigger","Strength Item Vaccum","Automatically collects all items that increase your strength.",4,CollectAllStrengthItemsSR)
 exti:CreateButton(items,"trigger","Permanent Buff Item Vaccum","Automatically collects all items that increase your stats permanently.",5,CollectAllPermanentItemsSR)
 exti:CreateButton(items,"trigger","Heal Item Vaccum","Automatically collects all items that heal you.",6,CollectAllHealingItemsSR)
+exti:CreateButton(items,"trigger","Bus Bomb Item Vaccum","Automatically collects all items that helps you bomb the bus",7,function()
+	CollectItemsSR({"Forcefield Crystal"},3,2)
+	CollectItemsSR({"Bomb"},3,67)
+end)
 exti:CreateLabel(items,"Auto-Use Items", 7)
 exti:CreateButton(items,"trigger","Use All Items","Automatically equips and uses all the items in your inventory.",8,UseAllItemsSR)
 exti:CreateButton(items,"trigger","Use All Permanent Boosts","Automatically equips and uses all items that give a permanent boost to stats.",9,UseAllPermanentItemsSR)
@@ -783,6 +788,7 @@ exti:CreateButton(misc,"toggle","ESP","See where players are at and their userna
 exti:CreateTextInput(misc,"Loop Goto","Basically stick to a player by constantly teleporting towards them (Supports name shorthands)",3,loopgotoname)
 exti:CreateTextInput(main, "Walk Speed","Adjust your speed safely. Input 0 to use default roblox speed.",2,function(input) tpWalkSpeed = tonumber(input) or 0 end)
 exti:CreateButton(main,"trigger","Early Bus Jump","Jumps out of the bus early, before everyone else.",3,function()game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("BusJumping"):FireServer();exti:Notify("Jumped!",3);end)
+exti:CreateButton(main,"trigger","Bomb Bus","Bombs bus, requires forcefield crystal & bombs.",4,function() explode() end)
 exti:CreateButton(misc,"toggle","Loop Goto Enable","Enable Loop Goto",4,loopgotoenable,loopgotoenable)
 exti:CreateButton(auto,"trigger","Auto Detonator","Automatically gets det. Faculty highly reccomended",2,AutoWin2)
 exti:CreateButton(auto,"trigger","Slap Farm Regular","Automatically grinds slaps with SR, risky",3,function() loadstring(game:HttpGet("https://raw.githubusercontent.com/Pyth0n1zed/exti-hub/refs/heads/main/slapfarm2.lua"))()  end)
