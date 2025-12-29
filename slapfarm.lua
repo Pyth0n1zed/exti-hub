@@ -704,6 +704,8 @@ end end
 	task.wait(0.3)
 	local prevPlayer = nil
 	while task.wait() do
+						if hrp.Parent.Humanoid.Health == 0 then break end
+
 		for _,v in pairs(game.Players:GetPlayers()) do
 					autoWinName = v.Name
 			for _,v in pairs(player:GetDescendants()) do
