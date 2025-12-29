@@ -775,6 +775,9 @@ potCount = potCount + 1
 		end
 		if #t == 1 then break end
 	end
+		if game.PlaceId ~= 9426795465 then
+    game:GetService("TeleportService"):Teleport(9426795465, game.Players.LocalPlayer)
+	end
 end
 
 
