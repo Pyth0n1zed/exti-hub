@@ -570,6 +570,10 @@ function AutoWin()
 			local tchar = v.Character
 			if not tchar then continue end
 			local thrp = tchar:FindFirstChild("HumanoidRootPart")
+				if hrp.Parent.Humanoid.Health == 0 then if game.PlaceId ~= 9426795465 then
+		
+    game:GetService("TeleportService"):Teleport(9426795465, game.Players.LocalPlayer)
+	end end
 			if not thrp then continue end
 			if not tchar:FindFirstChild("Humanoid") then continue end
 			if tchar.Humanoid.Health == 0 then continue end
