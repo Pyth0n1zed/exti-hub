@@ -559,6 +559,8 @@ function AutoWin()
 		end
 	end
 	while task.wait() do
+						if hrp.Parent.Humanoid.Health == 0 then break end
+
 		for _,v in pairs(game.Players:GetPlayers()) do
 					autoWinName = v.Name
 
