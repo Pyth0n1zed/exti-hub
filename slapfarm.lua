@@ -708,7 +708,9 @@ end end
 	task.wait(0.3)
 	local prevPlayer = nil
 	while task.wait() do
-						if hrp.Parent.Humanoid.Health == 0 then break end
+						if hrp.Parent.Humanoid.Health == 0 then if game.PlaceId ~= 9426795465 then
+    game:GetService("TeleportService"):Teleport(9426795465, game.Players.LocalPlayer)
+	end end
 
 		for _,v in pairs(game.Players:GetPlayers()) do
 					autoWinName = v.Name
@@ -740,6 +742,9 @@ end end
 			task.wait(0.5)
 			loopgoto = false
 			task.wait(0.01)
+				if hrp.Parent.Humanoid.Health == 0 then if game.PlaceId ~= 9426795465 then
+    game:GetService("TeleportService"):Teleport(9426795465, game.Players.LocalPlayer)
+	end end
 			if game.Workspace:FindFirstChild("Zone1") then
 				character:PivotTo(game.Workspace:FindFirstChild("Zone1").CFrame + Vector3.new(0,16700,0))
 			else
