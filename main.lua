@@ -187,6 +187,8 @@ local function CollectItemsSR(itemNames, repeatCount, amount)
 				ii = ii + 1
 				cii = cii + 1
             elseif not ok then
+				break
+				--[[
 				repeat task.wait() until inMatch
 				if not postBusItemVac then continue end
 				if autoWin then explode() end
@@ -204,7 +206,7 @@ local function CollectItemsSR(itemNames, repeatCount, amount)
     				task.wait(0.1) -- hold
     				VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.I, false, game)
     				task.wait(0.2) -- wait between presses
-				end
+				end]]--
 			--elseif not ok and autoWin then
 				--return
 			end
