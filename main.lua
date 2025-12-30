@@ -702,7 +702,7 @@ function AutoWin2()
 	task.wait(0.3)
 	repeat task.wait() until game.Workspace:FindFirstChild("BusModel")
 	for i = 1, 100 do
-		character:PivotTo(game.Workspace.BusModel)
+		character:PivotTo(game.Workspace.BusModel.CFrame)
 		task.wait(0.1)
 	end
 	local prevPlayer = nil
