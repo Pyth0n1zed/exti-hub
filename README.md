@@ -1,4 +1,7 @@
-hi to the guy that asked for the script in an SR match
+// MAJOR UPDATE //
+AUTO WIN IS SO MUCH BETTER, INSTAKILLS BUS NOW!!!!!
+
+
 Slap royale exploits made by me (open source)
 Loadstring: `loadstring(game:HttpGet("https://raw.githubusercontent.com/Pyth0n1zed/exti-hub/refs/heads/main/main.lua"))()`
 
