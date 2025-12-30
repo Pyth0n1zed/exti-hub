@@ -676,24 +676,23 @@ function AutoWin2()
 	postBusItemVac = false
 	DisableVacNotif = true
 	exti:Notify("While this function is running, please do not move your character or camera.", 15)
-    if game.Workspace:FindFirstChild("Map") then if game.Workspace:FindFirstChild("Map"):FindFirstChild("AcidAbnormality") then
-	game.Workspace:FindFirstChild("Map").AcidAbnormality:Destroy()
-end end
+    if game.Workspace:FindFirstChild("Map"):FindFirstChild("AcidAbnormality") then
+		game.Workspace:FindFirstChild("Map").AcidAbnormality:Destroy()
+	end
 	autoWin = true
 	local potCount = 0
 	CollectItemsSR({"Forcefield Crystal"},3,2)
 	CollectItemsSR({"Bomb"},3,67)
 	CollectItemsSR({"Potion of Strength"})
-
+	CollectItemsSR({"Cube of Ice"},3,2)
 	CollectItemsSR({"Bull's essence"})
-	CollectItemsSR({"Cube of Ice"})
 	CollectItemsSR({"Boba"})
 	repeat task.wait() until inMatch
 	explode()
 	UseAllOneshotItemsSR()
 	
 	game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("BusJumping"):FireServer()
-	task.wait(2)
+	task.wait(0.5)
 	character:PivotTo(CFrame.new(41.9398575, 28.8037186, -322.898193))
 	task.wait(0.3)
 	auraOn()
@@ -706,12 +705,13 @@ end end
 		end
 	end
 	task.wait(0.3)
+	repeat task.wait() until game.Workspace:FindFirstChild("BusModel")
+	for i = 1, 200 do
+		character:PivotTo(game.Workspace.BusModel.CFrame)
+		task.wait(0.05)
+	end
 	local prevPlayer = nil
 	while task.wait() do
-						if hrp.Parent.Humanoid.Health == 0 then if game.PlaceId ~= 9426795465 then
-    game:GetService("TeleportService"):Teleport(9426795465, game.Players.LocalPlayer)
-	end end
-
 		for _,v in pairs(game.Players:GetPlayers()) do
 					autoWinName = v.Name
 			for _,v in pairs(player:GetDescendants()) do
@@ -742,9 +742,6 @@ end end
 			task.wait(0.5)
 			loopgoto = false
 			task.wait(0.01)
-				if hrp.Parent.Humanoid.Health == 0 then if game.PlaceId ~= 9426795465 then
-    game:GetService("TeleportService"):Teleport(9426795465, game.Players.LocalPlayer)
-	end end
 			if game.Workspace:FindFirstChild("Zone1") then
 				character:PivotTo(game.Workspace:FindFirstChild("Zone1").CFrame + Vector3.new(0,16700,0))
 			else
@@ -777,7 +774,6 @@ end end
 	if game.PlaceId ~= 9426795465 then
     game:GetService("TeleportService"):Teleport(9426795465, game.Players.LocalPlayer)
 	end
-
 end
 
 
