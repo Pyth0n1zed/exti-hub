@@ -680,7 +680,7 @@ function AutoWin2()
 	CollectItemsSR({"Potion of Strength"})
 
 	CollectItemsSR({"Bull's essence"})
-	CollectItemsSR({"Cube of Ice"})
+	CollectItemsSR({"Cube of Ice"},3,2)
 	CollectItemsSR({"Boba"})
 	repeat task.wait() until inMatch
 	explode()
@@ -701,9 +701,9 @@ function AutoWin2()
 	end
 	task.wait(0.3)
 	repeat task.wait() until game.Workspace:FindFirstChild("BusModel")
-	for i = 1, 100 do
+	for i = 1, 200 do
 		character:PivotTo(game.Workspace.BusModel.CFrame)
-		task.wait(0.1)
+		task.wait(0.05)
 	end
 	local prevPlayer = nil
 	while task.wait() do
