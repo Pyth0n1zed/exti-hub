@@ -135,7 +135,7 @@ function explode()
 			v.Parent = character
 			v:Activate()
 			iii = iii + 1
-			task.wait(0.1)
+			task.wait(0.3)
 		end
 	end
 end
