@@ -687,7 +687,7 @@ function AutoWin2()
 	UseAllOneshotItemsSR()
 	
 	game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("BusJumping"):FireServer()
-	task.wait(2)
+	task.wait(0.5)
 	character:PivotTo(CFrame.new(41.9398575, 28.8037186, -322.898193))
 	task.wait(0.3)
 	auraOn()
@@ -700,6 +700,11 @@ function AutoWin2()
 		end
 	end
 	task.wait(0.3)
+	repeat task.wait() until game.Workspace:FindFirstChild("BusModel")
+	for i = 1, 100 do
+		character:PivotTo(game.Workspace.BusModel)
+		task.wait(0.1)
+	end
 	local prevPlayer = nil
 	while task.wait() do
 		for _,v in pairs(game.Players:GetPlayers()) do
