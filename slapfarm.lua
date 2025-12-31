@@ -173,7 +173,7 @@ local function CollectItemsSR(itemNames, repeatCount, amount)
                 faceTarget(handle)
                 rotateCameraTo(handle)
                 task.wait(pauseTime)
-				if ii == 1 then task.wait() end
+				if ii == 1 then task.wait(1) end
 				if ii == 2 then task.wait() end
                 sendFKey()
                 task.wait(pauseTime)
