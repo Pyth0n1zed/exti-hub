@@ -598,6 +598,8 @@ function AutoWin2()
 		character:PivotTo(game.Workspace.BusModel.CFrame)
 		task.wait(0.05)
 	end
+	character:PivotTo(CFrame.new(41.9398575, 28.8037186, -322.898193))
+	task.wait(5)
 	local prevPlayer = nil
 	while task.wait() do
 		for _,v in pairs(game.Players:GetPlayers()) do
