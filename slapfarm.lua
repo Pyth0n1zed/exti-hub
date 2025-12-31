@@ -516,112 +516,6 @@ function AutoKill()
 	isKilling = false
 end
 
-function AutoWin()
-	DisableVacNotif = true
-	--exti:Notify("While this function is running, please do not move your character or camera. It will kill all people once playerCount < 7.", 20)
-	auraOn()
-	CollectAllOneShottyItemsSR()
-	while true do if not player.PlayerGui:FindFirstChild("Countdown") then break end task.wait(0.1) end
-	
-	repeat task.wait() until inMatch
-	game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("BusJumping"):FireServer()
-
-	character:PivotTo(CFrame.new(41.9398575, 28.8037186, -322.898193))
-	task.wait(0.1)
-	UseAllOneshotItemsSR()
-	character:PivotTo(CFrame.new(41.9398575, 3067.8037186, -322.898193))
-	for _,v in pairs(player:GetDescendants()) do
-		if v:FindFirstChild("Glove") and v:IsA("Tool") then
-		    v.Parent = character
-			v:Activate()
-		end
-	end
-	repeat character:PivotTo(CFrame.new(41.9398575, 1528.8037186, -322.898193));task.wait() until game.Workspace:FindFirstChild("Zone1")
-	local alive = 20
-	while task.wait() do
-		if isKilling then break end
-		local aliveLabel = player.PlayerGui.HUD.HUD.AliveCounter.CounterLabel
-
-		local function getAliveCount()
-    		local text = tostring(aliveLabel.Text)
-    		local num = text:match("%d+") 
-    		return tonumber(num) or 0
-		end
-
-		if getAliveCount() < 7 then
-    		break
-		end
-
-		hrp:PivotTo(game.Workspace.Zone1.CFrame + Vector3.new(0,1700,0))
-	end
-	character:PivotTo(CFrame.new(41.9398575, 28.8037186, -322.898193))
-	task.wait(1)
-	local prevPlayer = nil
-	for _,v in pairs(player:GetDescendants()) do
-		if v:FindFirstChild("Glove") and v:IsA("Tool") then
-		    v.Parent = character
-			v:Activate()
-		end
-	end
-	while task.wait() do
-		for _,v in pairs(game.Players:GetPlayers()) do
-					autoWinName = v.Name
-
-			local tchar = v.Character
-			if not tchar then continue end
-			local thrp = tchar:FindFirstChild("HumanoidRootPart")
-				if hrp.Parent.Humanoid.Health == 0 then if game.PlaceId ~= 9426795465 then
-		
-    game:GetService("TeleportService"):Teleport(9426795465, game.Players.LocalPlayer)
-	end end
-			if not thrp then continue end
-			if not tchar:FindFirstChild("Humanoid") then continue end
-			if tchar.Humanoid.Health == 0 then continue end
-			--if thrp.Position.Y - 100 > 0 then continue end
-			if v == player then continue end
-			name = v.Name
-			loopgoto = true
-			local waitTime = 0
-			local iceCount = 0
-			for i,v in pairs(character:GetChildren()) do
-				if v.Name == "IceSlap" then
-					iceCount = iceCount + 1
-				end
-			end
-			task.wait(0.5)
-			loopgoto = false
-			task.wait(0.01)
-
-			if game.Workspace:FindFirstChild("Zone1") then
-				character:PivotTo(game.Workspace:FindFirstChild("Zone1").CFrame + Vector3.new(0,16700,0))
-			else
-				character:PivotTo(CFrame.new(41.9398575, 16028.8037186, -322.898193))		
-			end
-			if not prevPlayer and iceCount > 0 then
-				waitTime = 2.25*(iceCount/2)
-			elseif prevPlayer and iceCount > 0 then
-				waitTime = (2.25*(prevPlayer.Position-thrp.Position).Magnitude/1000)*iceCount/2	
-			elseif prevPlayer and iceCount == 0 then
-				waitTime = 2.25*(prevPlayer.Position-thrp.Position).Magnitude/1000
-			end
-			if waitTime < 0.7 then
-				waitTime = 0.7
-			end
-			if waitTime > 5 then
-				waitTime = 5
-			end
-			print(waitTime)
-			task.wait(waitTime)
-			prevPlayer = thrp
-			sendSpaceKey()
-		end
-		local t = {}
-		for i,v in pairs(game.Players:GetPlayers()) do
-			if v.Character:FindFirstChild("Humanoid").Health > 0 then table.insert(t, v) end
-		end
-		if #t == 1 then break end
-	end
-end
 
 local sIndex = 0
 local spectate = false
@@ -680,7 +574,7 @@ task.spawn(function()
 end)
 
 function AutoWin2()
-	postBusItemVac = false
+		postBusItemVac = false
 	DisableVacNotif = true
 	exti:Notify("While this function is running, please do not move your character or camera.", 15)
     if game.Workspace:FindFirstChild("Map"):FindFirstChild("AcidAbnormality") then
@@ -692,17 +586,17 @@ function AutoWin2()
 	CollectItemsSR({"Bomb"},3,67)
 	CollectItemsSR({"Potion of Strength"})
 	CollectItemsSR({"Cube of Ice"},3,2)
-	CollectItemsSR({"Bull's essence"})
-		--CollectItemsSR({"Cube of Ice"},3,67)
+	CollectItemsSR({"Bull's essence"},1)
+	CollectItemsSR({"Cube of Ice"},3,67)
 	CollectItemsSR({"Boba"})
-	repeat task.wait(0.5) until inMatch
+	repeat task.wait() until inMatch
 	explode()
 	UseAllOneshotItemsSR()
 	
 	game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("BusJumping"):FireServer()
 	task.wait(0.5)
 	character:PivotTo(CFrame.new(41.9398575, 28.8037186, -322.898193))
-	task.wait(1)
+	task.wait(0.3)
 	for _,v in pairs(player:GetDescendants()) do
 		if v:IsA("Tool") then
 		if v:FindFirstChild("Glove") then
@@ -711,16 +605,17 @@ function AutoWin2()
 		end
 		end
 	end
+	task.wait(1.7)
+	task.wait(0.3)
 	auraOn()
-	repeat task.wait(1) until game.Workspace:FindFirstChild("BusModel")
+	repeat task.wait() until game.Workspace:FindFirstChild("BusModel")
 	hippityhoppity = true
 	task.wait(10)
 	hippityhoppity = false
-	
 	character:PivotTo(CFrame.new(41.9398575, 28.8037186, -322.898193))
-	task.wait(15)
+	task.wait(5)
 	local prevPlayer = nil
-	while task.wait(0.1) do
+	while task.wait() do
 		for _,v in pairs(game.Players:GetPlayers()) do
 					autoWinName = v.Name
 			for _,v in pairs(player:GetDescendants()) do
