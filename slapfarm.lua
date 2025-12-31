@@ -693,7 +693,7 @@ function AutoWin2()
 	CollectItemsSR({"Potion of Strength"})
 	CollectItemsSR({"Cube of Ice"},3,2)
 	CollectItemsSR({"Bull's essence"})
-		CollectItemsSR({"Cube of Ice"},3,67)
+		--CollectItemsSR({"Cube of Ice"},3,67)
 	CollectItemsSR({"Boba"})
 	repeat task.wait(0.5) until inMatch
 	explode()
