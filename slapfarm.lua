@@ -589,6 +589,9 @@ function AutoWin2()
 	CollectItemsSR({"Bull's essence"},1)
 	
 	CollectItemsSR({"Boba"})
+	if #game.Players:GetPlayers() < 10 then if game.PlaceId ~= 9426795465 then
+    game:GetService("TeleportService"):Teleport(9426795465, game.Players.LocalPlayer)
+	end end
 	repeat task.wait() until inMatch
 	explode()
 	UseAllOneshotItemsSR()
