@@ -595,9 +595,9 @@ function AutoWin2()
 	task.wait(0.3)
 	auraOn()
 	repeat task.wait() until game.Workspace:FindFirstChild("BusModel")
-	for i = 1, 10000 do
+	for i = 1, 100 do
 		character:PivotTo(game.Workspace.BusModel.CFrame)
-		task.wait(0.001)
+		task.wait(0.1)
 	end
 	character:PivotTo(CFrame.new(41.9398575, 28.8037186, -322.898193))
 	task.wait(5)
