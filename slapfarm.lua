@@ -81,7 +81,7 @@ task.spawn(function()
 	end
 end)
 
-local defMoveDelay = 0.05
+local defMoveDelay = 0.03
 local defPauseTime = 0.09
 local moveDelay = 0.07
 local pauseTime = 0.09
