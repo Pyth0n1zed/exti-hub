@@ -583,7 +583,6 @@ function AutoWin2()
 	task.wait(0.5)
 	character:PivotTo(CFrame.new(41.9398575, 28.8037186, -322.898193))
 	task.wait(0.3)
-	auraOn()
 	for _,v in pairs(player:GetDescendants()) do
 		if v:IsA("Tool") then
 		if v:FindFirstChild("Glove") then
@@ -592,7 +591,9 @@ function AutoWin2()
 		end
 		end
 	end
+	task.wait(3.7)
 	task.wait(0.3)
+	auraOn()
 	repeat task.wait() until game.Workspace:FindFirstChild("BusModel")
 	for i = 1, 200 do
 		character:PivotTo(game.Workspace.BusModel.CFrame)
