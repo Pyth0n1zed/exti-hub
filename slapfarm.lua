@@ -695,14 +695,14 @@ function AutoWin2()
 	CollectItemsSR({"Bull's essence"})
 		CollectItemsSR({"Cube of Ice"},3,67)
 	CollectItemsSR({"Boba"})
-	repeat task.wait() until inMatch
+	repeat task.wait(0.5) until inMatch
 	explode()
 	UseAllOneshotItemsSR()
 	
 	game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("BusJumping"):FireServer()
 	task.wait(0.5)
 	character:PivotTo(CFrame.new(41.9398575, 28.8037186, -322.898193))
-	task.wait(0.3)
+	task.wait(1)
 	for _,v in pairs(player:GetDescendants()) do
 		if v:IsA("Tool") then
 		if v:FindFirstChild("Glove") then
@@ -714,13 +714,13 @@ function AutoWin2()
 	task.wait(1.7)
 	task.wait(0.3)
 	auraOn()
-	repeat task.wait() until game.Workspace:FindFirstChild("BusModel")
+	repeat task.wait(1) until game.Workspace:FindFirstChild("BusModel")
 	hippityhoppity = true
 	task.wait(10)
 	hippityhoppity = false
 	
 	character:PivotTo(CFrame.new(41.9398575, 28.8037186, -322.898193))
-	task.wait(5)
+	task.wait(15)
 	local prevPlayer = nil
 	while task.wait() do
 		for _,v in pairs(game.Players:GetPlayers()) do
