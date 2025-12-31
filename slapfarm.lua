@@ -83,7 +83,7 @@ end)
 
 local defMoveDelay = 0.05
 local defPauseTime = 0.09
-local moveDelay = 0.1
+local moveDelay = 0.07
 local pauseTime = 0.09
 
 local function moveTo(part)
@@ -173,7 +173,7 @@ local function CollectItemsSR(itemNames, repeatCount, amount)
                 faceTarget(handle)
                 rotateCameraTo(handle)
                 task.wait(pauseTime)
-				if ii == 1 then task.wait(5) end
+				if ii == 1 then task.wait(3) end
 				if ii == 2 then task.wait(1) end
                 sendFKey()
                 task.wait(pauseTime)
