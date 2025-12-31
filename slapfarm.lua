@@ -82,9 +82,9 @@ task.spawn(function()
 end)
 
 local defMoveDelay = 0.01
-local defPauseTime = 0.05
+local defPauseTime = 0.07
 local moveDelay = 0.07
-local pauseTime = 0.05
+local pauseTime = 0.07
 
 local function moveTo(part)
     local direction = (part.Position - hrp.Position).Unit
@@ -118,7 +118,7 @@ end
 local function sendFKey()
     for _ = 1, 3 do
         VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.F, false, game)
-        task.wait(0.05)
+        task.wait(0.09)
         VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.F, false, game)
         task.wait(0.05)
     end
