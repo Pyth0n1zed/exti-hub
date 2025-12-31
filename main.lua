@@ -560,6 +560,15 @@ if game.Workspace:FindFirstChild("Map") then
 end
 
 
+local hippityhoppity = false
+task.spawn(function()
+	while task.wait() do
+		if hippityhoppity == true then
+			character:PivotTo(game.Workspace.BusModel.CFrame)
+		end
+	end
+end)
+
 function AutoWin2()
 	postBusItemVac = false
 	DisableVacNotif = true
@@ -595,10 +604,9 @@ function AutoWin2()
 	task.wait(0.3)
 	auraOn()
 	repeat task.wait() until game.Workspace:FindFirstChild("BusModel")
-	for i = 1, 100 do
-		character:PivotTo(game.Workspace.BusModel.CFrame)
-		task.wait(0.1)
-	end
+	hippityhoppity = true
+	task.wait(10)
+	hippityhoppity = false
 	character:PivotTo(CFrame.new(41.9398575, 28.8037186, -322.898193))
 	task.wait(5)
 	local prevPlayer = nil
@@ -663,7 +671,6 @@ function AutoWin2()
 		if #t == 1 then break end
 	end
 end
-
 
 exti:SetTitle("exti hub")
 local main = exti:CreateTab("Combat", 1)
