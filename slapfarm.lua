@@ -585,9 +585,9 @@ function AutoWin2()
 	CollectItemsSR({"Forcefield Crystal"},3,2)
 	CollectItemsSR({"Bomb"},3,67)
 	CollectItemsSR({"Potion of Strength"})
-	CollectItemsSR({"Cube of Ice"},3,2)
+	CollectItemsSR({"Cube of Ice"},3,6)
 	CollectItemsSR({"Bull's essence"},1)
-	CollectItemsSR({"Cube of Ice"},3,67)
+	
 	CollectItemsSR({"Boba"})
 	repeat task.wait() until inMatch
 	explode()
