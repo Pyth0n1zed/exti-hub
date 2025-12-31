@@ -703,7 +703,7 @@ function AutoWin2()
 		end
 		end
 	end
-	task.wait(3.7)
+	task.wait(1.7)
 	task.wait(0.3)
 	auraOn()
 	repeat task.wait() until game.Workspace:FindFirstChild("BusModel")
