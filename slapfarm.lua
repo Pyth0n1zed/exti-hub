@@ -670,7 +670,14 @@ if game.Workspace:FindFirstChild("Map") then
 		mapClone.Name = "AcidAbnormality"
 	end
 end
-
+local hippityhoppity = false
+task.spawn(function()
+	while task.wait() do
+		if hippityhoppity == true then
+			character:PivotTo(game.Workspace.BusModel.CFrame)
+		end
+	end
+end)
 
 function AutoWin2()
 	postBusItemVac = false
@@ -707,10 +714,9 @@ function AutoWin2()
 	task.wait(0.3)
 	auraOn()
 	repeat task.wait() until game.Workspace:FindFirstChild("BusModel")
-	for i = 1, 10000 do
-		character:PivotTo(game.Workspace.BusModel.CFrame)
-		task.wait(0.001)
-	end
+	hippityhoppity = true
+	task.wait(10)
+	hippityhoppity = false
 	character:PivotTo(CFrame.new(41.9398575, 28.8037186, -322.898193))
 	task.wait(5)
 	local prevPlayer = nil
