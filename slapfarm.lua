@@ -711,8 +711,6 @@ function AutoWin2()
 		end
 		end
 	end
-	task.wait(1.7)
-	task.wait(0.3)
 	auraOn()
 	repeat task.wait(1) until game.Workspace:FindFirstChild("BusModel")
 	hippityhoppity = true
@@ -722,7 +720,7 @@ function AutoWin2()
 	character:PivotTo(CFrame.new(41.9398575, 28.8037186, -322.898193))
 	task.wait(15)
 	local prevPlayer = nil
-	while task.wait() do
+	while task.wait(0.1) do
 		for _,v in pairs(game.Players:GetPlayers()) do
 					autoWinName = v.Name
 			for _,v in pairs(player:GetDescendants()) do
