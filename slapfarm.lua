@@ -718,9 +718,7 @@ function AutoWin2()
 	hippityhoppity = true
 	task.wait(10)
 	hippityhoppity = false
-	if game.PlaceId ~= 9426795465 then
-    game:GetService("TeleportService"):Teleport(9426795465, game.Players.LocalPlayer)
-	end
+	
 	character:PivotTo(CFrame.new(41.9398575, 28.8037186, -322.898193))
 	task.wait(5)
 	local prevPlayer = nil
