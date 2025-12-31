@@ -163,7 +163,7 @@ local function CollectItemsSR(itemNames, repeatCount, amount)
 				end
 				local currentcurrentItems = 0
                 local handle = tool.Handle
-                moveDelay = ((hrp.Position - tool.Handle.Position).Magnitude/125) * defMoveDelay
+                moveDelay = ((hrp.Position - tool.Handle.Position).Magnitude/175) * defMoveDelay
 				if moveDelay < defMoveDelay then moveDelay = defMoveDelay end
 				--if moveDelay > 0.6 then moveDelay = 0.6 end
 				print(moveDelay)
