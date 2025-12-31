@@ -71,7 +71,7 @@ task.spawn(function()
 	end
 end)
 
-local defMoveDelay = 0.05
+local defMoveDelay = 0.03
 local defPauseTime = 0.09
 local moveDelay = 0.1
 local pauseTime = 0.09
@@ -154,7 +154,7 @@ local function CollectItemsSR(itemNames, repeatCount, amount)
 				end
 				local currentcurrentItems = 0
                 local handle = tool.Handle
-                moveDelay = ((hrp.Position - tool.Handle.Position).Magnitude/125) * defMoveDelay
+                moveDelay = ((hrp.Position - tool.Handle.Position).Magnitude/175) * defMoveDelay
 				if moveDelay < defMoveDelay then moveDelay = defMoveDelay end
 				--if moveDelay > 0.6 then moveDelay = 0.6 end
 				print(moveDelay)
