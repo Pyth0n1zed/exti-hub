@@ -609,7 +609,7 @@ function AutoWin2()
 	UseAllOneshotItemsSR()
 	
 	game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("BusJumping"):FireServer()
-	task.wait(0.1)
+	task.wait(0.5)
 	character:PivotTo(CFrame.new(41.9398575, 28.8037186, -322.898193))
 	task.wait(0.3)
 	for _,v in pairs(player:GetDescendants()) do
@@ -628,7 +628,7 @@ function AutoWin2()
 	task.wait(20)
 	
 	hippityhoppity = false
-	--game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-259.760529, -54.842041, 412.509644)))
+	
 	task.wait(5)
 	local prevPlayer = nil
 	while task.wait() do
@@ -690,8 +690,10 @@ function AutoWin2()
 		for i,v in pairs(game.Players:GetPlayers()) do
 			if v.Character:FindFirstChild("Humanoid").Health > 0 then table.insert(t, v) end
 		end
-		if #t == 1 then break end
+		if #t == 2 then break end
 	end
+		game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-259.760529, -54.842041, 412.509644)))
+		task.wait(5)
 	if game.PlaceId ~= 9426795465 then
     game:GetService("TeleportService"):Teleport(9426795465, game.Players.LocalPlayer)
 	end
