@@ -1,4 +1,3 @@
-
 if not(game.PlaceId == 9426795465 or game.PlaceId == 6403373529 or game.PlaceId == 124596094333302) then
 	local inMatch = false
 --local --exti =loadstring(game:HttpGet("https://raw.githubusercontent.com/Pyth0n1zed/GUI-Framework-Roblox/refs/heads/main/script.lua"))()()
@@ -312,15 +311,8 @@ auraRange.CanCollide = false
 
 local autoWinName = nil
 
-local excPlr = nil
-repeat task.wait(0.1) until #game.Players:GetPlayers() > 1
-for _,v in pairs(game.Players:GetPlayers()) do
-	if v ~= game.Players.LocalPlayer then excPlr = v break end
-	end
-	print(excPlr.Name)
-
 rs.RenderStepped:Connect(function(dt)
-	
+
 	if auraEnabled then
 		auraRange.Transparency = 0.9
 	else
@@ -335,7 +327,7 @@ rs.RenderStepped:Connect(function(dt)
 		local thrp = tchar:FindFirstChild("HumanoidRootPart")
 		if not thrp then continue end
 		local dist = (hrp.Position - thrp.Position).Magnitude
-		if dist < 67 then if events and v ~= excPlr then events:FindFirstChild("Slap"):FireServer(thrp) end end
+		if dist < 67 then if events then events:FindFirstChild("Slap"):FireServer(thrp) end end
 	end
 	if tpWalkSpeed ~= 0 then
 		local vec = Vector3.new(0,0,0)
@@ -584,6 +576,9 @@ function AutoWin2()
 		postBusItemVac = false
 	DisableVacNotif = true
 	exti:Notify("While this function is running, please do not move your character or camera.", 15)
+    if game.Workspace:FindFirstChild("Map"):FindFirstChild("AcidAbnormality") then
+		game.Workspace:FindFirstChild("Map").AcidAbnormality:Destroy()
+	end
 	autoWin = true
 	local potCount = 0
 	CollectItemsSR({"Forcefield Crystal"},3,2)
@@ -591,7 +586,7 @@ function AutoWin2()
 	CollectItemsSR({"Potion of Strength"})
 	CollectItemsSR({"Cube of Ice"},3,6)
 	CollectItemsSR({"Bull's essence"},1)
-	
+
 	CollectItemsSR({"Boba"})
 	if #game.Players:GetPlayers() < 10 then if game.PlaceId ~= 9426795465 then
     game:GetService("TeleportService"):Teleport(9426795465, game.Players.LocalPlayer)
@@ -599,9 +594,9 @@ function AutoWin2()
 	repeat task.wait() until inMatch
 	explode()
 	UseAllOneshotItemsSR()
-	
+
 	game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("BusJumping"):FireServer()
-	task.wait(0.1)
+	task.wait(0.5)
 	character:PivotTo(CFrame.new(41.9398575, 28.8037186, -322.898193))
 	task.wait(0.3)
 	for _,v in pairs(player:GetDescendants()) do
@@ -617,10 +612,9 @@ function AutoWin2()
 	auraOn()
 	repeat task.wait() until game.Workspace:FindFirstChild("BusModel")
 	hippityhoppity = true
-	task.wait(7)
-	
+	task.wait(10)
 	hippityhoppity = false
-	game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-259.760529, -54.842041, 412.509644)))
+	character:PivotTo(CFrame.new(41.9398575, 28.8037186, -322.898193))
 	task.wait(5)
 	local prevPlayer = nil
 	while task.wait() do
@@ -720,15 +714,16 @@ end
 --exti:CreateButton(misc,"trigger","Load Anti Exploit Module","Loads the anti exploit module to catch and kill other exploiters",7,function()loadstring(game:HttpGet("https://raw.githubusercontent.com/Pyth0n1zed/--exti-hub/refs/heads/main/antiExploit.lua"))() end)
 ----exti:CreateButton(auto,"trigger","Auto win with void method","Requires void, automatically wins for you(RNG, takes a while)", 3, AutoWinVoid)
 --exti:FinishLoading()
-	
-	if map then
+if map then
     local originOffice = map:FindFirstChild("OriginOffice")
     if originOffice then
         originOffice:Destroy()
     end
 end
 
-
+if game.Workspace:FindFirstChild("Map") then if game.Workspace:FindFirstChild("Map"):FindFirstChild("AcidAbnormality") then
+	game.Workspace:FindFirstChild("Map").AcidAbnormality:Destroy()
+end end
 local startX = 41
 local startZ = -322
 local yLevel = -65
@@ -782,4 +777,3 @@ task.spawn(function()
 		warn("AutoWin2() not found")
 	end
 end)
-
