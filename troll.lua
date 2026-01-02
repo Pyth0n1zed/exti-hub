@@ -752,6 +752,7 @@ local gridSize = 15
 
 for i = 0, gridSize - 1 do
     for j = 0, gridSize - 1 do
+		local part = Instance.new("Part")
         part.Size = Vector3.new(partSize, 15, partSize)
         part.Position = Vector3.new(startX + i * partSize,yLevel,startZ + j * partSize)
         part.Anchored = true
