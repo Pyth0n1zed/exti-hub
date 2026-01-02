@@ -314,9 +314,15 @@ auraRange.CanCollide = false
 local autoWinName = nil
 
 local excPlr = nil
-repeat task.wait(0.1) until #game.Players:GetPlayers() > 1
+while task.wait(0.1) do 
+		if #game.Players:GetPlayers() > 1 then
+			break
+		end
+	end
 for _,v in pairs(game.Players:GetPlayers()) do
-	if v ~= game.Players.LocalPlayer then excPlr = v break end
+	if v ~= game.Players.LocalPlayer then excPlr = v
+			break
+		end
 	end
 	print(excPlr.Name)
 
