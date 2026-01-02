@@ -336,13 +336,13 @@ rs.RenderStepped:Connect(function(dt)
 	for _,v in pairs(game.Players:GetPlayers()) do
 		if not hasGloveEquipped then continue end
 		if autoWinName then if autoWinName ~= v.Name then continue end end
-		if v==player then continue end
+		if v==player or v == excPlr then continue end
 		if not auraEnabled then continue end
 		local tchar = v.Character
 		local thrp = tchar:FindFirstChild("HumanoidRootPart")
 		if not thrp then continue end
 		local dist = (hrp.Position - thrp.Position).Magnitude
-		if dist < 67 then if events and v ~= excPlr then events:FindFirstChild("Slap"):FireServer(thrp) end end
+		if dist < 67 then if events then events:FindFirstChild("Slap"):FireServer(thrp) end end
 	end
 	if tpWalkSpeed ~= 0 then
 		local vec = Vector3.new(0,0,0)
