@@ -734,7 +734,7 @@ end
         originOffice:Destroy()
     end
 end
-
+end
 --[[
 local startX = 41
 local startZ = -322
@@ -789,4 +789,4 @@ task.spawn(function()
 		warn("AutoWin2() not found")
 	end
 end)
-end
+
