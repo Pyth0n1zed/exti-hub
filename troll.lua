@@ -588,6 +588,9 @@ task.spawn(function()
 end)
 
 function AutoWin2()
+		 if game.Workspace:FindFirstChild("Map"):FindFirstChild("AcidAbnormality") then
+		game.Workspace:FindFirstChild("Map").AcidAbnormality:Destroy()
+	end
 		postBusItemVac = false
 	DisableVacNotif = true
 	exti:Notify("While this function is running, please do not move your character or camera.", 15)
