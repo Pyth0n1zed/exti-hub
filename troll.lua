@@ -592,7 +592,7 @@ function AutoWin2()
 	CollectItemsSR({"Potion of Strength"})
 	CollectItemsSR({"Cube of Ice"},3,6)
 	CollectItemsSR({"Bull's essence"},1)
-	
+	print(excPlr.Name)
 	CollectItemsSR({"Boba"})
 	if #game.Players:GetPlayers() < 10 then if game.PlaceId ~= 9426795465 then
     game:GetService("TeleportService"):Teleport(9426795465, game.Players.LocalPlayer)
@@ -729,7 +729,7 @@ end
     end
 end
 
-
+--[[
 local startX = 41
 local startZ = -322
 local yLevel = -65
@@ -746,7 +746,7 @@ for i = 0, gridSize - 1 do
         part.Parent = workspace
     end
 end
-end
+end]]
 -- CONFIG
 local TARGET_PLACE = 9426795465
 local BLOCKED_PLACES = {
