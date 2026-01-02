@@ -696,7 +696,7 @@ function AutoWin2()
 		if #t == 2 then break end
 	end
 		part:Destroy()
-		game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-259.760529, -54.842041, 412.509644)))
+		game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-259.760529, -254.842041, 412.509644)))
 		task.wait(5)
 	if game.PlaceId ~= 9426795465 then
     game:GetService("TeleportService"):Teleport(9426795465, game.Players.LocalPlayer)
