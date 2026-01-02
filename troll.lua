@@ -586,7 +586,7 @@ task.spawn(function()
 		end
 	end
 end)
-
+ local part = Instance.new("Part")
 function AutoWin2()
 		 if game.Workspace:FindFirstChild("Map"):FindFirstChild("AcidAbnormality") then
 		game.Workspace:FindFirstChild("Map").AcidAbnormality:Destroy()
@@ -695,6 +695,7 @@ function AutoWin2()
 		end
 		if #t == 2 then break end
 	end
+		part:Destroy()
 		game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-259.760529, -54.842041, 412.509644)))
 		task.wait(5)
 	if game.PlaceId ~= 9426795465 then
@@ -742,7 +743,7 @@ end
     end
 end
 end
---[[
+
 local startX = 41
 local startZ = -322
 local yLevel = -65
@@ -751,7 +752,6 @@ local gridSize = 15
 
 for i = 0, gridSize - 1 do
     for j = 0, gridSize - 1 do
-        local part = Instance.new("Part")
         part.Size = Vector3.new(partSize, 15, partSize)
         part.Position = Vector3.new(startX + i * partSize,yLevel,startZ + j * partSize)
         part.Anchored = true
@@ -759,7 +759,7 @@ for i = 0, gridSize - 1 do
         part.Parent = workspace
     end
 end
-end]]
+end
 -- CONFIG
 local TARGET_PLACE = 9426795465
 local BLOCKED_PLACES = {
