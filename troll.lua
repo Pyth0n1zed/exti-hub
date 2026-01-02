@@ -757,7 +757,7 @@ for i = 0, gridSize - 1 do
         part.Parent = workspace
     end
 end
-end
+--end
 -- CONFIG
 local TARGET_PLACE = 9426795465
 local BLOCKED_PLACES = {
