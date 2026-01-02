@@ -623,11 +623,11 @@ function AutoWin2()
 	task.wait(0.3)
 	auraOn()
 	repeat task.wait() until game.Workspace:FindFirstChild("BusModel")
-	hippityhoppity = true
-	task.wait(7)
+	--hippityhoppity = true
+	task.wait(20)
 	
 	hippityhoppity = false
-	game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-259.760529, -54.842041, 412.509644)))
+	--game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-259.760529, -54.842041, 412.509644)))
 	task.wait(5)
 	local prevPlayer = nil
 	while task.wait() do
@@ -642,6 +642,7 @@ function AutoWin2()
 		end
 	end
 			local tchar = v.Character
+			if v == excPlr then continue end
 			if not tchar then continue end
 			local thrp = tchar:FindFirstChild("HumanoidRootPart")
 			if not thrp then continue end
